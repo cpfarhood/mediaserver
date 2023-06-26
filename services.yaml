@@ -268,7 +268,7 @@ spec:
         env:
         - TZ: America/Detroit
         - VERSION: docker
-        #- PLEX_CLAIM: #optional
+        - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
         resources:
           requests:
             memory: "1Gi"
