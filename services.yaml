@@ -219,3 +219,72 @@ spec:
         requests:
           storage: 1Gi
 ### End radarr
+
+### Plex
+--- # loadbalancer
+apiVersion: v1
+kind: Service
+metadata:
+   name: plex
+   labels:
+     app: plex
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 32400
+    name: http-32400
+  selector:
+    app: plex
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: plex
+spec:
+  selector:
+    matchLabels:
+      app: plex
+  serviceName: "plex"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: plex
+        image: lscr.io/linuxserver/plex:latest
+        ports:
+        - containerPort: 32400
+          name: http-32400
+        volumeMounts:
+        - name: plex-config
+          mountPath: "/config"
+        - name: plex-content
+          mountPath: "/media"
+        env:
+        - TZ: America/Detroit
+        - VERSION: docker
+        #- PLEX_CLAIM: #optional
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+      volumes:
+      - name: plex-config
+        persistentVolumeClaim:
+          claimName: plex-config
+  volumeClaimTemplates:
+  - metadata:
+      name: plex-content
+    spec:
+      volumeName: plex-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+### End Plex
