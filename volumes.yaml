@@ -1,0 +1,118 @@
+# sabnzbd
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sabnzbd-config
+  labels:
+    name: sabnzbd-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests: 
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sabnzbd-incomplete
+  labels:
+    name: sabnzbd-incomplete
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sabnzbd-downloads
+  labels:
+    name: sabnzbd-downloads
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+
+# sonarr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarr-config
+  labels:
+    name: sonarr-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-downloads
+  labels:
+    name: sonarr-downloads
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+      
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-content
+  labels:
+    name: sonarr-content
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
+
+

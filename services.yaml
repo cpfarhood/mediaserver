@@ -1,0 +1,136 @@
+#sabnzbd
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: sabnzbd
+   labels:
+     app: sabnzbd
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http-8080
+  selector:
+    app: sabnzbd
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sabnzbd 
+spec:
+  selector:
+    matchLabels:
+      app: sabnzbd
+  serviceName: "sabnzbd"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: sabnzbd
+        image: lscr.io/linuxserver/sabnzbd:latest
+        ports:
+        - containerPort: 8080
+          name: http-8080
+        volumeMounts:
+        - name: sabnzbd-config
+          mountPath: "/config"
+        - name: sabnzbd-downloads
+          mountPath: "/downloads"
+        - name: sabnzbd-incomplete
+          mountPath: "/incomplete-downloads"
+      volumes:
+      - name: sabnzbd-config
+        persistentVolumeClaim:
+          claimName: sabnzbd-config
+      - name: sabnzbd-incomplete
+        persistentVolumeClaim:
+          claimName: sabnzbd-incomplete 
+  volumeClaimTemplates:
+  - metadata:
+      name: sabnzbd-downloads
+    spec:
+      volumeName: sabnzbd-downloads
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+
+#sonarr
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: sonarr
+   labels:
+     app: sonarr
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8989
+    name: http-8989
+  selector:
+    app: sonarr
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sonarr
+spec:
+  selector:
+    matchLabels:
+      app: sonarr
+  serviceName: "sonarr"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: sonarr
+        image: lscr.io/linuxserver/sonarr:latest
+        ports:
+        - containerPort: 8989
+          name: http-8989
+        volumeMounts:
+        - name: sonarr-config
+          mountPath: "/config"
+        - name: sonarr-downloads
+          mountPath: "/downloads"
+        - name: sonarr-content
+          mountPath: "/media"
+      volumes:
+      - name: sonarr-config
+        persistentVolumeClaim:
+          claimName: sonarr-config
+  volumeClaimTemplates:
+  - metadata:
+      name: sonarr-downloads
+    spec:
+      volumeName: sonarr-downloads
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: sonarr-content
+    spec:
+      volumeName: sonarr-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+
