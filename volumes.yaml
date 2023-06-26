@@ -187,7 +187,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: plex-config
   labels:
-    name: radarr-config
+    name: plex-config
 spec:
   accessModes:
   - ReadWriteOnce
@@ -199,9 +199,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-content
+  name: plex-content
   labels:
-    name: radarr-content
+    name: plex-content
 spec:
   capacity:
     storage: 1Ti
