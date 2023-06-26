@@ -52,6 +52,10 @@ spec:
       - name: sabnzbd-incomplete
         persistentVolumeClaim:
           claimName: sabnzbd-incomplete 
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "500m"
   volumeClaimTemplates:
   - metadata:
       name: sabnzbd-downloads
