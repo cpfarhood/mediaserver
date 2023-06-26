@@ -265,14 +265,14 @@ spec:
           mountPath: "/config"
         - name: plex-content
           mountPath: "/media"
-        env:
-        - TZ: America/Detroit
-        - VERSION: docker
-        - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
         resources:
           requests:
             memory: "1Gi"
             cpu: "1000m"
+      env:
+      - TZ: America/Detroit
+      - VERSION: docker
+      - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
       volumes:
       - name: plex-config
         persistentVolumeClaim:
