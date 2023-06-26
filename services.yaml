@@ -46,7 +46,7 @@ spec:
         - name: sabnzbd-incomplete
           mountPath: "/incomplete-downloads"
         resources:
-            requests:
+          requests:
             memory: "512Mi"
             cpu: "500m"
       volumes:
