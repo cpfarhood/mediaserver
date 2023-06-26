@@ -1,4 +1,4 @@
-# sabnzbd
+### SABnzbd
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -50,8 +50,10 @@ spec:
   nfs:
     path: /mnt/pool0/downloads/
     server: spielberg.farhoodliquor.dmz
+### EndSABnzbd
 
-# sonarr
+
+### Sonarr
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -66,7 +68,6 @@ spec:
   resources:
     requests:
       storage: 8Gi
-
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -90,7 +91,6 @@ spec:
   nfs:
     path: /mnt/pool0/downloads/
     server: spielberg.farhoodliquor.dmz
-      
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -114,5 +114,68 @@ spec:
   nfs:
     path: /mnt/pool0/media/
     server: spielberg.farhoodliquor.dmz
+### End Sonarr
 
 
+### Radarr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-config
+  labels:
+    name: radarr-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: radarr-downloads
+  labels:
+    name: radarr-downloads
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: radarr-content
+  labels:
+    name: radarr-content
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
+### End Radarr
