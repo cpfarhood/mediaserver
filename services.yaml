@@ -241,6 +241,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: plex
+env:
+- TZ: America/Detroit
+- VERSION: docker
+- PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
 spec:
   selector:
     matchLabels:
@@ -273,10 +277,6 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-  env:
-  - TZ: America/Detroit
-  - VERSION: docker
-  - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
   volumeClaimTemplates:
   - metadata:
       name: plex-content
