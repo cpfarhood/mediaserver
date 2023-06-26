@@ -226,6 +226,8 @@ apiVersion: v1
 kind: Service
 metadata:
    name: plex
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
    labels:
      app: plex
 spec:
