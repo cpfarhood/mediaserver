@@ -261,9 +261,12 @@ spec:
         - containerPort: 32400
           name: http-32400
         env:
-        - TZ: America/Detroit
-        - VERSION: docker
-        - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
+        - name: TZ
+          value: America/Detroit
+        - name: VERSION
+          value: docker
+        - name: PLEX_CLAIM
+          value: claim-sZnCXJ-zPzmUZgyVJwMo #optional
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
