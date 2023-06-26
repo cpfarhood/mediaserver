@@ -269,14 +269,14 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
-      env:
-      - TZ: America/Detroit
-      - VERSION: docker
-      - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
       volumes:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
+    env:
+    - TZ: America/Detroit
+    - VERSION: docker
+    - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
   volumeClaimTemplates:
   - metadata:
       name: plex-content
