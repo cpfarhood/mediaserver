@@ -275,7 +275,7 @@ spec:
         - name: VERSION
           value: docker
         - name: PLEX_CLAIM
-          value: claim-sZnCXJ-zPzmUZgyVJwMo #optional
+          value: claim-rL81wxg-2Rhx2QvZ7mQs #optional
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
