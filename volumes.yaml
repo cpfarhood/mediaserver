@@ -179,3 +179,43 @@ spec:
     path: /mnt/pool0/media/
     server: spielberg.farhoodliquor.dmz
 ### End Radarr
+
+### Plex
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-config
+  labels:
+    name: radarr-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: radarr-content
+  labels:
+    name: radarr-content
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
+### End Plex
