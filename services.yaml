@@ -241,10 +241,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: plex
-env:
-- TZ: America/Detroit
-- VERSION: docker
-- PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
 spec:
   selector:
     matchLabels:
@@ -264,6 +260,10 @@ spec:
         ports:
         - containerPort: 32400
           name: http-32400
+        env:
+        - TZ: America/Detroit
+        - VERSION: docker
+        - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
