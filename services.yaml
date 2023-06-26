@@ -277,7 +277,7 @@ spec:
         - name: PLEX_CLAIM
           value: claim-rL81wxg-2Rhx2QvZ7mQs #optional
         - name: ADVERTISE_IP
-          value: 65.43.40.99
+          value: http://65.43.40.99:80
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
