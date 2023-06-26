@@ -326,7 +326,7 @@ spec:
   type: LoadBalancer
   ports:
   - port: 80
-    targetPort: 8026
+    targetPort: 8096
     name: http
   - port: 443
     targetPort: 8920
@@ -355,8 +355,8 @@ spec:
       - name: jellyfin
         image: lscr.io/linuxserver/jellyfin:latest
         ports:
-        - containerPort: 8026
-          name: http-8026
+        - containerPort: 8096
+          name: http-8096
         - containerPort: 8920
           name: https-8920
         env:
