@@ -273,10 +273,10 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-    env:
-    - TZ: America/Detroit
-    - VERSION: docker
-    - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
+  env:
+  - TZ: America/Detroit
+  - VERSION: docker
+  - PLEX_CLAIM: claim-sZnCXJ-zPzmUZgyVJwMo #optional
   volumeClaimTemplates:
   - metadata:
       name: plex-content
