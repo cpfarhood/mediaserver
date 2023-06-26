@@ -116,6 +116,10 @@ spec:
           mountPath: "/downloads"
         - name: sonarr-content
           mountPath: "/media"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
       volumes:
       - name: sonarr-config
         persistentVolumeClaim:
@@ -189,6 +193,10 @@ spec:
           mountPath: "/downloads"
         - name: radarr-content
           mountPath: "/media"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
       volumes:
       - name: radarr-config
         persistentVolumeClaim:
