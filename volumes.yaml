@@ -39,6 +39,24 @@ spec:
 ### EndSABnzbd
 
 
+### Prowlarr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarr-config
+  labels:
+    name: sonarr-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+### End Prowlarr
+
+
 ### Sonarr
 ---
 apiVersion: v1
