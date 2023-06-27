@@ -1,0 +1,83 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: plex
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
+   labels:
+     app: plex
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 32400
+    name: http
+  - port: 443
+    targetPort: 32400
+    name: https
+  selector:
+    app: plex
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: plex
+spec:
+  selector:
+    matchLabels:
+      app: plex
+  serviceName: "plex"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: plex
+        image: lscr.io/linuxserver/plex:latest
+        ports:
+        - containerPort: 32400
+          name: http-32400
+        env:
+        - name: TZ
+          value: America/Detroit
+        - name: VERSION
+          value: docker
+        - name: PLEX_CLAIM
+          value: claim-rL81wxg-2Rhx2QvZ7mQs #optional
+        - name: ADVERITSE_IP
+          value: https://plex.farhoodliquor.com
+        volumeMounts:
+        - name: plex-config
+          mountPath: "/config"
+        - name: plex-cert
+          mountPath: "/certificate"
+        - name: plex-content
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+      volumes:
+      - name: plex-config
+        persistentVolumeClaim:
+          claimName: plex-config
+      - name: plex-cert
+        secret:
+          secretName: farhoodliquor-com-cert-letsencrypt-prod
+  volumeClaimTemplates:
+  - metadata:
+      name: plex-content
+    spec:
+      volumeName: plex-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
