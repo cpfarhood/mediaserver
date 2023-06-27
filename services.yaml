@@ -65,6 +65,63 @@ spec:
           storage: 1Gi
 ### End SABnzbd
 
+
+### Prowlarr
+--- # loadbalancer
+apiVersion: v1
+kind: Service
+metadata:
+   name: prowlarr
+   annotations:
+     external-dns.alpha.kubernetes.io/hostname: prowlarr.farhoodliquor.dmz.
+   labels:
+     app: prowlarr
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 9696
+    name: http-9696
+  selector:
+    app: prowlarr
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prowlarr
+spec:
+  selector:
+    matchLabels:
+      app: prowlarr
+  serviceName: "prowlarr"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: prowlarr
+        image: lscr.io/linuxserver/prowlarr:latest
+        ports:
+        - containerPort: 9696
+          name: http-9696
+        volumeMounts:
+        - name: prowlarr-config
+          mountPath: "/config"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: prowlarr-config
+        persistentVolumeClaim:
+          claimName: prowlarr-config
+### End Prowlarr
+
+
 ### Sonarr
 --- # loadbalancer
 apiVersion: v1
