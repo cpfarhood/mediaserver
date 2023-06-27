@@ -45,8 +45,6 @@ spec:
           mountPath: "/config"
         - name: sabnzbd-downloads
           mountPath: "/downloads"
-        - name: sabnzbd-incomplete
-          mountPath: "/incomplete-downloads"
         resources:
           requests:
             memory: "512Mi"
@@ -55,9 +53,6 @@ spec:
       - name: sabnzbd-config
         persistentVolumeClaim:
           claimName: sabnzbd-config
-      - name: sabnzbd-incomplete
-        persistentVolumeClaim:
-          claimName: sabnzbd-incomplete 
   volumeClaimTemplates:
   - metadata:
       name: sabnzbd-downloads
