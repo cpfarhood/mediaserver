@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: radarr
+   labels:
+     app: radarr
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 7878
+    name: http-7878
+  selector:
+    app: radarr
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: radarr
+spec:
+  selector:
+    matchLabels:
+      app: radarr
+  serviceName: "radarr"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: sonarr
+        image: lscr.io/linuxserver/radarr:latest
+        ports:
+        - containerPort: 7878
+          name: http-7878
+        volumeMounts:
+        - name: radarr-config
+          mountPath: "/config"
+        - name: radarr-downloads
+          mountPath: "/downloads"
+        - name: radarr-content
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: radarr-config
+        persistentVolumeClaim:
+          claimName: radarr-config
+  volumeClaimTemplates:
+  - metadata:
+      name: radarr-downloads
+    spec:
+      volumeName: radarr-downloads
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: radarr-content
+    spec:
+      volumeName: radarr-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
