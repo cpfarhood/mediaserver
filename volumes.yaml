@@ -15,20 +15,6 @@ spec:
       storage: 8Gi
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sabnzbd-incomplete
-  labels:
-    name: sabnzbd-incomplete
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 256Gi
----
-apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: sabnzbd-downloads
