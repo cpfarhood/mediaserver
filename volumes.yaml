@@ -44,9 +44,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config
+  name: prowlarr-config
   labels:
-    name: sonarr-config
+    name: prowlarr-config
 spec:
   accessModes:
   - ReadWriteOnce
