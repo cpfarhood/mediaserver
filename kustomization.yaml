@@ -10,4 +10,4 @@ resources:
   - service-sonarr.yaml
   - service-radarr.yaml
   - service-sabnzbd.yaml
-    #  - ingress.yaml
+  - ingress.yaml
