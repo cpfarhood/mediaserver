@@ -3,14 +3,12 @@ apiVersion: v1
 kind: Service
 metadata:
    name: jellyfin
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.98
-     external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
    labels:
      app: jellyfin
 spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
+  clusterIP: none
   ports:
   - port: 8096
     targetPort: 8096
@@ -20,7 +18,7 @@ spec:
     name: https-8920
   selector:
     app: jellyfin
---- # service
+--- 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
