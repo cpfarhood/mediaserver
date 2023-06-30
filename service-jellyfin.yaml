@@ -7,7 +7,6 @@ metadata:
      app: jellyfin
 spec:
   externalTrafficPolicy: Local
-  type: LoadBalancer
   clusterIP: none
   ports:
   - port: 8096
