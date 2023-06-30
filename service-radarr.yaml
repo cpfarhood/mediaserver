@@ -46,8 +46,8 @@ spec:
           mountPath: "/media"
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "128Mi"
+            cpu: "100m"
       volumes:
       - name: radarr-config
         persistentVolumeClaim:
