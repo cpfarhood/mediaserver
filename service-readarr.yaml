@@ -9,8 +9,8 @@ spec:
   type: LoadBalancer
   ports:
   - port: 80
-    targetPort: 7878
-    name: http-7878
+    targetPort: 8787
+    name: http-8787
   selector:
     app: readarr
 --- # service
@@ -35,8 +35,8 @@ spec:
       - name: sonarr
         image: lscr.io/linuxserver/readarr:latest
         ports:
-        - containerPort: 7878
-          name: http-7878
+        - containerPort: 8787
+          name: http-8787
         volumeMounts:
         - name: readarr-config
           mountPath: "/config"
