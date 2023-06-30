@@ -33,7 +33,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: sonarr
-        image: lscr.io/linuxserver/radarr:latest
+        image: lscr.io/linuxserver/readarr:latest
         ports:
         - containerPort: 7878
           name: http-7878
