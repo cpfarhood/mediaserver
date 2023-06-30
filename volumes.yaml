@@ -227,18 +227,27 @@ spec:
 ### Jellyfin
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
   name: jellyfin-config
   labels:
     name: jellyfin-config
 spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
   accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 8Gi
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/jellyfin/config/
+    server: spielberg.farhoodliquor.dmz
 ---
 apiVersion: v1
 kind: PersistentVolume
