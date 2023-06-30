@@ -11,6 +11,7 @@ spec:
   selector:
     app: jellyfin
   clusterIP: None
+  externalTrafficPolicy: local
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
