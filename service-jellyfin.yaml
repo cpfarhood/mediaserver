@@ -38,6 +38,14 @@ spec:
         env:
         - name: TZ
           value: America/Detroit
+        - name: JELLYFIN_DATA_DIR
+          value: /config/data 
+        - name: JELLYFIN_CONFIG_DIR
+          value: /config 
+        - name: JELLYFIN_LOG_DIR
+          value: /config/log 
+        - name: JELLYFIN_CACHE_DIR
+          value: /config/cache
         volumeMounts:
         - name: jellyfin-config
           mountPath: "/config"
