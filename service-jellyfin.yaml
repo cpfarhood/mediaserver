@@ -6,17 +6,11 @@ metadata:
    labels:
      app: jellyfin
 spec:
-  externalTrafficPolicy: Local
-  clusterIP: none
   ports:
-  - port: 8096
-    targetPort: 8096
-    name: http-8096
-  - port: 8920
-    targetPort: 8920
-    name: https-8920
+    - port: 8096
   selector:
     app: jellyfin
+  clusterIP: None
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
