@@ -44,8 +44,8 @@ spec:
           mountPath: "/downloads"
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "128Mi"
+            cpu: "100m"
       volumes:
       - name: sabnzbd-config
         persistentVolumeClaim:
