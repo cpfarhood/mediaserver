@@ -12,12 +12,12 @@ spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 80
-    name: http
-  - port: 443
-    targetPort: 443
-    name: https
+  - port: 8096
+    targetPort: 8096
+    name: http-8096
+  - port: 8920
+    targetPort: 8920
+    name: https-8920
   selector:
     app: jellyfin
 --- # service
@@ -42,15 +42,15 @@ spec:
       - name: jellyfin
         image: lscr.io/linuxserver/jellyfin:latest
         ports:
-        - containerPort: 80
-          name: http
-        - containerPort: 443
-          name: https
+        - containerPort: 8096
+          name: http-8096
+        - containerPort: 8920
+          name: https-8920
         env:
         - name: TZ
           value: America/Detroit
         - name: JELLYFIN_PublishedServerUrl
-          value: 65.43.40.98
+          value: 65.43.40.98:8920
         volumeMounts:
         - name: jellyfin-config
           mountPath: "/config"
