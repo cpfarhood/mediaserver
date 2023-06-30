@@ -1,0 +1,81 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: jellyfin
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.98
+     external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
+   labels:
+     app: jellyfin
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8096
+    name: http
+  - port: 443
+    targetPort: 8920
+    name: https
+  selector:
+    app: jellyfin
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jellyfin
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin
+  serviceName: "jellyfin"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: jellyfin
+        image: lscr.io/linuxserver/jellyfin:latest
+        ports:
+        - containerPort: 8096
+          name: http-8096
+        - containerPort: 8920
+          name: https-8920
+        env:
+        - name: TZ
+          value: America/Detroit
+        - name: JELLYFIN_PublishedServerUrl
+          value: 65.43.40.98
+        volumeMounts:
+        - name: jellyfin-config
+          mountPath: "/config"
+        - name: jellyfin-cert
+          mountPath: "/certificate"
+        - name: jellyfin-content
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "2000m"
+      volumes:
+      - name: jellyfin-config
+        persistentVolumeClaim:
+          claimName: jellyfin-config
+      - name: jellyfin-cert
+        secret:
+          secretName: farhoodliquor-com-cert-letsencrypt-prod
+  volumeClaimTemplates:
+  - metadata:
+      name: jellyfin-content
+    spec:
+      volumeName: jellyfin-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
