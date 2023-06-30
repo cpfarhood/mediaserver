@@ -14,14 +14,6 @@ spec:
             name:  jellyfin
             port:
               number: 8096
-  - host: farhoodliquor.com
-      - path: /prowlarr
-        pathType: Prefix
-        backend:
-          service:
-            name:  prowlarr
-            port:
-              number: 80
   tls:
   - hosts:
     - streaming.farhoodliquor.com
