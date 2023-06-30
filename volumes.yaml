@@ -184,6 +184,70 @@ spec:
     server: spielberg.farhoodliquor.dmz
 ### End Radarr
 
+### Readarr
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: readarr-config
+  labels:
+    name: readarr-config
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: readarr-downloads
+  labels:
+    name: readarr-downloads
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: readarr-content
+  labels:
+    name: readarr-content
+spec:
+  capacity:
+    storage: 1Ti
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
+### End Readarr
+
+
 ### Plex
 ---
 apiVersion: v1
