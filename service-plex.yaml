@@ -62,8 +62,8 @@ spec:
           mountPath: "/media"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "2000m"
+            memory: "1Gi"
+            cpu: "1000m"
       volumes:
       - name: plex-config
         persistentVolumeClaim:
