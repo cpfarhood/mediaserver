@@ -49,8 +49,6 @@ spec:
         volumeMounts:
         - name: jellyfin-config
           mountPath: "/config"
-        - name: jellyfin-cert
-          mountPath: "/certificate"
         - name: jellyfin-content
           mountPath: "/media"
         resources:
@@ -61,10 +59,16 @@ spec:
       - name: jellyfin-config
         persistentVolumeClaim:
           claimName: jellyfin-config
-      - name: jellyfin-cert
-        secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
   volumeClaimTemplates:
+  - metadata:
+      name: jellyfin-config
+    spec:
+      volumeName: jellyfin-config
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
   - metadata:
       name: jellyfin-content
     spec:
