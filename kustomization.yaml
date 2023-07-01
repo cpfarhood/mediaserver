@@ -6,12 +6,12 @@ namespace: mediaserver
 #  literals:
 #  - password=somepassword
 resources:
-  #- volumes.yaml
+  - volumes.yaml
   #- service-plex.yaml
-  #- service-jellyfin.yaml
-  #- service-prowlarr.yaml
-  #- service-sonarr.yaml
-  #- service-radarr.yaml
-  #- service-readarr.yaml
-  #- service-sabnzbd.yaml
-  #- ingress.yaml
+  - service-jellyfin.yaml
+  - service-prowlarr.yaml
+  - service-sonarr.yaml
+  - service-radarr.yaml
+  - service-readarr.yaml
+  - service-sabnzbd.yaml
+  - ingress.yaml
