@@ -7,7 +7,7 @@ metadata:
    labels:
      app: prowlarr
 spec:
-  ClusterIP: none
+  Type: LoadBalancer
   ports:
   - port: 80
     targetPort: 9696
