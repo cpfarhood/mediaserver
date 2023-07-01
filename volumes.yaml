@@ -7,6 +7,8 @@ metadata:
   labels:
     name: sabnzbd-config
   namespace: mediaserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -21,6 +23,8 @@ metadata:
   name: sabnzbd-downloads
   labels:
     name: sabnzbd-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -49,6 +53,8 @@ metadata:
   namespace: mediaserver
   labels:
     name: prowlarr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -68,6 +74,8 @@ metadata:
   namespace: mediaserver
   labels:
     name: sonarr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -82,6 +90,8 @@ metadata:
   name: sonarr-downloads
   labels:
     name: sonarr-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -105,6 +115,8 @@ metadata:
   name: sonarr-content
   labels:
     name: sonarr-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -133,6 +145,8 @@ metadata:
   namespace: mediaserver
   labels:
     name: radarr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -147,6 +161,8 @@ metadata:
   name: radarr-downloads
   labels:
     name: radarr-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -170,6 +186,8 @@ metadata:
   name: radarr-content
   labels:
     name: radarr-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -197,6 +215,8 @@ metadata:
   namespace: mediaserver
   labels:
     name: readarr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -211,6 +231,8 @@ metadata:
   name: readarr-downloads
   labels:
     name: readarr-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -234,6 +256,8 @@ metadata:
   name: readarr-content
   labels:
     name: readarr-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -262,6 +286,8 @@ metadata:
   namespace: mediaserver
   labels:
     name: plex-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
@@ -276,6 +302,8 @@ metadata:
   name: plex-content
   labels:
     name: plex-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -302,6 +330,8 @@ metadata:
   name: jellyfin-config
   labels:
     name: jellyfin-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
@@ -325,6 +355,8 @@ metadata:
   name: jellyfin-content
   labels:
     name: jellyfin-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   capacity:
     storage: 1Gi
