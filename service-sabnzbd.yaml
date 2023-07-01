@@ -56,7 +56,7 @@ spec:
   - metadata:
       name: sabnzbd-downloads
     spec:
-      volumeName: sabnzbd-farhoodliquor-downloads
+      volumeName: sabnzbd-downloads
       accessModes: ["ReadWriteMany"]
       storageClassName: "nfs"
       resources:
