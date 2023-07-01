@@ -6,6 +6,7 @@ metadata:
   name: sabnzbd-config
   labels:
     name: sabnzbd-config
+   namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
@@ -45,6 +46,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: prowlarr-config
+  namespace: mediaserver
   labels:
     name: prowlarr-config
 spec:
@@ -63,6 +65,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: sonarr-config
+  namespace: mediaserver
   labels:
     name: sonarr-config
 spec:
@@ -127,6 +130,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: radarr-config
+  namespace: mediaserver
   labels:
     name: radarr-config
 spec:
@@ -190,6 +194,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: readarr-config
+  namespace: mediaserver
   labels:
     name: readarr-config
 spec:
@@ -254,6 +259,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: plex-config
+  namespace: mediaserver
   labels:
     name: plex-config
 spec:
