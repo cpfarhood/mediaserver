@@ -8,11 +8,11 @@ namespace: mediaserver
 resources:
   - namespace.yaml
   - volumes.yaml
-  - service-plex.yaml
+  #- service-plex.yaml
   - service-jellyfin.yaml
-  - service-prowlarr.yaml
-  - service-sonarr.yaml
-  - service-radarr.yaml
-  - service-readarr.yaml
+  #- service-prowlarr.yaml
+  #- service-sonarr.yaml
+  #- service-radarr.yaml
+  #- service-readarr.yaml
   - service-sabnzbd.yaml
   - ingress.yaml
