@@ -2,9 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-   name: jellyfin
-   labels:
-     app: jellyfin
+  name: jellyfin
+  namespace: mediaserver
+  labels:
+    app: jellyfin
 spec:
   ports:
     - port: 8096
@@ -16,6 +17,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: jellyfin
+  namespace: mediaserver
 spec:
   selector:
     matchLabels:
