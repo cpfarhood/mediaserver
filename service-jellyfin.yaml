@@ -57,6 +57,8 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
+          limits:
+            gpu.intel.com/i915: 1
   volumeClaimTemplates:
   - metadata:
       name: jellyfin-config
