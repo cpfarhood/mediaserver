@@ -70,7 +70,7 @@ spec:
   - metadata:
       name: plex-config
     spec:
-      volumeName: plex-farhoodliquor-config
+      volumeName: plex-config
       accessModes: ["ReadWriteOnce"]
       storageClassName: longhorn
       resources:
@@ -79,7 +79,7 @@ spec:
   - metadata:
       name: plex-content
     spec:
-      volumeName: plex-farhoodliquor-content
+      volumeName: plex-content
       accessModes: ["ReadWriteMany"]
       storageClassName: nfs
       resources:
