@@ -7,7 +7,7 @@ metadata:
   labels:
     app: readarr
 spec:
-  ClusterIP: none
+  Type: LoadBalancer
   ports:
   - port: 80
     targetPort: 8787
