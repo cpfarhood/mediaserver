@@ -57,10 +57,6 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
-      volumes:
-      - name: jellyfin-config
-        persistentVolumeClaim:
-          claimName: jellyfin-config
   volumeClaimTemplates:
   - metadata:
       name: jellyfin-config
