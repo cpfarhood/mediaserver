@@ -7,7 +7,7 @@ metadata:
    labels:
      app: sonarr
 spec:
-  clusterIP: None
+  type: LoadBalancer
   ports:
   - port: 8989
     targetPort: 8989
