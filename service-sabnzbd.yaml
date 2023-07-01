@@ -48,15 +48,20 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "100m"
-      volumes:
-      - name: sabnzbd-config
-        persistentVolumeClaim:
-          claimName: sabnzbd-config
   volumeClaimTemplates:
+  - metadata:
+      name: sabnzbd-config
+    spec:
+      volumeName: sabnzbd-farhoodliquor-config
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "longhorn"
+      resources:
+        requests:
+          storage: 8Gi
   - metadata:
       name: sabnzbd-downloads
     spec:
-      volumeName: sabnzbd-downloads
+      volumeName: sabnzbd-farhoodliquor-downloads
       accessModes: ["ReadWriteMany"]
       storageClassName: "nfs"
       resources:
