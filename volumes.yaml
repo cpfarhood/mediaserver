@@ -6,7 +6,7 @@ metadata:
   name: sabnzbd-config
   labels:
     name: sabnzbd-config
-   namespace: mediaserver
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
