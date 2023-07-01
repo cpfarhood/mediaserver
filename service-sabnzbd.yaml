@@ -7,7 +7,7 @@ metadata:
    labels:
      app: sabnzbd
 spec:
-  type: LoadBalancer
+  ClusterIP: none
   ports:
   - port: 80
     targetPort: 8080
