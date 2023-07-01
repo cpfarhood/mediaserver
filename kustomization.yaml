@@ -13,5 +13,5 @@ resources:
   #- service-sonarr.yaml
   #- service-radarr.yaml
   #- service-readarr.yaml
-  - service-sabnzbd.yaml
+  #- service-sabnzbd.yaml
   - ingress.yaml
