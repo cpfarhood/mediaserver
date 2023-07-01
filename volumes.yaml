@@ -1,29 +1,29 @@
 ### SABnzbd
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: sabnzbd-farhoodliquor-config
+  name: sabnzbd-config
   labels:
-    name: sabnzbd-farhoodliquor-config
+    name: sabnzbd-config
+  namespace: mediaserver
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: sabnzbd-farhoodliquor-downloads
+  name: sabnzbd-downloads
   labels:
-    name: sabnzbd-farhoodliquor-downloads
+    name: sabnzbd-downloads
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -43,48 +43,48 @@ spec:
 ### Prowlarr
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: prowlarr-farhoodliquor-config
+  name: prowlarr-config
+  namespace: mediaserver
   labels:
-    name: prowlarr-farhoodliquor-config
+    name: prowlarr-config
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ### End Prowlarr
 
 
 ### Sonarr
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-farhoodliquor-config
+  name: sonarr-config
+  namespace: mediaserver
   labels:
-    name: sonarr-farhoodliquor-config
+    name: sonarr-config
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: sonarr-farhoodliquor-downloads
+  name: sonarr-downloads
   labels:
-    name: sonarr-farhoodliquor-downloads
+    name: sonarr-downloads
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -102,12 +102,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: sonarr-farhoodliquor-content
+  name: sonarr-content
   labels:
-    name: sonarr-farhoodliquor-content
+    name: sonarr-content
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -127,29 +127,29 @@ spec:
 ### Radarr
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: radarr-farhoodliquor-config
+  name: radarr-config
+  namespace: mediaserver
   labels:
-    name: radarr-farhoodliquor-config
+    name: radarr-config
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-farhoodliquor-downloads
+  name: radarr-downloads
   labels:
-    name: radarr-farhoodliquor--downloads
+    name: radarr-downloads
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -167,12 +167,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-farhoodliquor-content
+  name: radarr-content
   labels:
-    name: radarr-farhoodliquor-content
+    name: radarr-content
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -191,29 +191,29 @@ spec:
 ### Readarr
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: readarr-farhoodliquor-config
+  name: readarr-config
+  namespace: mediaserver
   labels:
-    name: readarr-farhoodliquor-config
+    name: readarr-config
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: readarr-farhoodliquor-downloads
+  name: readarr-downloads
   labels:
-    name: readarr-farhoodliquor-downloads
+    name: readarr-downloads
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -231,12 +231,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: readarr-farhoodliquor-content
+  name: readarr-content
   labels:
-    name: readarr-farhoodliquor-content
+    name: readarr-content
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -256,29 +256,29 @@ spec:
 ### Plex
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: plex-farhoodliquor-config
+  name: plex-config
+  namespace: mediaserver
   labels:
-    name: plex-farhoodliquor-config
+    name: plex-config
 spec:
-  capacity:
-    storage: 8Gi
-  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-farhoodliquor-content
+  name: plex-content
   labels:
-    name: plex-farhoodliquor-content
+    name: plex-content
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -299,9 +299,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jellyfin-farhoodliquor-config
+  name: jellyfin-config
   labels:
-    name: jellyfin-farhoodliquor-config
+    name: jellyfin-config
 spec:
   capacity:
     storage: 1Gi
@@ -322,12 +322,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jellyfin-farhoodliquor-content
+  name: jellyfin-content
   labels:
-    name: jellyfin-farhoodliquor-content
+    name: jellyfin-content
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Ti
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
