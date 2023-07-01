@@ -31,7 +31,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -98,7 +98,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -123,7 +123,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -169,7 +169,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -194,7 +194,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -239,7 +239,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
@@ -264,7 +264,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   mountOptions:
   - soft
