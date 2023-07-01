@@ -78,5 +78,3 @@ spec:
       resources:
         requests:
           storage: 1Gi
-        limits:
-          gpu.intel.com/i915: 1
