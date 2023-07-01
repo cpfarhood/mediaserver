@@ -9,7 +9,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - port: 80
+  - port: 7878
     targetPort: 7878
     name: http-7878
   selector:
