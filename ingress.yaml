@@ -18,35 +18,35 @@ spec:
   - host: apps.farhoodliquor.com
     http:
       paths:
-      - path: /sabnzbd
+      - path: /sabnzbd/
         pathType: Prefix
         backend:
           service:
             name:  sabnzbd
             port:
               number: 8080
-      - path: /sonarr
+      - path: /sonarr/
         pathType: Prefix
         backend:
           service:
             name:  sonarr
             port:
               number: 8989
-      - path: /radarr
+      - path: /radarr/
         pathType: Prefix
         backend:
           service:
             name:  radarr
             port:
               number: 7878
-      - path: /readarr
+      - path: /readarr/
         pathType: Prefix
         backend:
           service:
             name:  readarr
             port:
               number: 8787
-      - path: /prowlarr
+      - path: /prowlarr/
         pathType: Prefix
         backend:
           service:
