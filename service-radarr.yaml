@@ -7,7 +7,7 @@ metadata:
    labels:
      app: radarr
 spec:
-  Type: LoadBalancer
+  clusterIP: None
   ports:
   - port: 80
     targetPort: 7878
