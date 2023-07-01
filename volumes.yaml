@@ -23,7 +23,7 @@ metadata:
     name: sabnzbd-downloads
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -84,7 +84,7 @@ metadata:
     name: sonarr-downloads
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -107,7 +107,7 @@ metadata:
     name: sonarr-content
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -149,7 +149,7 @@ metadata:
     name: radarr-downloads
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -172,7 +172,7 @@ metadata:
     name: radarr-content
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -213,7 +213,7 @@ metadata:
     name: readarr-downloads
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -236,7 +236,7 @@ metadata:
     name: readarr-content
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -278,7 +278,7 @@ metadata:
     name: plex-content
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
@@ -327,7 +327,7 @@ metadata:
     name: jellyfin-content
 spec:
   capacity:
-    storage: 1Ti
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteMany
