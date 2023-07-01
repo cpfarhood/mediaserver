@@ -9,7 +9,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 7878
+  - port: 80
     targetPort: 7878
     name: http-7878
   selector:
