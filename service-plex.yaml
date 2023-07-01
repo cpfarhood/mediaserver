@@ -66,18 +66,20 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
-      volumes:
-      - name: plex-config
-        persistentVolumeClaim:
-          claimName: plex-config
-      - name: plex-cert
-        secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
   volumeClaimTemplates:
+  - metadata:
+      name: plex-config
+    spec:
+      volumeName: plex-farhoodliquor-config
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "longhorn"
+      resources:
+        requests:
+          storage: 8Gi
   - metadata:
       name: plex-content
     spec:
-      volumeName: plex-content
+      volumeName: plex-farhoodliquor-content
       accessModes: ["ReadWriteMany"]
       storageClassName: "nfs"
       resources:
