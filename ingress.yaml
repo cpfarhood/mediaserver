@@ -4,6 +4,7 @@ metadata:
   name: mediaserver
   namespace: mediaserver
 spec:
+  rules:
   - host: streaming.farhoodliquor.com
     http:
       paths:
