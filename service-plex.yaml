@@ -11,7 +11,7 @@ spec:
   ports:
   - port: 32400
     targetPort: 32400
-    name: http
+    name: http-32400
   selector:
     app: plex
 --- # service
