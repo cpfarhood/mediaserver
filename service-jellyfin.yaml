@@ -7,8 +7,6 @@ metadata:
   labels:
     app: jellyfin
   annotations:
-#    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
-#    external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
     traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   ports:
@@ -17,8 +15,6 @@ spec:
     targetPort: 8096
   selector:
     app: jellyfin
-#  type: LoadBalancer
-#  externalTrafficPolicy: Local
   clusterIP: None
 --- 
 apiVersion: apps/v1
