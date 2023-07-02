@@ -6,9 +6,10 @@ metadata:
   namespace: mediaserver
   labels:
     app: jellyfin
-#  annotations:
+  annotations:
 #    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
 #    external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
+    traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   ports:
   - name: http-8096
