@@ -6,11 +6,12 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
+#   annotations:
+#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+#     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
 spec:
-  type: LoadBalancer
+  clusterIP: None
+#  type: LoadBalancer
   ports:
   - port: 32400
     targetPort: 32400
@@ -50,7 +51,7 @@ spec:
         - name: PLEX_CLAIM
           value: claim-GT-txeEDnG_NhoCpNxpp #optional
         - name: ADVERITSE_IP
-          value: https://plex.farhoodliquor.com:32400
+          value: https://plex.farhoodliquor.com
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
