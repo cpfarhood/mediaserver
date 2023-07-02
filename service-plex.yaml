@@ -4,21 +4,14 @@ kind: Service
 metadata:
    name: plex
    namespace: mediaserver
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
    labels:
      app: plex
 spec:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
+  clusterIP: None
   ports:
-  - port: 80
+  - port: 32400
     targetPort: 32400
     name: http
-  - port: 443
-    targetPort: 32400
-    name: https
   selector:
     app: plex
 --- # service
