@@ -17,6 +17,17 @@ spec:
     app: jellyfin
   type: LoadBalancer
   externalTrafficPolicy: Local
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: jellyfin-external  
+spec:
+  type: ExternalName
+  ports:
+  - name: http    
+    port: 80   
+  externalName: streaming.farhoodliquor.com
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
