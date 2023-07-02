@@ -64,12 +64,19 @@ spec:
           mountPath: "/config"
         - name: jellyfin-content
           mountPath: "/media"
+        - name: certificates
+          readOnly: true
+          mountPath: "/certificates"
         resources:
           requests:
             memory: "1Gi"
             cpu: "1000m"
           limits:
             gpu.intel.com/i915: 1
+      volumes:
+      - name: certificates
+        secret:
+          secretName: farhoodliquor-com-cert-letsencrypt-prod
   volumeClaimTemplates:
   - metadata:
       name: jellyfin-config
