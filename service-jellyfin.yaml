@@ -6,6 +6,8 @@ metadata:
   namespace: mediaserver
   labels:
     app: jellyfin
+  annotations:
+    traefik.http.middlewares.whoami-https.redirectscheme.scheme: "https"
 spec:
   ports:
   - name: http-8096
