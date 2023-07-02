@@ -70,7 +70,7 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-      - name: secret-volume
+      - name: certificates
         secret:
           secretName: farhoodliquor-com-cert-letsencrypt-prod
   volumeClaimTemplates:
