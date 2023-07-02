@@ -12,7 +12,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name:  jellyfin-0
+            name:  jellyfin
             port:
               number: 8096
 #  - host: plex.farhoodliquor.com
