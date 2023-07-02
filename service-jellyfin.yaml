@@ -11,8 +11,9 @@ spec:
     - port: 8096
   selector:
     app: jellyfin
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  #type: LoadBalancer
+  #externalTrafficPolicy: Local
+  clusterIP: none
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
