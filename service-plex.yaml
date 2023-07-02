@@ -6,13 +6,13 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
+#   annotations:
+#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+#     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
 spec:
-#  clusterIP: None
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
+#  type: LoadBalancer
+#  externalTrafficPolicy: Local
   ports:
   - port: 32400
     targetPort: 32400
