@@ -15,54 +15,16 @@ spec:
             name:  jellyfin
             port:
               number: 8096
-#  - host: plex.farhoodliquor.com
-#    http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  plex
-#            port:
-#              number: 32000
-#  - host: apps.farhoodliquor.com
-#    http:
-#      paths:
-#      - path: /sabnzbd/
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  sabnzbd
-#            port:
-#              number: 80
-#      - path: /sonarr/
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  sonarr
-#           port:
-#              number: 8989
-#      - path: /radarr/
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  radarr
-#            port:
-#              number: 7878
-#      - path: /readarr/
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  readarr
-#            port:
-#              number: 80
-#      - path: /prowlarr/
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  prowlarr
-#            port:
-#              number: 80
+  - host: plex.farhoodliquor.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  plex
+            port:
+              number: 32400
 
   tls:
   - hosts:
