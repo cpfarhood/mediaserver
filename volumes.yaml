@@ -297,6 +297,23 @@ spec:
       storage: 8Gi
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-transcode
+  namespace: mediaserver
+  labels:
+    name: plex-transcode
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 128Gi
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: plex-content
@@ -340,6 +357,23 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-transcode
+  namespace: mediaserver
+  labels:
+    name: jellyfin-transcode
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 128Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
