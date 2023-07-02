@@ -66,16 +66,11 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
+        volumes:
+        - name: plex-config
+          persistentVolumeClaim:
+            claimName: plex-config
   volumeClaimTemplates:
-  - metadata:
-      name: plex-config
-    spec:
-      volumeName: plex-config
-      accessModes: ["ReadWriteOnce"]
-      storageClassName: longhorn
-      resources:
-        requests:
-          storage: 8Gi
   - metadata:
       name: plex-content
     spec:
