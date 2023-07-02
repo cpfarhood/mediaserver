@@ -57,6 +57,9 @@ spec:
           mountPath: "/config"
         - name: plex-content
           mountPath: "/media"
+        - name: certificates
+          readOnly: true
+          mountPath: "/certificates"
         resources:
           requests:
             memory: "1Gi"
