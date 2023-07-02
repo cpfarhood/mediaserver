@@ -11,8 +11,9 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          serviceName: jellyfin-external
-          servicePort: http
+          name: jellyfin-external
+          port:
+            number: 80
 #  - host: plex.farhoodliquor.com
 #    http:
 #      paths:
