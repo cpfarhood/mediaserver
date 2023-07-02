@@ -52,7 +52,7 @@ spec:
         - name: VERSION
           value: docker
         - name: PLEX_CLAIM
-          value: claim-rL81wxg-2Rhx2QvZ7mQs #optional
+          value: claim-zXCGyF-tXTsD5EyYhMCm #optional
         - name: ADVERITSE_IP
           value: https://plex.farhoodliquor.com
         volumeMounts:
