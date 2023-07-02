@@ -51,8 +51,8 @@ spec:
           value: docker
         - name: PLEX_CLAIM
           value: claim-GT-txeEDnG_NhoCpNxpp #optional
-        - name: ADVERITSE_IP
-          value: https://65.43.40.99:32400
+#        - name: ADVERITSE_IP
+#          value: https://65.43.40.99:32400
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
