@@ -11,10 +11,12 @@ metadata:
      external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
 spec:
   ports:
-    - port: 80
-      targetPort: 8096
-    - port: 443
-      targetPort: 8920
+  - name: http
+    port: 80
+    targetPort: 8096
+  - name: https
+    port: 443
+    targetPort: 8920
   selector:
     app: jellyfin
   type: LoadBalancer
