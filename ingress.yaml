@@ -8,7 +8,7 @@ spec:
   - host: streaming.farhoodliquor.com
     http:
       paths:
-      - path: /web/
+      - path: /web
         pathType: Prefix
         backend:
           service:
