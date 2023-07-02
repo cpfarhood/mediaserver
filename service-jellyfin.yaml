@@ -6,21 +6,19 @@ metadata:
   namespace: mediaserver
   labels:
     app: jellyfin
-  annotations:
-    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
-    external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
+#  annotations:
+#    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
+#    external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
 spec:
   ports:
-  - name: http
-    port: 80
+  - name: http-8096
+    port: 8096
     targetPort: 8096
-  - name: https
-    port: 443
-    targetPort: 8920
   selector:
     app: jellyfin
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+#  type: LoadBalancer
+#  externalTrafficPolicy: Local
+  clusterIP: None
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -46,8 +44,6 @@ spec:
         ports:
         - containerPort: 8096
           name: http-8096
-        - containerPort: 8920
-          name: https-8920
         env:
         - name: TZ
           value: America/Detroit
@@ -64,19 +60,12 @@ spec:
           mountPath: "/config"
         - name: jellyfin-content
           mountPath: "/media"
-        - name: certificates
-          readOnly: true
-          mountPath: "/certificates"
         resources:
           requests:
             memory: "1Gi"
             cpu: "1000m"
           limits:
             gpu.intel.com/i915: 1
-      volumes:
-      - name: certificates
-        secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
   volumeClaimTemplates:
   - metadata:
       name: jellyfin-config
