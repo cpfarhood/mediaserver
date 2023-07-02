@@ -14,7 +14,7 @@ spec:
           service:
             name: jellyfin
             port:
-              number: 80
+              number: 8096
 #  - host: plex.farhoodliquor.com
 #    http:
 #      paths:
