@@ -12,6 +12,7 @@ spec:
   selector:
     app: jellyfin
   type: LoadBalancer
+  externalTrafficPolicy: Local
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
