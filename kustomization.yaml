@@ -14,4 +14,4 @@ resources:
   - service-radarr.yaml
   #- service-readarr.yaml
   - service-sabnzbd.yaml
-  - ingress.yaml
+  #- ingress.yaml
