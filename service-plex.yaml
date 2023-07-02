@@ -50,8 +50,8 @@ spec:
           value: docker
         - name: PLEX_CLAIM
           value: claim-GT-txeEDnG_NhoCpNxpp #optional
-        - name: ADVERITSE_IP
-          value: https://plex.farhoodliquor.com:443
+        #- name: ADVERITSE_IP
+        #  value: https://plex.farhoodliquor.com:443
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
