@@ -58,8 +58,6 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
-        - name: plex-cert
-          mountPath: "/certificate"
         - name: plex-content
           mountPath: "/media"
         resources:
