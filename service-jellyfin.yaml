@@ -6,14 +6,19 @@ metadata:
   namespace: mediaserver
   labels:
     app: jellyfin
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.98
+     external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com.
 spec:
   ports:
-    - port: 8096
+    - port: 80
+      targetPort: 8096
+    - port: 443
+      targetPort: 8920
   selector:
     app: jellyfin
-  #type: LoadBalancer
-  #externalTrafficPolicy: Local
-  clusterIP: None
+  type: LoadBalancer
+  externalTrafficPolicy: Local
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -39,6 +44,8 @@ spec:
         ports:
         - containerPort: 8096
           name: http-8096
+        - containerPort: 8920
+          name: https-8920
         env:
         - name: TZ
           value: America/Detroit
