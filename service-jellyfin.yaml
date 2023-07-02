@@ -39,8 +39,8 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: jellyfin
-        image: ghcr.io/aleksasiriski/jellyfin-rffmpeg  # for distrubed transcoding
-        #image: docker.io/jellyfin/jellyfin:latest  # official upstream
+        #image: ghcr.io/aleksasiriski/jellyfin-rffmpeg  # for distrubed transcoding
+        image: docker.io/jellyfin/jellyfin:latest  # official upstream
         ports:
         - containerPort: 8096
           name: http-8096
