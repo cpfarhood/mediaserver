@@ -11,7 +11,7 @@ spec:
     - port: 8096
   selector:
     app: jellyfin
-  clusterIP: None
+  type: LoadBalancer
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
