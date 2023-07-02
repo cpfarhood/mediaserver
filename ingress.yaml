@@ -6,9 +6,9 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: plex
+      name: jellyfin
       port:
-        number: 32400
+        number: 8096
 #  - host: plex.farhoodliquor.com
 #    http:
 #      paths:
