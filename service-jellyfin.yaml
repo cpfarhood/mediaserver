@@ -15,7 +15,7 @@ spec:
     targetPort: 8096
   selector:
     app: jellyfin
-  clusterIP: none
+  clusterIP: None
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
