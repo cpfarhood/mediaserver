@@ -4,17 +4,11 @@ metadata:
   name: mediaserver
   namespace: mediaserver
 spec:
-  rules:
-  - host: streaming.farhoodliquor.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: jellyfin
-            port:
-              number: 8096
+  defaultBackend:
+    service:
+      name: jellyfin
+      port:
+        number: 8096
 #  - host: plex.farhoodliquor.com
 #    http:
 #      paths:
