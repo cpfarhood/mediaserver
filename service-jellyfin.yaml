@@ -6,8 +6,6 @@ metadata:
   namespace: mediaserver
   labels:
     app: jellyfin
-  annotations:
-    traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   ports:
   - name: http-8096
