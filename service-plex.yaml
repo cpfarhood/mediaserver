@@ -10,8 +10,8 @@ metadata:
 #     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
 #     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
 spec:
-  clusterIP: None
-#  type: LoadBalancer
+#  clusterIP: None
+  type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
   - port: 32400
