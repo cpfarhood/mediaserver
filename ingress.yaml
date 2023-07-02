@@ -4,11 +4,6 @@ metadata:
   name: mediaserver
   namespace: mediaserver
 spec:
-  defaultBackend:
-    service:
-      name: jellyfin
-      port:
-        number: 8096
   rules:
   - host: streaming.farhoodliquor.com
     http:
