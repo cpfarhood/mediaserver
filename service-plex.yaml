@@ -60,6 +60,8 @@ spec:
           mountPath: "/config"
         - name: plex-content
           mountPath: "/media"
+        - name: plex-transcode
+          mountPath: "/transcode"
         - name: certificates
           readOnly: true
           mountPath: "/certificates"
@@ -73,6 +75,9 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
+      - name: plex-transcode
+        persistentVolumeClaim:
+          claimName: plex-transcode
       - name: certificates
         secret:
           secretName: farhoodliquor-com-cert-letsencrypt-prod
