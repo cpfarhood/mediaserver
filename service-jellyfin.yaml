@@ -82,8 +82,8 @@ spec:
           mountPath: "/media"
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: "2Gi"
+            cpu: "2000m"
           limits:
             gpu.intel.com/i915: 1
       volumes:
