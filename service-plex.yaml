@@ -16,7 +16,6 @@ spec:
             name:  plex
             port:
               number: 32400
-
   tls:
   - hosts:
     - plex.farhoodliquor.com
@@ -90,8 +89,8 @@ spec:
           mountPath: "/certificates"
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: "2Gi"
+            cpu: "2000m"
           limits:
             gpu.intel.com/i915: 1
       volumes:
@@ -101,9 +100,8 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
-      - name: certificates
-        secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
+      nodeSelector:
+        hevc10: "true"
   volumeClaimTemplates:
   - metadata:
       name: plex-content
