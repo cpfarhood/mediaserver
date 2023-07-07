@@ -91,7 +91,7 @@ spec:
         persistentVolumeClaim:
           claimName: jellyfin-config
       nodeSelector:
-        hevc10: true
+        hevc10: "true"
   volumeClaimTemplates:
   - metadata:
       name: jellyfin-content
