@@ -29,10 +29,6 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-### For using a load balancer instead of an ingress proxy
-#   annotations:
-#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-#     external-dns.alpha.kubernetes.io/hostname: plex.farhoodliquor.com.
 spec:
 ### If you don't want a load balanced IP created with ingress proxy
 #  clusterIP: None
