@@ -84,9 +84,6 @@ spec:
           mountPath: "/media"
         - name: plex-transcode
           mountPath: "/transcode"
-        - name: certificates
-          readOnly: true
-          mountPath: "/certificates"
         resources:
           requests:
             memory: "2Gi"
