@@ -30,8 +30,8 @@ metadata:
      app: plex
 spec:
 ### If you don't want a load balanced IP created with ingress proxy
-  clusterIP: None
-#  type: LoadBalancer
+#  clusterIP: None
+  type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
   - port: 32400
