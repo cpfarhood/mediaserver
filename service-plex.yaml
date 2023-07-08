@@ -20,7 +20,7 @@ spec:
           service:
             name:  plex
             port:
-              number: 32400
+              number: 80
   tls:
   - hosts:
     - plex.farhoodliquor.com
@@ -35,9 +35,9 @@ metadata:
      app: plex
 spec:
 ### If you don't want a load balanced IP created with ingress proxy
-#  clusterIP: None
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
+#  type: LoadBalancer
+#  externalTrafficPolicy: Local
   ports:
   - port: 32400
     targetPort: 32400
