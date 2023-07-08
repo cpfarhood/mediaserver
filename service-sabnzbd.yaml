@@ -8,13 +8,14 @@ metadata:
      app: sabnzbd
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - port: 80
     targetPort: 8080
     name: http-8080
   selector:
     app: sabnzbd
---- # service
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
