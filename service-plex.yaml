@@ -58,7 +58,6 @@ spec:
       labels:
         app: plex
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: plex
         image: lscr.io/linuxserver/plex:latest
@@ -70,8 +69,8 @@ spec:
           value: America/Detroit
         - name: VERSION
           value: docker
-        - name: PLEX_CLAIM
-          value: claim-GT-txeEDnG_NhoCpNxpp #optional
+#        - name: PLEX_CLAIM
+#          value: claim-claim-token #optional
 #        - name: ADVERITSE_IP
 #          value: https://65.43.40.99:32400
         volumeMounts:
