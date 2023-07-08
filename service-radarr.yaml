@@ -8,13 +8,14 @@ metadata:
      app: radarr
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - port: 80
     targetPort: 7878
     name: http-7878
   selector:
     app: radarr
---- # service
+--- 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
