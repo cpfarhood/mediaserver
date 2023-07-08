@@ -4,10 +4,10 @@ kind: Ingress
 metadata:
   name: plex-ingress
   namespace: mediaserver
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: true
-    traefik.ingress.kubernetes.io/service.nativelb: true
+  annotations: {}
+#    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#    traefik.ingress.kubernetes.io/router.tls: true
+#    traefik.ingress.kubernetes.io/service.nativelb: true
 spec:
   ingressClassName: traefik
   rules:
@@ -20,7 +20,7 @@ spec:
           service:
             name:  plex
             port:
-              number: 80
+              number: 32400
   tls:
   - hosts:
     - plex.farhoodliquor.com
