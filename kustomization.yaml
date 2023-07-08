@@ -7,7 +7,7 @@ namespace: mediaserver
 #  - password=somepassword
 resources:
   - volumes.yaml
-  #- service-plex.yaml
+  - service-plex.yaml
   #- service-jellyfin.yaml
   - service-prowlarr.yaml
   - service-sonarr.yaml
