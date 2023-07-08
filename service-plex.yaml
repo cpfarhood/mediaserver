@@ -5,6 +5,7 @@ metadata:
   name: plex-ingress
   namespace: mediaserver
 spec:
+  ingressClassName: traefik
   rules:
   - host: plex.farhoodliquor.com
     http:
