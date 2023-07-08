@@ -58,6 +58,8 @@ spec:
           mountPath: "/media"
         - name: plex-transcode
           mountPath: "/transcode"
+        - name: certificates
+          mountPath: "/certificates"
         resources:
           requests:
             memory: "2Gi"
@@ -71,6 +73,10 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
+      - name: certificates
+        secret:
+          secretName: farhoodliquor-com-cert-letsencrypt-prod
+          optional: true
       nodeSelector:
         hevc10: "true"
   volumeClaimTemplates:
