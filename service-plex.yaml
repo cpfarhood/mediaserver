@@ -4,10 +4,6 @@ kind: Ingress
 metadata:
   name: plex-ingress
   namespace: mediaserver
-  annotations: {}
-#    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#    traefik.ingress.kubernetes.io/router.tls: true
-#    traefik.ingress.kubernetes.io/service.nativelb: true
 spec:
   ingressClassName: traefik
   rules:
