@@ -12,6 +12,7 @@ resources:
   - service-prowlarr.yaml
   - service-sonarr.yaml
   - service-radarr.yaml
+  - service-lidarr.yaml
   #- service-readarr.yaml
   - service-sabnzbd.yaml
   #- ingress.yaml
