@@ -64,6 +64,26 @@ spec:
       storage: 8Gi
 ### End Prowlarr
 
+### Overseer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseer-config
+  namespace: mediaserver
+  labels:
+    name: overseer-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+### End Overseer
+
 
 ### Sonarr
 ---
