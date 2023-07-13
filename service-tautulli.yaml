@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: tautulli
+   namespace: mediaserver
+   labels:
+     app: tautulli
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 8181
+    name: http-8181
+  selector:
+    app: tautulli
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tautulli
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: tautulli
+  serviceName: "tautulli"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+      - name: tautulli
+        image: lscr.io/linuxserver/tautulli:latest
+        ports:
+        - containerPort: 8181
+          name: http-8181
+        volumeMounts:
+        - name: tautulli-config
+          mountPath: "/config"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: tautulli-config
+        persistentVolumeClaim:
+          claimName: tautulli-config
