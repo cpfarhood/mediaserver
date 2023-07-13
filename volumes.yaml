@@ -64,15 +64,15 @@ spec:
       storage: 8Gi
 ### End Prowlarr
 
-### Overseer
+### Overseerr
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: overseer-config
+  name: overseerr-config
   namespace: mediaserver
   labels:
-    name: overseer-config
+    name: overseerr-config
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
@@ -82,7 +82,7 @@ spec:
   resources:
     requests:
       storage: 8Gi
-### End Overseer
+### End Overseerr
 
 
 ### Sonarr
