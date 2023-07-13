@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: overseer
+   namespace: mediaserver
+   labels:
+     app: overseer
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 5055
+    name: http-5055
+  selector:
+    app: overseer
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: overseer
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: overseer
+  serviceName: "overseer"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: overseer
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: overseer
+        image: lscr.io/linuxserver/overseer:latest
+        ports:
+        - containerPort: 5055
+          name: http-5055
+        volumeMounts:
+        - name: overseer-config
+          mountPath: "/config"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: overseer-config
+        persistentVolumeClaim:
+          claimName: overseer-config
