@@ -29,8 +29,9 @@ metadata:
    labels:
      app: overseerr
 spec:
-  type: LoadBalancer
-  #externalTrafficPolicy: Local  # doesn't mix well with ingress?
+  clusterIP: None
+  #type: LoadBalancer
+  #externalTrafficPolicy: Local
   ports:
   - port: 80
     targetPort: 5055
