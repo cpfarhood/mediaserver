@@ -30,7 +30,7 @@ metadata:
      app: overseerr
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
+  #externalTrafficPolicy: Local  # doesn't mix well with ingress?
   ports:
   - port: 80
     targetPort: 5055
