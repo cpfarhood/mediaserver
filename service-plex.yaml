@@ -16,6 +16,10 @@ spec:
             name:  plex
             port:
               number: 32400
+  tls:
+  - hosts:
+    - chris.farhood.org
+    secretName: farhood-org-cert-letsencrypt-prod
 ---
 apiVersion: v1
 kind: Service
