@@ -21,22 +21,22 @@ spec:
     - streaming.farhood.org
     secretName: farhood-org-cert-letsencrypt-prod
 ---
-apiVersion: v1
-kind: Service
-metadata:
-   name: overseerr
-   namespace: mediaserver
-   labels:
-     app: overseerr
-spec:
-  type: LoadBalancer
-  #externalTrafficPolicy: Local  # doesn't mix well with ingress?
-  ports:
-  - port: 80
-    targetPort: 5055
-    name: http-5055
-  selector:
-    app: overseerr
+#apiVersion: v1
+#kind: Service
+#metadata:
+#   name: overseerr
+#   namespace: mediaserver
+#   labels:
+#     app: overseerr
+#spec:
+#  type: LoadBalancer
+#  #externalTrafficPolicy: Local  # doesn't mix well with ingress?
+#  ports:
+#  - port: 80
+#    targetPort: 5055
+#    name: http-5055
+#  selector:
+#    app: overseerr
 ---
 apiVersion: apps/v1
 kind: StatefulSet
