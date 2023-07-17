@@ -1,26 +1,4 @@
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: overseerr-ingress
-  namespace: mediaserver
-spec:
-  rules:
-  - host: streaming.farhoodliquor.com
-    http:
-      paths:
-      - path: /requests/
-        pathType: Prefix
-        backend:
-          service:
-            name:  overseerr
-            port:
-              number: 5055
-  tls:
-  - hosts:
-    - streaming.farhood.org
-    secretName: farhood-org-cert-letsencrypt-prod
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -29,11 +7,11 @@ metadata:
    labels:
      app: overseerr
 spec:
-  clusterIP: None
-  #type: LoadBalancer
-  #externalTrafficPolicy: Local
+  #clusterIP: None
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
-  - port: 5505
+  - port: 80
     targetPort: 5055
     name: http-5055
   selector:
