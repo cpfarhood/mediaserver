@@ -13,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name:  overseerr
+            app:  overseerr
             port:
               number: 5055
   tls:
