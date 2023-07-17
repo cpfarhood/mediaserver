@@ -29,9 +29,9 @@ metadata:
    labels:
      app: overseerr
 spec:
-  #clusterIP: None
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
+  #type: LoadBalancer
+  #externalTrafficPolicy: Local
   ports:
   - port: 5505
     targetPort: 5055
