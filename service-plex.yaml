@@ -1,26 +1,4 @@
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: plex-ingress
-  namespace: mediaserver
-spec:
-  rules:
-  - host: streaming.farhoodliquor.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name:  plex
-            port:
-              number: 32400
-  tls:
-  - hosts:
-    - chris.farhood.org
-    secretName: farhood-org-cert-letsencrypt-prod
----
 apiVersion: v1
 kind: Service
 metadata:
