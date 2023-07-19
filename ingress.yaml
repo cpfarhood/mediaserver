@@ -15,6 +15,16 @@ spec:
             name:  overseerr
             port:
               number: 80
+  - host: stats.farhoodliquor.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  tautulli
+            port:
+              number: 80
   tls:
   - hosts:
     - requests.farhoodliquor.com
