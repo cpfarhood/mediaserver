@@ -28,4 +28,5 @@ spec:
   tls:
   - hosts:
     - requests.farhoodliquor.com
+    - stats.farhoodliquor.com
     secretName: farhoodliquor-com-cert-letsencrypt-prod
