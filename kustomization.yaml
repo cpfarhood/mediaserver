@@ -17,4 +17,4 @@ resources:
   - service-tautulli.yaml
   #- service-readarr.yaml
   - service-sabnzbd.yaml
-  #- ingress.yaml
+  - ingress.yaml
