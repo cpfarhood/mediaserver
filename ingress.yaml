@@ -5,28 +5,17 @@ metadata:
   namespace: mediaserver
 spec:
   rules:
-  - host: streaming.farhoodliquor.com
+  - host: requests.farhoodliquor.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name:  jellyfin
+            name:  overseerr
             port:
-              number: 8096
-  - host: plex.farhoodliquor.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name:  plex
-            port:
-              number: 32400
-
+              number: 5055
   tls:
   - hosts:
-    - streaming.farhoodliquor.com
+    - requests.farhoodliquor.com
     secretName: farhoodliquor-com-cert-letsencrypt-prod
