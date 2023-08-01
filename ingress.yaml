@@ -37,6 +37,7 @@ spec:
               number: 80
   tls:
   - hosts:
+    - streaming.farhoodliquor.com
     - requests.farhoodliquor.com
     - stats.farhoodliquor.com
     secretName: farhoodliquor-com-cert-letsencrypt-prod
