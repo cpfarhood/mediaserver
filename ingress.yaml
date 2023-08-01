@@ -14,7 +14,7 @@ spec:
           service:
             name:  plex
             port:
-              number: 443
+              number: 32400
   - host: requests.farhoodliquor.com
     http:
       paths:
