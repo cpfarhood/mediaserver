@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lazylibrarian
+  namespace: mediaserver
+  labels:
+    app: lazylibrarian
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 8787
+    name: http-8787
+  selector:
+    app: lazylibrarian
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lazylibrarian
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: lazylibrarian
+  serviceName: "lazylibrarian"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: lazylibrarian
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: lazylibrarian
+        image: lscr.io/linuxserver/lazylibrarian:latest
+        ports:
+        - containerPort: 8787
+          name: http-8787
+        volumeMounts:
+        - name: lazylibrarian-config
+          mountPath: "/config"
+        - name: lazylibrarian-downloads
+          mountPath: "/downloads"
+        - name: lazylibrarian-content
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: lazylibrarian-config
+        persistentVolumeClaim:
+          claimName: lazylibrarian-config
+  volumeClaimTemplates:
+  - metadata:
+      name: lazylibrarian-downloads
+    spec:
+      volumeName: lazylibrarian-downloads
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: lazylibrarian-content
+    spec:
+      volumeName: lazylibrarian-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
