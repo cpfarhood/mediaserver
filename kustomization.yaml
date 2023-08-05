@@ -15,6 +15,7 @@ resources:
   - service-radarr.yaml
   #- service-lidarr.yaml
   - service-tautulli.yaml
-  - service-readarr.yaml
+  #- service-readarr.yaml
+  - service-lazylibrarian.yaml
   - service-sabnzbd.yaml
   - ingress.yaml
