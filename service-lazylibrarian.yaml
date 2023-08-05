@@ -11,8 +11,8 @@ spec:
   externalTrafficPolicy: Local
   ports:
   - port: 80
-    targetPort: 8787
-    name: http-8787
+    targetPort: 5299
+    name: http-5299
   selector:
     app: lazylibrarian
 --- # service
@@ -38,8 +38,8 @@ spec:
       - name: lazylibrarian
         image: lscr.io/linuxserver/lazylibrarian:latest
         ports:
-        - containerPort: 8787
-          name: http-8787
+        - containerPort: 5299
+          name: http-5299
         volumeMounts:
         - name: lazylibrarian-config
           mountPath: "/config"
