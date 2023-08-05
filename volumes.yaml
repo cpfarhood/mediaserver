@@ -388,6 +388,76 @@ spec:
     server: spielberg.farhoodliquor.dmz
 ### End Readarr
 
+### LazyLibrarian
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lazylibrarian-config
+  namespace: mediaserver
+  labels:
+    name: lazylibrarian-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lazylibrarian-downloads
+  labels:
+    name: lazylibrarian-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lazylibrarian-content
+  labels:
+    name: lazylibrarian-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
+### End LazyLibrarian
+
 
 ### Plex
 ---
