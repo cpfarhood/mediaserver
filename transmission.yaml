@@ -23,6 +23,7 @@ data:
   TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
   WEBPROXY_ENABLED: "false"
 
+
 ## Service
 ---
 apiVersion: v1
@@ -38,10 +39,11 @@ spec:
     protocol: TCP
     targetPort: 9091
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
 
 
 ## Deployment
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -98,25 +100,50 @@ spec:
             - NET_ADMIN
           privileged: true
         volumeMounts:
-        - mountPath: /data
-          name: data
-        - mountPath: /dev/net/tun
-          name: tunnel
-        - mountPath: /etc/localtime
-          name: localtime
+        - name: transmission-config
+          mountPath: "/config"
+        - name: downloads
+          mountPath: /downloads
+        - name: tunnel
+          mountPath: /dev/net/tun
+        - name: localtime
+          mountPath: /etc/localtime 
           readOnly: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: data
+      - name: transmission-config
+        persistentVolumeClaim:
+          claimName: transmission-config
+      - name: downloads
         nfs:
-          path: /Transmission
-          server: nfs-server
-      - hostPath:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
+      - name: tunnel
+        hostPath:
           path: /dev/net/tun
           type: ""
-        name: tunnel
-      - hostPath:
+      - name: localtime
+        hostPath:
           path: /etc/localtime
-          type: ""
-        name: localtime
+          type: ""        
+
+
+  ## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transmission-config
+  labels:
+    name: transmission-config
+  namespace: mediaserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
