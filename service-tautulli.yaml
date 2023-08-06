@@ -1,3 +1,4 @@
+## Service
 ---
 apiVersion: v1
 kind: Service
@@ -15,6 +16,9 @@ spec:
     name: http-8181
   selector:
     app: tautulli
+
+
+## StatefulSet
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -50,3 +54,23 @@ spec:
       - name: tautulli-config
         persistentVolumeClaim:
           claimName: tautulli-config
+
+
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tautulli-config
+  namespace: mediaserver
+  labels:
+    name: tautulli-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
