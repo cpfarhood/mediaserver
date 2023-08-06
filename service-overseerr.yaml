@@ -1,3 +1,4 @@
+## Service
 ---
 apiVersion: v1
 kind: Service
@@ -16,6 +17,9 @@ spec:
     name: http-5055
   selector:
     app: overseerr
+
+
+## StatefulSet
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -52,3 +56,23 @@ spec:
       - name: overseerr-config
         persistentVolumeClaim:
           claimName: overseerr-config
+
+
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseerr-config
+  namespace: mediaserver
+  labels:
+    name: overseerr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
