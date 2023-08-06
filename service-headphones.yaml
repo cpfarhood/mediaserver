@@ -33,7 +33,6 @@ spec:
       labels:
         app: headphones
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: headphones
         image: lscr.io/linuxserver/headphones:latest
