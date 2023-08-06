@@ -6,7 +6,6 @@ namespace: mediaserver
 #  literals:
 #  - password=somepassword
 resources:
-  - volumes.yaml
   - plex.yaml
   #- jellyfin.yaml
   - prowlarr.yaml
