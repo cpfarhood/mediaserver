@@ -68,11 +68,11 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: transmission-config
-            optional: false
+          name: transmission-config
+          optional: false
         - secretRef:
-            name: vpn-creds
-            optional: false
+          name: vpn-creds
+          optional: false
         image: haugene/transmission-openvpn
         imagePullPolicy: Always
         livenessProbe:
