@@ -13,7 +13,7 @@ resources:
   - service-overseerr.yaml
   - service-sonarr.yaml
   - service-radarr.yaml
-  #- service-lidarr.yaml
+  #- lidarr.yaml
   - service-tautulli.yaml
   #- service-readarr.yaml
   - service-lazylibrarian.yaml
