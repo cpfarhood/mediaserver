@@ -1,3 +1,4 @@
+## Service
 ---
 apiVersion: v1
 kind: Service
@@ -15,6 +16,9 @@ spec:
     name: http-8686
   selector:
     app: lidarr
+
+
+## StatefulSet
 --- 
 apiVersion: apps/v1
 kind: StatefulSet
@@ -73,3 +77,73 @@ spec:
       resources:
         requests:
           storage: 1Gi
+
+
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lidarr-config
+  namespace: mediaserver
+  labels:
+    name: lidarr-config
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lidarr-downloads
+  labels:
+    name: lidarr-downloads
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/downloads/
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lidarr-content
+  labels:
+    name: lidarr-content
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+  - soft
+  - nfsvers=4.1
+  - rsize=32768
+  - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/
+    server: spielberg.farhoodliquor.dmz
