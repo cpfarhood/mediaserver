@@ -17,5 +17,6 @@ resources:
   - service-tautulli.yaml
   #- service-readarr.yaml
   - service-lazylibrarian.yaml
-  - service-sabnzbd.yaml
+  - headphones.yaml
+  - sabnzbd.yaml
   - ingress.yaml
