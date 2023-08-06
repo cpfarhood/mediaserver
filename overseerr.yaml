@@ -16,7 +16,7 @@ spec:
           service:
             name:  overseerr
             port:
-              number: 80
+              number: 5055
   tls:
   - hosts:
     - requests.farhoodliquor.com
@@ -33,13 +33,9 @@ metadata:
    labels:
      app: overseerr
 spec:
-  #clusterIP: None
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 5055
-    name: http-5055
+  - port: 5055
   selector:
     app: overseerr
 
