@@ -33,8 +33,7 @@ metadata:
    labels:
      app: tautulli
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
   - port: 80
     targetPort: 8181
