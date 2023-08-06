@@ -63,7 +63,6 @@ spec:
       labels:
         app: jellyfin
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: jellyfin
         #image: docker.io/bitwrk/jellyfin-rffmpeg:latest  # for distrubed transcoding
