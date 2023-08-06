@@ -5,6 +5,8 @@ kind: Ingress
 metadata:
   name: overseerr
   namespace: mediaserver
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-redirect@kubernetescrd
 spec:
   rules:
   - host: requests.farhoodliquor.com
