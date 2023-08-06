@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: headphones
+  namespace: mediaserver
+  labels:
+    app: headphones
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 8181
+    name: http-8181
+  selector:
+    app: headphones
+--- # service
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: headphones
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: headphones
+  serviceName: "headphones"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: headphones
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: headphones
+        image: lscr.io/linuxserver/headphones:latest
+        ports:
+        - containerPort: 8181
+          name: http-8181
+        volumeMounts:
+        - name: headphones-config
+          mountPath: "/config"
+        - name: headphones-downloads
+          mountPath: "/downloads"
+        - name: headphones-content
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: headphones-config
+        persistentVolumeClaim:
+          claimName: headphones-config
+  volumeClaimTemplates:
+  - metadata:
+      name: headphones-downloads
+    spec:
+      volumeName: headphones-downloads
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: headphones-content
+    spec:
+      volumeName: headphones-content
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "nfs"
+      resources:
+        requests:
+          storage: 1Gi
