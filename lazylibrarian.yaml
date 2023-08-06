@@ -9,7 +9,7 @@ metadata:
     app: lazylibrarian
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
+  #externalTrafficPolicy: Local
   ports:
   - port: 80
     targetPort: 5299
