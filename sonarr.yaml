@@ -37,7 +37,6 @@ spec:
       labels:
         app: sonarr
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: sonarr
         image: lscr.io/linuxserver/sonarr:latest
