@@ -7,16 +7,16 @@ namespace: mediaserver
 #  - password=somepassword
 resources:
   - volumes.yaml
-  - service-plex.yaml
-  #- service-jellyfin.yaml
+  - plex.yaml
+  #- jellyfin.yaml
   - prowlarr.yaml
   - overseerr.yaml
-  - service-sonarr.yaml
-  - service-radarr.yaml
+  - sonarr.yaml
+  - radarr.yaml
   #- lidarr.yaml
-  - service-tautulli.yaml
-  #- service-readarr.yaml
-  - service-lazylibrarian.yaml
+  - tautulli.yaml
+  #- readarr.yaml
+  - lazylibrarian.yaml
   - headphones.yaml
   - sabnzbd.yaml
   - ingress.yaml
