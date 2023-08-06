@@ -16,7 +16,7 @@ spec:
           service:
             name:  tautulli
             port:
-              number: 80
+              number: 8181
   tls:
   - hosts:
     - stats.farhoodliquor.com
@@ -35,9 +35,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - port: 80
-    targetPort: 8181
-    name: http-8181
+  - port: 8181
   selector:
     app: tautulli
 
