@@ -1,3 +1,5 @@
+## ConfigMaps
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -48,6 +50,9 @@ data:
   LISTENING_PORT: '3501'
   STAT_CPU_INTERVAL: '10000'
   EAE_SUPPORT: '1'
+
+
+## Volumes
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -88,15 +93,13 @@ metadata:
 spec:
   persistentVolumeReclaimPolicy: Retain
   capacity:
-    storage: 1000Gi
+    storage: 1Gi
   accessModes:
-    - ReadWriteOnce
-    - ReadOnlyMany
     - ReadWriteMany
-  storageClassName: ""
+  storageClassName: "nfs"
   nfs:
-    path: /YourPath     # The path to your media
-    server: 0.0.0.0     # Your NFS server with Media
+    path: /mnt/pool0/media     # The path to your media
+    server: spielberg.farhoodliquor.dmz     # Your NFS server with Media
   mountOptions:
     - vers=4
     - minorversion=1
@@ -114,6 +117,9 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
+
+## Deployments
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -205,6 +211,9 @@ spec:
       - name: transcode
         persistentVolumeClaim:
           claimName: "clusterplex-transcode-pvc"
+
+
+## Service
 ---
 apiVersion: v1
 kind: Service
