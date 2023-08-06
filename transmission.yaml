@@ -1,0 +1,122 @@
+## ConfigMaps
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: transmission-config
+  namespace: mediaserver
+data:
+  LOCAL_NETWORK: 10.0.0.0/8
+  OPENVPN_CONFIG: US Detroit
+  OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
+  OPENVPN_PROVIDER: NORDVPN
+  NORDVPN_COUNTRY: US
+  NORDVPN_CATEGORY: legacy_p2p
+  NORDVPN_PROTOCOL: udp
+  #NORDVPN_SERVER: us6272.nordvpn.com
+  TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "8"
+  TRANSMISSION_RATIO_LIMIT: "2"
+  TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
+  TRANSMISSION_SPEED_LIMIT_DOWN: "100000"
+  TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED: "true"
+  TRANSMISSION_SPEED_LIMIT_UP: "10000"
+  TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
+  WEBPROXY_ENABLED: "false"
+
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+  namespace: mediaserver
+spec:
+  selector:
+    app:  transmission
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9091
+  sessionAffinity: None
+  type: ClusterIP
+
+
+## Deployment
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: transmission
+  namespace: mediaserver
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: transmission
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: transmission-config
+            optional: false
+        - secretRef:
+            name: vpn-creds
+            optional: false
+        image: haugene/transmission-openvpn
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 9091
+          timeoutSeconds: 2
+        name: transmission
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          tcpSocket:
+            port: 9091
+          timeoutSeconds: 2
+        resources:
+          limits:
+            memory: 2000Mi
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/net/tun
+          name: tunnel
+        - mountPath: /etc/localtime
+          name: localtime
+          readOnly: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: data
+        nfs:
+          path: /Transmission
+          server: nfs-server
+      - hostPath:
+          path: /dev/net/tun
+          type: ""
+        name: tunnel
+      - hostPath:
+          path: /etc/localtime
+          type: ""
+        name: localtime
