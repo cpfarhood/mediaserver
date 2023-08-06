@@ -1,3 +1,28 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mediaserver
+  namespace: mediaserver
+spec:
+  rules:
+  - host: requests.farhoodliquor.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  overseerr
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - requests.farhoodliquor.com
+    secretName: farhoodliquor-com-cert-letsencrypt-prod
+
+
 ## Service
 ---
 apiVersion: v1
