@@ -9,7 +9,7 @@ resources:
   - volumes.yaml
   - service-plex.yaml
   #- service-jellyfin.yaml
-  - service-prowlarr.yaml
+  - prowlarr.yaml
   - service-overseerr.yaml
   - service-sonarr.yaml
   - service-radarr.yaml
