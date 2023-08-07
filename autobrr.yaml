@@ -1,3 +1,15 @@
+## ConfigMaps
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: autobrr-config
+  namespace: mediaserver
+data:
+  AUTOBRR__PORT=7474
+  AUTOBRR__HOST=0.0.0.0
+  
+  
 ## Service
 ---
 apiVersion: v1
@@ -40,6 +52,10 @@ spec:
       containers:
       - name: autobrr
         image: ghcr.io/autobrr/autobrr:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: autobrr-config
         ports:
         - containerPort: 7474
           name: http-7474
