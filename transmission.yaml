@@ -107,9 +107,9 @@ spec:
         #- name: tunnel
         #  mountPath: /dev/net/tun
         #  readOnly: true
-        - name: localtime
-          mountPath: /etc/localtime 
-          readOnly: true
+        #- name: localtime
+        #  mountPath: /etc/localtime 
+        #  readOnly: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
