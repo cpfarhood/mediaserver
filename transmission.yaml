@@ -67,13 +67,14 @@ spec:
         app: transmission
     spec:
       containers:
+      - name: transmission
+        image: haugene/transmission-openvpn:latest
+        imagePullPolicy: Always
         envFrom:
         - secretRef:
           name: vpn-creds
         - configMapRef:
           name: transmission-config
-        image: haugene/transmission-openvpn:latest
-        imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 10
@@ -82,7 +83,6 @@ spec:
           tcpSocket:
             port: 9091
           timeoutSeconds: 2
-        name: transmission
         readinessProbe:
           failureThreshold: 3
           initialDelaySeconds: 10
@@ -92,8 +92,8 @@ spec:
             port: 9091
           timeoutSeconds: 2
         resources:
-          limits:
-            memory: 2000Mi
+          requests:
+            memory: 1Gi
         securityContext:
           privileged: true
           capabilities:
