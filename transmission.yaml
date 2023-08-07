@@ -98,7 +98,7 @@ spec:
           allowPrivilegeEscalation: true
           capabilities:
             add:
-            - NET_ADMIN
+              - NET_ADMIN
           privileged: true
         volumeMounts:
         - name: transmission-config
