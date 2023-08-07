@@ -98,15 +98,15 @@ spec:
           allowPrivilegeEscalation: true
           capabilities:
             add:
-            - NET_ADMIN
+              - NET_ADMIN
           privileged: true
         volumeMounts:
         - name: transmission-config
           mountPath: "/config"
         - name: downloads
           mountPath: /downloads
-        #- name: tunnel
-        #  mountPath: /dev/net/tun
+        - name: tunnel
+          mountPath: /dev/net/tun
         - name: localtime
           mountPath: /etc/localtime 
           readOnly: true
@@ -120,10 +120,10 @@ spec:
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
-      #- name: tunnel
-      #  hostPath:
-      #    path: /dev/net/tun
-      #    type: ""
+      - name: tunnel
+        hostPath:
+          path: /dev/net/tun
+          type: ""
       - name: localtime
         hostPath:
           path: /etc/localtime
