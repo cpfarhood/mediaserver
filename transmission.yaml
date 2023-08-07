@@ -99,7 +99,7 @@ spec:
               - NET_ADMIN
         volumeMounts:
         - name: openvpn-credentials
-          mountPath: /config/
+          mountPath: /config/openvpn-credentials.txt
         - name: transmission-config
           mountPath: "/config"
         - name: downloads
@@ -109,7 +109,8 @@ spec:
       volumes:
       - name: openvpn-credentials
         secret:
-          secretName: openvpn-credentials
+          name: openvpn-credentials
+          key: openvpn-credentials.txt
       - name: transmission-config
         persistentVolumeClaim:
           claimName: transmission-config
