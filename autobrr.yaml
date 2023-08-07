@@ -6,8 +6,8 @@ metadata:
   name: autobrr-config
   namespace: mediaserver
 data:
-  AUTOBRR__PORT=7474
-  AUTOBRR__HOST=0.0.0.0
+  AUTOBRR__PORT: 7474
+  AUTOBRR__HOST: 0.0.0.0
   
   
 ## Service
