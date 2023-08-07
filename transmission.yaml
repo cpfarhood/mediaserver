@@ -72,6 +72,8 @@ spec:
         envFrom:
         - configMapRef:
             name: transmission-config
+        - secretRef:
+            name: openvpn-credentials
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 10
