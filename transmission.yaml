@@ -15,7 +15,6 @@ data:
   NORDVPN_COUNTRY: US
   NORDVPN_CATEGORY: legacy_p2p
   NORDVPN_PROTOCOL: udp
-  #NORDVPN_SERVER: us6272.nordvpn.com
   TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "8"
   TRANSMISSION_RATIO_LIMIT: "2"
   TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
@@ -24,7 +23,6 @@ data:
   TRANSMISSION_SPEED_LIMIT_UP: "10000"
   TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
   WEBPROXY_ENABLED: "false"
-  #CREATE_TUN_DEVICE: "true"
 
 
 ## Service
@@ -104,20 +102,9 @@ spec:
           mountPath: "/config"
         - name: downloads
           mountPath: /downloads
-        #- name: vpn-creds
-        #  mountPath: /config/openvpn-credentials.txt
-        #- name: tunnel
-        #  mountPath: /dev/net/tun
-        #  readOnly: true
-        #- name: localtime
-        #  mountPath: /etc/localtime 
-        #  readOnly: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
-      #- name: vpn-creds
-      #  secret:
-      #    secretName: vpn-creds
       - name: transmission-config
         persistentVolumeClaim:
           claimName: transmission-config
@@ -125,13 +112,6 @@ spec:
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
-      #- name: tunnel
-      #  hostPath:
-      #    path: /dev/net/tun
-      #- name: localtime
-      #  hostPath:
-      #    path: /etc/localtime
-      #    type: ""        
 
 
 ## Volumes
