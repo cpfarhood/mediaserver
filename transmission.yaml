@@ -68,10 +68,10 @@ spec:
     spec:
       containers:
         envFrom:
-          - secretRef:
-            name: vpn-creds
-          - configMapRef:
-            name: transmission-config
+        - secretRef:
+          name: vpn-creds
+        - configMapRef:
+          name: transmission-config
         image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
         livenessProbe:
@@ -95,11 +95,10 @@ spec:
           limits:
             memory: 2000Mi
         securityContext:
-          allowPrivilegeEscalation: true
+          privileged: true
           capabilities:
             add:
               - NET_ADMIN
-          privileged: true
         volumeMounts:
         - name: transmission-config
           mountPath: "/config"
