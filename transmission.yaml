@@ -123,13 +123,13 @@ spec:
       #- name: tunnel
       #  hostPath:
       #    path: /dev/net/tun
-      - name: localtime
-        hostPath:
-          path: /etc/localtime
-          type: ""        
+      #- name: localtime
+      #  hostPath:
+      #    path: /etc/localtime
+      #    type: ""        
 
 
-  ## Volumes
+## Volumes
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
