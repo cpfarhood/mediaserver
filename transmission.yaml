@@ -24,7 +24,7 @@ data:
   TRANSMISSION_SPEED_LIMIT_UP: "10000"
   TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
   WEBPROXY_ENABLED: "false"
-  #CREATE_TUN_DEVICE: "false"
+  CREATE_TUN_DEVICE: "true"
 
 
 ## Service
@@ -105,9 +105,9 @@ spec:
           mountPath: "/config"
         - name: downloads
           mountPath: /downloads
-        - name: tunnel
-          mountPath: /dev/net/tun
-          readOnly: true
+        #- name: tunnel
+        #  mountPath: /dev/net/tun
+        #  readOnly: true
         - name: localtime
           mountPath: /etc/localtime 
           readOnly: true
@@ -121,9 +121,9 @@ spec:
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
-      - name: tunnel
-        hostPath:
-          path: /dev/net/tun
+      #- name: tunnel
+      #  hostPath:
+      #    path: /dev/net/tun
       - name: localtime
         hostPath:
           path: /etc/localtime
