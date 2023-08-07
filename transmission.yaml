@@ -72,7 +72,7 @@ spec:
             name: vpn-creds
         - configMapRef:
             name: transmission-config
-        image: haugene/transmission-openvpn
+        image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
