@@ -100,12 +100,12 @@ spec:
             add:
               - NET_ADMIN
         volumeMounts:
-        - name: vpn-creds
-          mountPath: /config/openvpn-credentials.txt
         - name: transmission-config
           mountPath: "/config"
         - name: downloads
           mountPath: /downloads
+        - name: vpn-creds
+          mountPath: /config/openvpn-credentials.txt
         #- name: tunnel
         #  mountPath: /dev/net/tun
         #  readOnly: true
