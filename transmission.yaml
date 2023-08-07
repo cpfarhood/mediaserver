@@ -12,6 +12,8 @@ data:
   OPENVPN_CITY: Detroit
   OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
   OPENVPN_PROVIDER: NORDVPN
+  OPENVPN_USERNAME: 1RLMkAdy9FqZGcrYMeBcc2CA
+  OPENVPN_PASSWORD: MPYP2U7Fuqo73wAjL5TPkxEQ
   NORDVPN_COUNTRY: US
   NORDVPN_CATEGORY: legacy_p2p
   NORDVPN_PROTOCOL: udp
@@ -70,8 +72,6 @@ spec:
         image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
         envFrom:
-        - secretRef:
-            name: vpn-creds
         - configMapRef:
             name: transmission-config
         livenessProbe:
@@ -99,8 +99,6 @@ spec:
             add:
               - NET_ADMIN
         volumeMounts:
-        - name: openvpn-credentials
-          mountPath: /config/openvpn-credentials.txt
         - name: transmission-config
           mountPath: "/config"
         - name: downloads
@@ -108,10 +106,6 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: openvpn-credentials
-        secret:
-          name: openvpn-credentials
-          key: openvpn-credentials.txt
       - name: transmission-config
         persistentVolumeClaim:
           claimName: transmission-config
