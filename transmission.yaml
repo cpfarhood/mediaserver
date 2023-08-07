@@ -72,9 +72,9 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-          name: vpn-creds
+            name: vpn-creds
         - configMapRef:
-          name: transmission-config
+            name: transmission-config
         livenessProbe:
           failureThreshold: 3
           initialDelaySeconds: 10
