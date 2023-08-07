@@ -100,6 +100,8 @@ spec:
             add:
               - NET_ADMIN
         volumeMounts:
+        - name: vpn-creds
+          mountPath: /config/openvpn-credentials.txt
         - name: transmission-config
           mountPath: "/config"
         - name: downloads
@@ -113,6 +115,9 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: vpn-creds
+        secret:
+          secretName: vpn-creds
       - name: transmission-config
         persistentVolumeClaim:
           claimName: transmission-config
