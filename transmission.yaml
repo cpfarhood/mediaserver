@@ -68,9 +68,9 @@ spec:
     spec:
       containers:
         envFrom:
-        - secretRef:
+          - secretRef:
             name: vpn-creds
-        - configMapRef:
+          - configMapRef:
             name: transmission-config
         image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
