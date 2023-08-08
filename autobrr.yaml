@@ -21,7 +21,7 @@ metadata:
      app: autobrr
 spec:
   type: LoadBalancer
-  #externalTrafficPolicy: Local
+  externalTrafficPolicy: Local
   ports:
   - port: 80
     targetPort: 7474
