@@ -1,3 +1,25 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sabnzbd
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: sabnzbd.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  sabnzbd
+            port:
+              number: 8080
+
+
 ## Service
 ---
 apiVersion: v1
@@ -8,12 +30,9 @@ metadata:
    labels:
      app: sabnzbd
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 8080
-    name: http-8080
+  - port: 8080
   selector:
     app: sabnzbd
 
