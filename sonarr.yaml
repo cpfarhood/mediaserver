@@ -1,3 +1,25 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: sonarr.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  sonarr
+            port:
+              number: 8989
+              
+              
 ## Service
 ---
 apiVersion: v1
@@ -8,12 +30,9 @@ metadata:
    labels:
      app: sonarr
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 8989
-    name: http-8989
+  - port: 8989
   selector:
     app: sonarr
 
