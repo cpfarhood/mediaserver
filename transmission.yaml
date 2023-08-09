@@ -32,8 +32,8 @@ kind: Ingress
 metadata:
   name: transmission
   namespace: mediaserver
-  annotations:
-    nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/24,172.16.0.0/20,192.168.0.0/16
+annotations:
+    kubernetes.io/ingress.class: traefik-internal
 spec:
   rules:
   - host: transmission.mediaserver.k8s
