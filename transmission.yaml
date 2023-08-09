@@ -1,4 +1,3 @@
-
 ## ConfigMaps
 ---
 apiVersion: v1
@@ -24,6 +23,27 @@ data:
   TRANSMISSION_SPEED_LIMIT_UP_ENABLED: "true"
   WEBPROXY_ENABLED: "false"
   DEBUG: "true"
+
+
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: transmission
+  namespace: mediaserver
+spec:
+  rules:
+  - host: transmission.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  transmission
+            port:
+              number: 9091
 
 
 ## Service
