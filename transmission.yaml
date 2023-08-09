@@ -32,7 +32,8 @@ kind: Ingress
 metadata:
   name: transmission
   namespace: mediaserver
-  ingressClassName: traefik-internal
+  annotations:
+    kubernetes.io/ingress.class: "traefik-internal"
 spec:
   rules:
   - host: transmission.mediaserver.k8s
