@@ -61,8 +61,7 @@ spec:
     protocol: TCP
     targetPort: 9091
   sessionAffinity: None
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: none
 
 
 ## Deployment
