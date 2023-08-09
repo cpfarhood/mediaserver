@@ -10,14 +10,14 @@ resources:
   - tautulli.yaml
   - overseerr.yaml
   #- jellyfin.yaml
-  - autobrr.yaml
-  - prowlarr.yaml
-  - sonarr.yaml
-  - radarr.yaml
+  #- autobrr.yaml
+  #- prowlarr.yaml
+  #- sonarr.yaml
+  #- radarr.yaml
   #- lidarr.yaml
   #- readarr.yaml
-  - lazylibrarian.yaml
-  - headphones.yaml
-  - sabnzbd.yaml
+  #- lazylibrarian.yaml
+  #- headphones.yaml
+  #- sabnzbd.yaml
   - transmission.yaml
   - sealedsecret-openvpn-credentials.yaml
