@@ -1,5 +1,27 @@
+## Ingress
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: headphones
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: headphones.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  headphones
+            port:
+              number: 8181
+              
+              
 ## Service
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,18 +30,15 @@ metadata:
   labels:
     app: headphones
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 8181
-    name: http-8181
+  - port: 8181
   selector:
     app: headphones
 
 
----
 ## Statefulset
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
