@@ -42,6 +42,7 @@ spec:
     targetPort: 9091
   sessionAffinity: None
   type: LoadBalancer
+  externalTrafficPolicy: Local
 
 
 ## Deployment
