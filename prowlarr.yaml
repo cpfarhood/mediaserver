@@ -1,3 +1,25 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prowlarr
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: prowlarr.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  prowlarr
+            port:
+              number: 9696
+              
+              
 ## Service
 ---
 apiVersion: v1
@@ -8,12 +30,9 @@ metadata:
    labels:
      app: prowlarr
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 9696
-    name: http-9696
+  - port: 9696
   selector:
     app: prowlarr
 
