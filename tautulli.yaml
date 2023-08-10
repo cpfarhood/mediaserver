@@ -56,7 +56,6 @@ spec:
       app: tautulli
   serviceName: "tautulli"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:

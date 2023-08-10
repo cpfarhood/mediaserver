@@ -50,13 +50,11 @@ spec:
       app: sabnzbd
   serviceName: "sabnzbd"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:
         app: sabnzbd
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: sabnzbd
         image: lscr.io/linuxserver/sabnzbd:latest

@@ -50,7 +50,6 @@ spec:
       app: prowlarr
   serviceName: "prowlarr"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:

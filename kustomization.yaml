@@ -8,7 +8,7 @@ namespace: mediaserver
 resources:
   - plex.yaml
   - tautulli.yaml
-  #- overseerr.yaml
+  - overseerr.yaml
   #- jellyfin.yaml
   #- autobrr.yaml
   - prowlarr.yaml

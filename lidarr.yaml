@@ -31,7 +31,6 @@ spec:
       app: lidarr
   serviceName: "lidarr"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:

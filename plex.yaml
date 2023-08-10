@@ -33,7 +33,6 @@ spec:
       app: plex
   serviceName: "plex"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:

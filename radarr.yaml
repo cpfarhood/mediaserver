@@ -50,7 +50,6 @@ spec:
       app: radarr
   serviceName: "radarr"
   replicas: 1
-  minReadySeconds: 10
   template:
     metadata:
       labels:
