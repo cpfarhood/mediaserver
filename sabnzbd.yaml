@@ -50,8 +50,6 @@ spec:
       app: sabnzbd
   serviceName: "sabnzbd"
   replicas: 1
-  strategy:
-    type: Recreate
   minReadySeconds: 10
   template:
     metadata:
