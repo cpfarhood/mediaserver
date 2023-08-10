@@ -66,9 +66,9 @@ spec:
         volumeMounts:
         - name: radarr-config
           mountPath: "/config"
-        - name: radarr-downloads
+        - name: downloads
           mountPath: "/downloads"
-        - name: radarr-content
+        - name: media
           mountPath: "/media"
         resources:
           requests:
@@ -78,25 +78,14 @@ spec:
       - name: radarr-config
         persistentVolumeClaim:
           claimName: radarr-config
-  volumeClaimTemplates:
-  - metadata:
-      name: radarr-downloads
-    spec:
-      volumeName: radarr-downloads
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: radarr-content
-    spec:
-      volumeName: radarr-content
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
+      - name: downloads
+        nfs:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
+      - name: media
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
 
 
 ## Volumes
@@ -117,53 +106,3 @@ spec:
   resources:
     requests:
       storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-downloads
-  labels:
-    name: radarr-downloads
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/downloads/
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-content
-  labels:
-    name: radarr-content
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
