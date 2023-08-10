@@ -37,10 +37,10 @@ spec:
     app: headphones
 
 
-## Statefulset
+## Deployment
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: headphones
   namespace: mediaserver
@@ -64,9 +64,9 @@ spec:
         volumeMounts:
         - name: headphones-config
           mountPath: "/config"
-        - name: headphones-downloads
+        - name: downloads
           mountPath: "/downloads"
-        - name: headphones-content
+        - name: media
           mountPath: "/media"
         resources:
           requests:
@@ -76,25 +76,14 @@ spec:
       - name: headphones-config
         persistentVolumeClaim:
           claimName: headphones-config
-  volumeClaimTemplates:
-  - metadata:
-      name: headphones-downloads
-    spec:
-      volumeName: headphones-downloads
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: headphones-content
-    spec:
-      volumeName: headphones-content
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
+      - name: downloads
+        nfs:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
+      - name: media
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
 
 
 ---
@@ -115,53 +104,3 @@ spec:
   resources:
     requests:
       storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: headphones-downloads
-  labels:
-    name: headphones-downloads
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/downloads/
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: headphones-content
-  labels:
-    name: headphones-content
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
