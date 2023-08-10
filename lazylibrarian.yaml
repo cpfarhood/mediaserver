@@ -37,10 +37,10 @@ spec:
     app: lazylibrarian
 
 
-## StatefulSet
+## Deployment
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: lazylibrarian
   namespace: mediaserver
@@ -64,9 +64,9 @@ spec:
         volumeMounts:
         - name: lazylibrarian-config
           mountPath: "/config"
-        - name: lazylibrarian-downloads
+        - name: downloads
           mountPath: "/downloads"
-        - name: lazylibrarian-content
+        - name: media
           mountPath: "/media"
         resources:
           requests:
@@ -76,25 +76,14 @@ spec:
       - name: lazylibrarian-config
         persistentVolumeClaim:
           claimName: lazylibrarian-config
-  volumeClaimTemplates:
-  - metadata:
-      name: lazylibrarian-downloads
-    spec:
-      volumeName: lazylibrarian-downloads
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: lazylibrarian-content
-    spec:
-      volumeName: lazylibrarian-content
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
+      - name: downloads
+        nfs:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
+      - name: media
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
 
 
 ## Volumes
@@ -115,53 +104,4 @@ spec:
   resources:
     requests:
       storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lazylibrarian-downloads
-  labels:
-    name: lazylibrarian-downloads
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/downloads/
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lazylibrarian-content
-  labels:
-    name: lazylibrarian-content
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
+      
