@@ -50,6 +50,8 @@ spec:
       app: prowlarr
   serviceName: "prowlarr"
   replicas: 1
+  strategy:
+    type: Recreate
   minReadySeconds: 10
   template:
     metadata:
