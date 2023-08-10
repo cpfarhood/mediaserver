@@ -1,31 +1,3 @@
-## Ingress
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: plex
-  namespace: mediaserver
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect@kubernetescrd
-spec:
-  ingressClassName: traefik-external
-  rules:
-  - host: streaming.farhoodliquor.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name:  plex
-            port:
-              number: 32400
-  tls:
-  - hosts:
-    - streaming.farhoodliquor.com
-    secretName: farhoodliquor-com-cert-letsencrypt-prod
-
-
 ## Service
 ---
 apiVersion: v1
@@ -35,17 +7,15 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-#   annotations:
-#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
 spec:
-#  type: LoadBalancer
-#  externalTrafficPolicy: Local
-  clusterIP: None
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
-  - port: 32400
-#  - port: 443
-#    targetPort: 32400
-#    name: http-32400
+  - port: 443
+    targetPort: 32400
+    name: http-32400
   selector:
     app: plex
 
