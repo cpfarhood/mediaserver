@@ -56,8 +56,6 @@ spec:
       app: overseerr
   serviceName: "overseerr"
   replicas: 1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
