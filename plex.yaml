@@ -20,10 +20,10 @@ spec:
     app: plex
 
 
-## StatefulSet
+## Deployment
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: plex
   namespace: mediaserver
@@ -56,13 +56,11 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
-        - name: plex-content
+        - name: media
           mountPath: "/media"
         - name: plex-transcode
           mountPath: "/transcode"
-        - name: certificates
-          mountPath: "/certificates"
-        resources:
+          resources:
           requests:
             memory: "2Gi"
             cpu: "2000m"
@@ -75,22 +73,13 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
-      - name: certificates
-        secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
-          optional: true
+      - name: media
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
       nodeSelector:
         hevc10: "true"
-  volumeClaimTemplates:
-  - metadata:
-      name: plex-content
-    spec:
-      volumeName: plex-content
-      accessModes: ["ReadWriteMany"]
-      storageClassName: nfs
-      resources:
-        requests:
-          storage: 1Gi
+        
 
 
 ## Volumes
@@ -128,28 +117,4 @@ spec:
   resources:
     requests:
       storage: 256Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-content
-  labels:
-    name: plex-content
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
+    
