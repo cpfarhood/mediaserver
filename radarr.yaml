@@ -50,15 +50,12 @@ spec:
       app: radarr
   serviceName: "radarr"
   replicas: 1
-  strategy:
-    type: Recreate
   minReadySeconds: 10
   template:
     metadata:
       labels:
         app: radarr
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: radarr
         image: lscr.io/linuxserver/radarr:latest
