@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/part-of: clusterplex
 data:
   VERSION: docker
-  TZ: America/Argentina/Buenos_Aires
+  TZ: America/Detroit
   PGID: '1000'
   PUID: '1000'
   DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_dockermod:latest'
@@ -31,7 +31,7 @@ metadata:
     app.kubernetes.io/name: clusterplex-orchestrator-config
     app.kubernetes.io/part-of: clusterplex
 data:
-  TZ: America/Argentina/Buenos_Aires
+  TZ: America/Detroit
   LISTENING_PORT: '3500'
   WORKER_SELECTION_STRATEGY: LOAD_TASKS
 ---
