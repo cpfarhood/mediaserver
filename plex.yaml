@@ -19,7 +19,7 @@ spec:
           service:
             name:  plex
             port:
-              number: 443
+              number: 32400
   tls:
   - hosts:
     - streaming.farhoodliquor.com
@@ -35,15 +35,17 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+#   annotations:
+#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
+#  type: LoadBalancer
+#  externalTrafficPolicy: Local
   ports:
-  - port: 443
-    targetPort: 32400
-    name: http-32400
+  - port: 32400
+#  - port: 443
+#    targetPort: 32400
+#    name: http-32400
   selector:
     app: plex
 
