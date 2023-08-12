@@ -118,7 +118,7 @@ spec:
           server: spielberg.farhoodliquor.dmz
       - name: certificate
         secret:
-          secretName: farhoodliquor-com-cert-letsencrypt-prod
+          secretName: streaming-farhoodliquor-com-cert
       nodeSelector:
         hevc10: "true"
         
