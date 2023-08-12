@@ -1,29 +1,29 @@
 ## Ingress - this will hide the true source ip for clients because Plex doesn't implement ProxyProtocol
-#---
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: plex
-#  namespace: mediaserver
-#  annotations:
-#    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect@kubernetescrd
-#spec:
-#  ingressClassName: traefik-external
-#  rules:
-#  - host: streaming.farhoodliquor.com
-#    http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name:  plex
-#            port:
-#              number: 32400
-#  tls:
-#  - hosts:
-#    - streaming.farhoodliquor.com
-#    secretName: farhoodliquor-com-cert-letsencrypt-prod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plex
+  namespace: mediaserver
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect@kubernetescrd
+spec:
+  ingressClassName: traefik-external
+  rules:
+  - host: streaming.farhoodliquor.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  plex
+            port:
+              number: 32400
+  tls:
+  - hosts:
+    - streaming.farhoodliquor.com
+    secretName: farhoodliquor-com-cert-letsencrypt-prod
     
     
 ## Service
@@ -35,26 +35,24 @@ metadata:
    namespace: mediaserver
    labels:
      app: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-     external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com
+#   annotations:
+#     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+#     external-dns.alpha.kubernetes.io/hostname: streaming.farhoodliquor.com
 spec:
   selector:
     app: plex
-
 ## For use with Ingress
-#  clusterIP: None
-#  ports:
-#  - port: 32400
-##
-
-## For direct LoadBalancer
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 443
-    targetPort: 32400
-    name: http-32400
+  - port: 32400
+##
+## For direct LoadBalancer
+#  type: LoadBalancer
+#  externalTrafficPolicy: Local
+#  ports:
+#  - port: 443
+#    targetPort: 32400
+#    name: http-32400
 ##
 
 
