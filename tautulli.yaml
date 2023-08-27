@@ -64,6 +64,7 @@ spec:
       containers:
       - name: tautulli
         image: lscr.io/linuxserver/tautulli:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8181
           name: http-8181
