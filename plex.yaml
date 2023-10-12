@@ -119,7 +119,7 @@ spec:
         secret:
           secretName: streaming-farhoodliquor-com-cert
       nodeSelector:
-        hevc10: "true"
+        intel.feature.node.kubernetes.io/gpu: "true"
         
 
 
