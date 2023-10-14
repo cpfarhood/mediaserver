@@ -77,6 +77,7 @@ spec:
       containers:
       - name: plex
         image: docker.io/plexinc/pms-docker:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 32400
           name: http-32400
