@@ -58,6 +58,7 @@ spec:
       containers:
       - name: radarr
         image: lscr.io/linuxserver/radarr:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 7878
           name: http-7878
