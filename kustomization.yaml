@@ -16,8 +16,8 @@ resources:
   - radarr.yaml
   #- lidarr.yaml
   #- readarr.yaml
-  - lazylibrarian.yaml
-  - headphones.yaml
+  #- lazylibrarian.yaml
+  #- headphones.yaml
   - sabnzbd.yaml
   - transmission.yaml
   - sealedsecret-openvpn-credentials.yaml
