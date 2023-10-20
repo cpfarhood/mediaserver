@@ -64,6 +64,8 @@ spec:
         volumeMounts:
         - name: sabnzbd-config
           mountPath: "/config"
+        - name: sabnzbd-downloads
+          mountPath: "/downloads-new"
         - name: downloads
           mountPath: "/downloads"
         resources:
@@ -74,6 +76,9 @@ spec:
       - name: sabnzbd-config
         persistentVolumeClaim:
           claimName: sabnzbd-config
+      - name: sabnzbd-downloads
+        persistentVolumeClaim:
+          claimName: sabnzbd-downloads
       - name: downloads
         nfs:
           path: /mnt/pool0/downloads
@@ -98,3 +103,20 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sabnzbd-downloads
+  labels:
+    name: sabnzbd-downloads
+  namespace: mediaserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 256Gi
