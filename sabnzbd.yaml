@@ -65,9 +65,11 @@ spec:
         - name: sabnzbd-config
           mountPath: "/config"
         - name: sabnzbd-downloads
-          mountPath: "/downloads"
-#        - name: downloads
-#          mountPath: "/downloads"
+          mountPath: "/downloads/sabnzbd-incomplete"
+        - name: sabnzbd-backups
+          mountPath: "/downloads/backups"
+        - name: downloads
+          mountPath: "/downloads/complete"
         resources:
           requests:
             memory: "128Mi"
@@ -79,10 +81,10 @@ spec:
       - name: sabnzbd-downloads
         persistentVolumeClaim:
           claimName: sabnzbd-downloads
-#      - name: downloads
-#        nfs:
-#          path: /mnt/pool0/downloads
-#          server: spielberg.farhoodliquor.dmz
+      - name: downloads
+        nfs:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
 
 
 ## Volumes
@@ -103,6 +105,23 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sabnzbd-backups
+  labels:
+    name: sabnzbd-backups
+  namespace: mediaserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 32Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
