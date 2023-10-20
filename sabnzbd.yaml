@@ -78,6 +78,9 @@ spec:
       - name: sabnzbd-config
         persistentVolumeClaim:
           claimName: sabnzbd-config
+      - name: sabnzbd-backups
+        persistentVolumeClaim:
+          claimName: sabnzbd-backups
       - name: sabnzbd-downloads
         persistentVolumeClaim:
           claimName: sabnzbd-downloads
