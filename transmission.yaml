@@ -15,7 +15,7 @@ data:
   NORDVPN_CATEGORY: legacy_p2p
   NORDVPN_PROTOCOL: udp
   TRANSMISSION_DOWNLOAD_DIR: "/downloads/completed"
-  TRANSMISSION_INCOMPLETE_DIR: "/downloads/transmission-incomplete"
+  TRANSMISSION_INCOMPLETE_DIR: "/downloads/incomplete"
   TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
   TRANSMISSION_DOWNLOAD_QUEUE_SIZE: "8"
   TRANSMISSION_CACHE_SIZE_MB: "128"
@@ -125,15 +125,20 @@ spec:
         volumeMounts:
         - name: transmission-config
           mountPath: "/config"
-        - name: downloads
-          mountPath: /downloads
+        - name: transmission-downloads
+          mountPath: /downloads/incomplete
+        - name: downloads-complete
+          mountPath: /downloads/complete
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
       - name: transmission-config
         persistentVolumeClaim:
           claimName: transmission-config
-      - name: downloads
+      - name: transmission-downloads
+        persistentVolumeClaim:
+          claimName: transmission-downloads
+      - name: downloads-complete
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
@@ -157,3 +162,20 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transmission-downloads
+  labels:
+    name: transmission-downloads
+  namespace: mediaserver
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 512Gi
