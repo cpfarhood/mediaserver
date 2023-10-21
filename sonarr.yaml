@@ -65,7 +65,7 @@ spec:
         - name: sonarr-config
           mountPath: "/config"
         - name: downloads
-          mountPath: "/downloads"
+          mountPath: "/downloads/complete"
         - name: media
           mountPath: "/media"
         resources:
