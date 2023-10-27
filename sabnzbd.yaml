@@ -65,7 +65,7 @@ spec:
         - name: sabnzbd-config
           mountPath: "/config"
         - name: sabnzbd-downloads
-          mountPath: "/downloads/sabnzbd-incomplete"
+          mountPath: "/downloads/incomplete"
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
         - name: downloads
