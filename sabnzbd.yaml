@@ -49,7 +49,7 @@ spec:
     matchLabels:
       app: sabnzbd
   serviceName: "sabnzbd"
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
