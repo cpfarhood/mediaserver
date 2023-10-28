@@ -1,3 +1,25 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lidarr
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: lidarr.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  lidarr
+            port:
+              number: 8686
+              
+              
 ## Service
 ---
 apiVersion: v1
@@ -8,20 +30,17 @@ metadata:
    labels:
      app: lidarr
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: None
   ports:
-  - port: 80
-    targetPort: 8686
-    name: http-8686
+  - port: 8686
   selector:
     app: lidarr
 
 
-## StatefulSet
---- 
+## Deployment
+---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: lidarr
   namespace: mediaserver
@@ -45,9 +64,9 @@ spec:
         volumeMounts:
         - name: lidarr-config
           mountPath: "/config"
-        - name: lidarr-downloads
-          mountPath: "/downloads"
-        - name: lidarr-content
+        - name: downloads
+          mountPath: "/downloads/complete"
+        - name: media
           mountPath: "/media"
         resources:
           requests:
@@ -57,25 +76,14 @@ spec:
       - name: lidarr-config
         persistentVolumeClaim:
           claimName: lidarr-config
-  volumeClaimTemplates:
-  - metadata:
-      name: lidarr-downloads
-    spec:
-      volumeName: lidarr-downloads
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
-  - metadata:
-      name: lidarr-content
-    spec:
-      volumeName: lidarr-content
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "nfs"
-      resources:
-        requests:
-          storage: 1Gi
+      - name: downloads
+        nfs:
+          path: /mnt/pool0/downloads
+          server: spielberg.farhoodliquor.dmz
+      - name: media
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
 
 
 ## Volumes
@@ -96,53 +104,3 @@ spec:
   resources:
     requests:
       storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lidarr-downloads
-  labels:
-    name: lidarr-downloads
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/downloads/
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lidarr-content
-  labels:
-    name: lidarr-content
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-  - soft
-  - nfsvers=4.1
-  - rsize=32768
-  - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
