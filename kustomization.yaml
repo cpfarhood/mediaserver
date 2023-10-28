@@ -14,7 +14,7 @@ resources:
   - prowlarr.yaml
   - sonarr.yaml
   - radarr.yaml
-  #- lidarr.yaml
+  - lidarr.yaml
   #- readarr.yaml
   #- lazylibrarian.yaml
   - headphones.yaml
