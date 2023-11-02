@@ -6,7 +6,7 @@ namespace: mediaserver
 #  literals:
 #  - password=somepassword
 resources:
-  #- plex.yaml
+  - plex.yaml
   - tautulli.yaml
   - overseerr.yaml
   #- jellyfin.yaml
@@ -18,6 +18,6 @@ resources:
   #- readarr.yaml
   #- lazylibrarian.yaml
   #- headphones.yaml
-  - sabnzbd.yaml
-  - transmission.yaml
+  #- sabnzbd.yaml
+  #- transmission.yaml
   - sealedsecret-openvpn-credentials.yaml
