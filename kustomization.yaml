@@ -11,9 +11,9 @@ resources:
   - overseerr.yaml
   #- jellyfin.yaml
   #- autobrr.yaml
-  #- prowlarr.yaml
-  #- sonarr.yaml
-  #- radarr.yaml
+  - prowlarr.yaml
+  - sonarr.yaml
+  - radarr.yaml
   - lidarr.yaml
   #- readarr.yaml
   #- lazylibrarian.yaml
