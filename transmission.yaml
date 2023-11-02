@@ -79,7 +79,7 @@ metadata:
   namespace: mediaserver
 spec:
   progressDeadlineSeconds: 600
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -175,7 +175,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: longhorn
+  storageClassName: rook-ceph-block
   resources:
     requests:
       storage: 512Gi
