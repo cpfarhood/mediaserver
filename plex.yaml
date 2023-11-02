@@ -149,7 +149,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block
+  storageClassName: rook-ceph-block-nvme
   resources:
     requests:
       storage: 256Gi
