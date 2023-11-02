@@ -19,5 +19,5 @@ resources:
   #- lazylibrarian.yaml
   #- headphones.yaml
   - sabnzbd.yaml
-  - transmission.yaml
+  #- transmission.yaml
   - sealedsecret-openvpn-credentials.yaml
