@@ -134,7 +134,7 @@ metadata:
     name: sabnzbd-downloads
   namespace: mediaserver
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/prune: enabled
 spec:
   accessModes:
   - ReadWriteOnce
