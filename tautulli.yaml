@@ -95,7 +95,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: longhorn
+  storageClassName: rook-ceph-block-nvme
   resources:
     requests:
       storage: 8Gi
