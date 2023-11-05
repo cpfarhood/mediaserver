@@ -96,12 +96,11 @@ metadata:
   namespace: mediaserver
   labels:
     name: radarr-config
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 8Gi
