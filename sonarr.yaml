@@ -95,7 +95,6 @@ metadata:
   namespace: mediaserver
   labels:
     name: sonarr-config
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
