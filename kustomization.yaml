@@ -12,7 +12,7 @@ resources:
   #- jellyfin.yaml
   #- autobrr.yaml
   - prowlarr.yaml
-  - sonarr.yaml
+  #- sonarr.yaml
   - radarr.yaml
   - lidarr.yaml
   #- readarr.yaml
