@@ -98,13 +98,12 @@ metadata:
   name: sabnzbd-config
   labels:
     name: sabnzbd-config
-  namespace: mediaserver
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 8Gi
@@ -115,13 +114,12 @@ metadata:
   name: sabnzbd-backups
   labels:
     name: sabnzbd-backups
-  namespace: mediaserver
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 32Gi
@@ -132,13 +130,12 @@ metadata:
   name: sabnzbd-downloads
   labels:
     name: sabnzbd-downloads
-  namespace: mediaserver
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: enabled
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-ephemeral
   resources:
     requests:
       storage: 256Gi
