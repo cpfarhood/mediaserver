@@ -152,13 +152,12 @@ metadata:
   name: transmission-config
   labels:
     name: transmission-config
-  namespace: mediaserver
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: enabled
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-ephemeral
   resources:
     requests:
       storage: 8Gi
@@ -169,13 +168,12 @@ metadata:
   name: transmission-downloads
   labels:
     name: transmission-downloads
-  namespace: mediaserver
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: enabled
+  namespace: mediaserver
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: rook-ceph-block-nvme
+  storageClassName: longhorn-ephemeral
   resources:
     requests:
       storage: 512Gi
