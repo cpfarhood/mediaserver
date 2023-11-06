@@ -50,10 +50,10 @@ spec:
 ##
 
 
-## Deployment
+## StatefulSet
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: plex
   namespace: mediaserver
@@ -91,6 +91,8 @@ spec:
           mountPath: "/media"
         - name: plex-transcode
           mountPath: "/transcode"
+        - name: temp
+          mountPath: /temp
         resources:
           requests:
             memory: "2Gi"
@@ -104,6 +106,10 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
+      - name: temp
+        nfs:
+          server: spielberg.farhoodliquor.dmz
+          path: /mnt/pool0/backups/temp
       - name: media
         nfs:
           path: /mnt/pool0/media
@@ -121,7 +127,6 @@ metadata:
   namespace: mediaserver
   labels:
     name: plex-config
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
@@ -138,7 +143,6 @@ metadata:
   namespace: mediaserver
   labels:
     name: plex-transcode
-  annotations:
     kustomize.toolkit.fluxcd.io/prune: enabled
 spec:
   accessModes:
