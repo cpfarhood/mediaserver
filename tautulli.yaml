@@ -71,6 +71,8 @@ spec:
         volumeMounts:
         - name: tautulli-config
           mountPath: "/config"
+        - name: temp
+          mountPath: /temp
         resources:
           requests:
             memory: "128Mi"
@@ -79,6 +81,10 @@ spec:
       - name: tautulli-config
         persistentVolumeClaim:
           claimName: tautulli-config
+      - name: temp
+        nfs:
+          server: spielberg.farhoodliquor.dmz
+          path: /mnt/pool0/backups/temp
 
 
 ## Volumes
