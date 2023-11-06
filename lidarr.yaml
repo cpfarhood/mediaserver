@@ -37,10 +37,10 @@ spec:
     app: lidarr
 
 
-## Deployment
+## StatefulSet
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: lidarr
   namespace: mediaserver
