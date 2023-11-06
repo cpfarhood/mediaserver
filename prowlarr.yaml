@@ -37,10 +37,10 @@ spec:
     app: prowlarr
 
 
-## Deployment
+## StatefulSet
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: prowlarr
   namespace: mediaserver
