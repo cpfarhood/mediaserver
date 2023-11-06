@@ -37,10 +37,10 @@ spec:
     app: sonarr
 
 
-## Deployment
+## StatefulSet
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: sonarr
   namespace: mediaserver
