@@ -7,8 +7,8 @@ namespace: mediaserver
 #  - password=somepassword
 resources:
   - plex.yaml
-  #- tautulli.yaml
-  #- overseerr.yaml
+  - tautulli.yaml
+  - overseerr.yaml
   #- jellyfin.yaml
   #- autobrr.yaml
   - prowlarr.yaml
