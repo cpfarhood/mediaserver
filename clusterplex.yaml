@@ -4,21 +4,23 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: clusterplex-pms-config
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-pms-config
     app.kubernetes.io/part-of: clusterplex
 data:
   VERSION: docker
   TZ: America/Detroit
-  PGID: '1000'
-  PUID: '1000'
+  PGID: '8675309'
+  PUID: '8675309'
+  #PLEX_CLAIM: 'claim-someclaimtoken'
   DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_dockermod:latest'
   ORCHESTRATOR_URL: 'http://clusterplex-orchestrator:3500'
   PMS_SERVICE: "clusterplex-pms"
   PMS_PORT: "32400"
+  FORCE_HTTPS: '1'
   TRANSCODER_VERBOSE: '1'
-  TRANSCODE_OPERATING_MODE: both
+  TRANSCODE_OPERATING_MODE: remote
   LOCAL_RELAY_ENABLED: '1'
   LOCAL_RELAY_PORT: "32499"
 ---
@@ -26,33 +28,34 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: clusterplex-orchestrator-config
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-orchestrator-config
     app.kubernetes.io/part-of: clusterplex
 data:
   TZ: America/Detroit
   LISTENING_PORT: '3500'
-  WORKER_SELECTION_STRATEGY: LOAD_TASKS
+  WORKER_SELECTION_STRATEGY: LOAD_RANK
 ---
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: clusterplex-worker-config
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-worker-config
     app.kubernetes.io/part-of: clusterplex
 data:
   TZ: America/Detroit
-  PGID: '1000'
-  PUID: '1000'
+  PGID: '8675309'
+  PUID: '8675309'
   VERSION: docker
   DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_worker_dockermod:latest'
   ORCHESTRATOR_URL: 'http://clusterplex-orchestrator:3500'
   LISTENING_PORT: '3501'
   STAT_CPU_INTERVAL: '10000'
   EAE_SUPPORT: '1'
+  FFMPEG_HWACCEL: 'vaapi'
 
 
 ## Volumes
@@ -60,56 +63,91 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: clusterplex-config-pvc
-  namespace: mediaserver-test
+  name: plex-config
+  namespace: mediaserver
   labels:
-    app.kubernetes.io/name: clusterplex-config-pvc
-    app.kubernetes.io/part-of: clusterplex
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
+  storageClassName: longhorn-perpetual
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
-      storage: "16Gi"
-  storageClassName: longhorn
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: clusterplex-transcode
-spec:
-  persistentVolumeReclaimPolicy: Retain
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs"
-  nfs:
-    path: /mnt/pool0/plex/transcode     # The path to your transcodes
-    server: spielberg.farhoodliquor.dmz     # Your NFS server
-  mountOptions:
-    - vers=4
-    - minorversion=1
-    - noac
+      storage: 128Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: clusterplex-transcode-pvc
-  namespace: mediaserver-test
+  name: clusterplex-config
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  volumeName: clusterplex-transcode
-  storageClassName: ""
+  storageClassName: longhorn-perpetual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 128Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clusterplex-cache
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    app.kubernetes.io/name: clusterplex-cache
+    app.kubernetes.io/part-of: clusterplex
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: longhorn-perpetual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clusterplex-drivers
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    app.kubernetes.io/name: clusterplex-drivers
+    app.kubernetes.io/part-of: clusterplex
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: longhorn-perpetual
+
+---
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clusterplex-transcode
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  storageClassName: longhorn-perpetual
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 256Gi
+
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: clusterplex-media
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: enabled
 spec:
   persistentVolumeReclaimPolicy: Retain
   capacity:
@@ -121,18 +159,22 @@ spec:
     path: /mnt/pool0/media     # The path to your media
     server: spielberg.farhoodliquor.dmz     # Your NFS server with Media
   mountOptions:
+    - soft
     - vers=4
     - minorversion=1
+    - soft
     - noac
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: clusterplex-media-pvc
-  namespace: mediaserver-test
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   volumeName: clusterplex-media
-  storageClassName: ""
+  storageClassName: "nfs"
   accessModes:
     - ReadWriteMany
   resources:
@@ -140,13 +182,13 @@ spec:
       storage: 1Gi
 
 
-## Deployments
+## StatefulSet
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: clusterplex-pms
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-pms
     app.kubernetes.io/part-of: clusterplex
@@ -162,21 +204,24 @@ spec:
         app.kubernetes.io/name: clusterplex-pms
         app.kubernetes.io/part-of: clusterplex
     spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  name: clusterplex-worker
-              topologyKey: kubernetes.io/hostname
-            weight: 50
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  name: clusterplex-pms
-              topologyKey: kubernetes.io/hostname
-            weight: 100
+        # Separate PMS from Workers
+        #podAntiAffinity:
+        #  preferredDuringSchedulingIgnoredDuringExecution:
+        #  - podAffinityTerm:
+        #      labelSelector:
+        #        matchLabels:
+        #          name: clusterplex-worker
+        #      topologyKey: kubernetes.io/hostname
+        #    weight: 50
+        #  - podAffinityTerm:
+        #      labelSelector:
+        #        matchLabels:
+        #          name: clusterplex-pms
+        #      topologyKey: kubernetes.io/hostname
+        #    weight: 100
       containers:
       - name: plex
         image: lscr.io/linuxserver/plex:latest
@@ -210,29 +255,45 @@ spec:
         - configMapRef:
             name: clusterplex-pms-config
         volumeMounts:
-        - name: data
-          mountPath: /data
+        - name: media
+          mountPath: /media
         - name: config
           mountPath: /config
+        - name: oldconfig
+          mountPath: /oldconfig
+        - name: cache
+          mountPath: /config/Library/Application Support/Plex Media Server/Cache
+        - name: drivers
+          mountPath: /config/Library/Application Support/Plex Media Server/Drivers
         - name: transcode
           mountPath: /transcode
         resources:          # adapt requests and limits to your needs
           requests:
-            cpu: 300m
+            cpu: 200m
             memory: 256Mi
           limits:
-            cpu: 2000m
-            memory: 512Mi
+            gpu.intel.com/i915: 1
+          #  cpu: 2000m
+          #  memory: 512Mi
       volumes:
-      - name: data
+      - name: media
         persistentVolumeClaim:
           claimName: "clusterplex-media-pvc"
       - name: config
         persistentVolumeClaim:
-          claimName: "clusterplex-config-pvc"
+          claimName: "clusterplex-config"
+      - name: oldconfig
+        persistentVolumeClaim:
+          claimName: "plex-config"
+      - name: cache
+        persistentVolumeClaim:
+          claimName: "clusterplex-cache"
+      - name: drivers
+        persistentVolumeClaim:
+          claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode-pvc"
+          claimName: "clusterplex-transcode"
 
 
 ## Service
@@ -241,15 +302,19 @@ apiVersion: v1
 kind: Service
 metadata:
   name: clusterplex-pms
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-pms
     app.kubernetes.io/part-of: clusterplex
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+    external-dns.alpha.kubernetes.io/hostname: mediaserver.farhoodliquor.com
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
     - name: pms
-      port: 32400
+      port: 443
       protocol: TCP
       targetPort: pms
     - name: relay
@@ -264,7 +329,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clusterplex-orchestrator
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-orchestrator
     app.kubernetes.io/part-of: clusterplex
@@ -311,15 +376,15 @@ spec:
           requests:
             cpu: 200m
             memory: 32Mi
-          limits:
-            cpu: 500m
-            memory: 64Mi
+          #limits:
+          #  cpu: 500m
+          #  memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: clusterplex-orchestrator
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-orchestrator
     app.kubernetes.io/part-of: clusterplex
@@ -338,7 +403,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: clusterplex-worker
-  namespace: mediaserver-test
+  namespace: mediaserver
   labels:
     app.kubernetes.io/name: clusterplex-worker
     app.kubernetes.io/part-of: clusterplex
@@ -355,21 +420,25 @@ spec:
         app.kubernetes.io/name: clusterplex-worker
         app.kubernetes.io/part-of: clusterplex
     spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
+          # Separate Workers from one another
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   name: clusterplex-worker
               topologyKey: kubernetes.io/hostname
             weight: 100
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  name: clusterplex-pms
-              topologyKey: kubernetes.io/hostname
-            weight: 50
+          # Separate Workers from PMS
+          #- podAffinityTerm:
+          #    labelSelector:
+          #      matchLabels:
+          #        name: clusterplex-pms
+          #    topologyKey: kubernetes.io/hostname
+          #  weight: 50
       containers:
       - name: plex-worker
         image: lscr.io/linuxserver/plex:latest
@@ -398,26 +467,37 @@ spec:
         - configMapRef:
             name: clusterplex-worker-config
         volumeMounts:
-        - name: data
-          mountPath: /data
+        - name: media
+          mountPath: /media
         - name: codecs
           mountPath: /codecs
+        - name: cache
+          mountPath: /config/Library/Application Support/Plex Media Server/Cache
+        - name: drivers
+          mountPath: /config/Library/Application Support/Plex Media Server/Drivers
         - name: transcode
           mountPath: /transcode
         resources:              # adapt requests and limits to your needs
           requests:
-            cpu: 500m
-            memory: 200Mi
+            cpu: 200m
+            memory: 256Mi
           limits:
-            cpu: 3000m
-            memory: 800Mi
+            gpu.intel.com/i915: 1               
+          #  cpu: 100m
+          #  memory: 128Mi
       volumes:
-      - name: data
+      - name: media
         persistentVolumeClaim:
           claimName: "clusterplex-media-pvc"
+      - name: cache
+        persistentVolumeClaim:
+          claimName: "clusterplex-cache"
+      - name: drivers
+        persistentVolumeClaim:
+          claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode-pvc"
+          claimName: "clusterplex-transcode"
   volumeClaimTemplates:
     - metadata:
         name: codecs
@@ -430,4 +510,4 @@ spec:
           requests:
             storage: 1Gi
         # specify your storage class
-        #storageClassName: longhorn
+        storageClassName: longhorn-ephemeral
