@@ -104,7 +104,7 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: 8Gi
+      storage: 32Gi
   storageClassName: longhorn-perpetual
 ---
 apiVersion: v1
