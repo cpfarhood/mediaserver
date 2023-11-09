@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: mediaserver
 resources:
   #- clusterplex.yaml
-  #- plex.yaml
+  - plex.yaml
   - tautulli.yaml
   - overseerr.yaml
   #- jellyfin.yaml
