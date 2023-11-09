@@ -6,6 +6,7 @@ namespace: mediaserver
 #  literals:
 #  - password=somepassword
 resources:
+  - clusterplex.yaml
   #- plex.yaml
   - tautulli.yaml
   - overseerr.yaml
