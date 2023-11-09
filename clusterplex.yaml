@@ -125,21 +125,44 @@ spec:
   storageClassName: longhorn-perpetual
 
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: clusterplex-transcode
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs"
+  nfs:
+    path: /mnt/pool0/plex/transcode     # The path to your media
+    server: spielberg.farhoodliquor.dmz     # Your NFS server with Media
+  mountOptions:
+    - soft
+    - vers=4
+    - minorversion=1
+    - soft
+    - noac
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: clusterplex-transcode
+  name: clusterplex-transcode-pvc
   namespace: mediaserver
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  storageClassName: longhorn-perpetual
+  volumeName: clusterplex-transcode
+  storageClassName: "nfs"
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 256Gi
+      storage: 1Gi
 
 ---
 apiVersion: v1
@@ -293,7 +316,7 @@ spec:
           claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode"
+          claimName: "clusterplex-transcode-pvc"
 
 
 ## Service
@@ -497,7 +520,7 @@ spec:
           claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode"
+          claimName: "clusterplex-transcode-pvc"
   volumeClaimTemplates:
     - metadata:
         name: codecs
