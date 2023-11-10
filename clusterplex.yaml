@@ -63,21 +63,6 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-config
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  storageClassName: longhorn-perpetual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 128Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: clusterplex-config
   namespace: mediaserver
   labels:
@@ -88,7 +73,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 128Gi
+      storage: 64Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -104,7 +89,7 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: 128Gi
+      storage: 64Gi
   storageClassName: longhorn-perpetual
 ---
 apiVersion: v1
@@ -126,43 +111,19 @@ spec:
 
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: clusterplex-transcode
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: enabled
-spec:
-  persistentVolumeReclaimPolicy: Retain
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs"
-  nfs:
-    path: /mnt/pool0/plex/transcode     # The path to your media
-    server: spielberg.farhoodliquor.dmz     # Your NFS server with Media
-  mountOptions:
-    - soft
-    - vers=4
-    - minorversion=1
-    - soft
-    - noac
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: clusterplex-transcode-pvc
+  name: clusterplex-transcode
   namespace: mediaserver
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  volumeName: clusterplex-transcode
-  storageClassName: "nfs"
+  storageClassName: longhorn-perpetual
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 64Gi
 
 ---
 apiVersion: v1
@@ -282,8 +243,6 @@ spec:
           mountPath: /media
         - name: config
           mountPath: /config
-        - name: oldconfig
-          mountPath: /oldconfig
         - name: cache
           mountPath: /config/Library/Application Support/Plex Media Server/Cache
         - name: drivers
@@ -296,8 +255,6 @@ spec:
             memory: 256Mi
           limits:
             gpu.intel.com/i915: 1
-          #  cpu: 2000m
-          #  memory: 512Mi
       volumes:
       - name: media
         persistentVolumeClaim:
@@ -305,9 +262,6 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: "clusterplex-config"
-      - name: oldconfig
-        persistentVolumeClaim:
-          claimName: "plex-config"
       - name: cache
         persistentVolumeClaim:
           claimName: "clusterplex-cache"
@@ -316,7 +270,7 @@ spec:
           claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode-pvc"
+          claimName: "clusterplex-transcode"
 
 
 ## Service
@@ -330,8 +284,8 @@ metadata:
     app.kubernetes.io/name: clusterplex-pms
     app.kubernetes.io/part-of: clusterplex
   annotations:
-    metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-    external-dns.alpha.kubernetes.io/hostname: mediaserver.farhoodliquor.com
+    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
+    external-dns.alpha.kubernetes.io/hostname: blockbuster.mediaserver.farhoodliquor.com
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
@@ -399,9 +353,6 @@ spec:
           requests:
             cpu: 200m
             memory: 32Mi
-          #limits:
-          #  cpu: 500m
-          #  memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
@@ -520,7 +471,7 @@ spec:
           claimName: "clusterplex-drivers"
       - name: transcode
         persistentVolumeClaim:
-          claimName: "clusterplex-transcode-pvc"
+          claimName: "clusterplex-transcode"
   volumeClaimTemplates:
     - metadata:
         name: codecs
