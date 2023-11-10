@@ -53,13 +53,12 @@ data:
   DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_worker_dockermod:latest'
   ORCHESTRATOR_URL: 'http://clusterplex-orchestrator:3500'
   LISTENING_PORT: '3501'
-  STAT_CPU_INTERVAL: '10000'
+  STAT_CPU_INTERVAL: '1000'
   EAE_SUPPORT: '1'
   FFMPEG_HWACCEL: 'vaapi'
 
-
 ## Volumes
----
+--- # Config
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -74,7 +73,7 @@ spec:
   resources:
     requests:
       storage: 64Gi
----
+--- # Cache
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -91,7 +90,7 @@ spec:
     requests:
       storage: 64Gi
   storageClassName: longhorn-perpetual
----
+--- # Drivers
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -108,8 +107,7 @@ spec:
     requests:
       storage: 8Gi
   storageClassName: longhorn-perpetual
-
----
+--- # Transcode
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -124,8 +122,7 @@ spec:
   resources:
     requests:
       storage: 256Gi
-
----
+--- # Media
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -148,7 +145,7 @@ spec:
     - minorversion=1
     - soft
     - noac
----
+--- # Media PV
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -165,9 +162,8 @@ spec:
     requests:
       storage: 1Gi
 
-
-## StatefulSet
----
+### Media Server
+--- # StatefulSet
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -249,10 +245,10 @@ spec:
           mountPath: /config/Library/Application Support/Plex Media Server/Drivers
         - name: transcode
           mountPath: /transcode
-        resources:          # adapt requests and limits to your needs
+        resources: 
           requests:
-            cpu: 200m
-            memory: 256Mi
+            cpu: 1000m
+            memory: 2048Mi
           limits:
             gpu.intel.com/i915: 1
       volumes:
@@ -271,10 +267,7 @@ spec:
       - name: transcode
         persistentVolumeClaim:
           claimName: "clusterplex-transcode"
-
-
-## Service
----
+--- # Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -301,7 +294,9 @@ spec:
   selector:
     app.kubernetes.io/name: clusterplex-pms
     app.kubernetes.io/part-of: clusterplex
----
+
+## Orchestrator
+--- # Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -352,8 +347,8 @@ spec:
         resources:            # adapt requests and limits to your needs
           requests:
             cpu: 200m
-            memory: 32Mi
----
+            memory: 64Mi
+--- # Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -372,7 +367,7 @@ spec:
   selector:
     app.kubernetes.io/name: clusterplex-orchestrator
     app.kubernetes.io/part-of: clusterplex
----
+--- # StatefulSet
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -453,12 +448,10 @@ spec:
           mountPath: /transcode
         resources:              # adapt requests and limits to your needs
           requests:
-            cpu: 200m
-            memory: 256Mi
+            cpu: 1000m
+            memory: 2048Mi
           limits:
-            gpu.intel.com/i915: 1               
-          #  cpu: 100m
-          #  memory: 128Mi
+            gpu.intel.com/i915: 1
       volumes:
       - name: media
         persistentVolumeClaim:
