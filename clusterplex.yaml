@@ -120,10 +120,10 @@ metadata:
 spec:
   storageClassName: longhorn-perpetual
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 64Gi
+      storage: 256Gi
 
 ---
 apiVersion: v1
