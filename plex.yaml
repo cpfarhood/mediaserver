@@ -9,7 +9,7 @@ metadata:
      app: plex
    annotations:
      metallb.universe.tf/loadBalancerIPs: 65.43.40.99
-     external-dns.alpha.kubernetes.io/hostname: ota.mediaserver.farhoodliquor.com
+     external-dns.alpha.kubernetes.io/hostname: mediaserver.farhoodliquor.com
 spec:
   selector:
     app: plex
