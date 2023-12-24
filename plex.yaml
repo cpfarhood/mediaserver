@@ -63,8 +63,6 @@ spec:
           mountPath: "/media"
         - name: plex-transcode
           mountPath: "/transcode"
-        - name: temp
-          mountPath: /temp
         resources:
           requests:
             memory: "2Gi"
@@ -78,10 +76,6 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
-      - name: temp
-        nfs:
-          server: spielberg.farhoodliquor.dmz
-          path: /mnt/pool0/backups/temp
       - name: media
         nfs:
           path: /mnt/pool0/media
