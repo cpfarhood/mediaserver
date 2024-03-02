@@ -138,4 +138,4 @@ spec:
   storageClassName: longhorn-ephemeral
   resources:
     requests:
-      storage: 256Gi
+      storage: 384Gi
