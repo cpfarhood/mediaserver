@@ -30,7 +30,8 @@ metadata:
    labels:
      app: radarr
 spec:
-  clusterIP: None
+  type: ClusterIP
+  #clusterIP: None
   ports:
   - port: 7878
   selector:
