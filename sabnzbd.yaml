@@ -30,6 +30,7 @@ metadata:
    labels:
      app: sabnzbd
 spec:
+  type: ClusterIP
   #clusterIP: None
   ports:
   - port: 8080
