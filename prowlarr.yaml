@@ -30,6 +30,7 @@ metadata:
    labels:
      app: prowlarr
 spec:
+  type: ClusterIP
   #clusterIP: None
   ports:
   - port: 9696
