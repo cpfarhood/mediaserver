@@ -30,7 +30,8 @@ metadata:
    labels:
      app: sonarr
 spec:
-  clusterIP: None
+  type: ClusterIP
+  #clusterIP: None
   ports:
   - port: 8989
   selector:
