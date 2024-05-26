@@ -30,7 +30,7 @@ metadata:
    labels:
      app: prowlarr
 spec:
-  clusterIP: None
+  #clusterIP: None
   ports:
   - port: 9696
   selector:
