@@ -50,7 +50,7 @@ spec:
     matchLabels:
       app: radarr
   serviceName: "radarr"
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
