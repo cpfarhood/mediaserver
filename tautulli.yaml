@@ -97,4 +97,4 @@ spec:
   storageClassName: longhorn-perpetual
   resources:
     requests:
-      storage: 8Gi
+      storage: 4Gi
