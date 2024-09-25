@@ -65,8 +65,10 @@ spec:
         volumeMounts:
         - name: sabnzbd-config
           mountPath: "/config"
-        - name: sabnzbd-downloads
+        - name: downloads
           mountPath: "/downloads"
+        - name: sabnzbd-downloads
+          mountPath: "/downloads/incomplete"
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
         - name: incoming-movies
@@ -87,7 +89,7 @@ spec:
       - name: sabnzbd-downloads
         persistentVolumeClaim:
           claimName: sabnzbd-downloads
-      - name: downloads-complete
+      - name: downloads
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
