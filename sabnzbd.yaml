@@ -50,7 +50,7 @@ spec:
     matchLabels:
       app: sabnzbd
   serviceName: "sabnzbd"
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -69,8 +69,10 @@ spec:
           mountPath: "/downloads/incomplete"
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
-        - name: downloads
-          mountPath: "/downloads/complete"
+        - name: incoming-movies
+          mountPath: "/downloads/complete/movies"
+        - name: incoming-shows
+          mountPath: "/downloads/complete/shows"
         resources:
           requests:
             memory: "128Mi"
@@ -85,9 +87,13 @@ spec:
       - name: sabnzbd-downloads
         persistentVolumeClaim:
           claimName: sabnzbd-downloads
-      - name: downloads
+      - name: incoming-movies
         nfs:
-          path: /mnt/pool0/downloads
+          path: /mnt/pool1/incoming
+          server: spielberg.farhoodliquor.dmz
+      - name: incoming-shows
+        nfs:
+          path: /mnt/pool2/incoming
           server: spielberg.farhoodliquor.dmz
 
 
