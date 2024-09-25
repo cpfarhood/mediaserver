@@ -59,8 +59,10 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
-        - name: media
-          mountPath: "/media"
+        - name: movies
+          mountPath: "/media/movies"
+        - name: shows
+          mountPath: "/media/shows"
         - name: plex-transcode
           mountPath: "/transcode"
         resources:
@@ -76,9 +78,13 @@ spec:
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
-      - name: media
+      - name: movies
         nfs:
-          path: /mnt/pool0/media
+          path: /mnt/pool1/media/movies
+          server: spielberg.farhoodliquor.dmz
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
           server: spielberg.farhoodliquor.dmz
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
