@@ -66,11 +66,9 @@ spec:
         - name: sabnzbd-config
           mountPath: "/config"
         - name: sabnzbd-downloads
-          mountPath: "/downloads/incomplete"
+          mountPath: "/downloads"
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
-        - name: downloads-complete
-          mountPath: "/downloads/complete/"
         - name: incoming-movies
           mountPath: "/downloads/complete/movies"
         - name: incoming-shows
