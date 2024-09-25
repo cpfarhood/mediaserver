@@ -70,9 +70,9 @@ spec:
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
         - name: incoming-movies
-          mountPath: "/downloads/complete/movies"
+          mountPath: "/downloads/movies"
         - name: incoming-shows
-          mountPath: "/downloads/complete/shows"
+          mountPath: "/downloads/shows"
         resources:
           requests:
             memory: "128Mi"
