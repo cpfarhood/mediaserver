@@ -50,7 +50,7 @@ spec:
     matchLabels:
       app: sonarr
   serviceName: "sonarr"
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
