@@ -50,7 +50,7 @@ spec:
     matchLabels:
       app: sonarr
   serviceName: "sonarr"
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
@@ -65,10 +65,10 @@ spec:
         volumeMounts:
         - name: sonarr-config
           mountPath: "/config"
-        - name: downloads
-          mountPath: "/downloads/complete"
-        - name: media
-          mountPath: "/media"
+        - name: incoming
+          mountPath: "/downloads/shows"
+        - name: shows
+          mountPath: "/media/shows"
         resources:
           requests:
             memory: "128Mi"
@@ -77,13 +77,13 @@ spec:
       - name: sonarr-config
         persistentVolumeClaim:
           claimName: sonarr-config
-      - name: downloads
+      - name: incoming
         nfs:
-          path: /mnt/pool0/downloads
+          path: /mnt/pool2/media/incoming
           server: spielberg.farhoodliquor.dmz
-      - name: media
+      - name: shows
         nfs:
-          path: /mnt/pool0/media
+          path: /mnt/pool2/media/shows
           server: spielberg.farhoodliquor.dmz
 
 
