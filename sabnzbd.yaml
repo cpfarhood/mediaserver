@@ -71,10 +71,6 @@ spec:
           mountPath: "/downloads/incomplete"
         - name: sabnzbd-backups
           mountPath: "/downloads/backups"
-        - name: incoming-movies
-          mountPath: "/downloads/movies"
-        - name: incoming-shows
-          mountPath: "/downloads/shows"
         - name: movies
           mountPath: "/media/movies"
         - name: shows
@@ -97,10 +93,6 @@ spec:
         nfs:
           path: /mnt/pool0/downloads
           server: spielberg.farhoodliquor.dmz
-      - name: incoming-movies
-        nfs:
-          path: /mnt/pool1/media/incoming
-          server: spielberg.farhoodliquor.dmz
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
@@ -109,11 +101,6 @@ spec:
         nfs:
           path: /mnt/pool2/media/shows
           server: spielberg.farhoodliquor.dmz
-      - name: incoming-shows
-        nfs:
-          path: /mnt/pool2/media/incoming
-          server: spielberg.farhoodliquor.dmz
-
 
 ## Volumes
 ---
