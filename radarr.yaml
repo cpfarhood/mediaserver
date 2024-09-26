@@ -66,8 +66,6 @@ spec:
         volumeMounts:
         - name: radarr-config
           mountPath: "/config"
-        - name: incoming
-          mountPath: "/downloads/movies"
         - name: movies
           mountPath: "/media/movies"
         resources:
@@ -78,10 +76,6 @@ spec:
       - name: radarr-config
         persistentVolumeClaim:
           claimName: radarr-config
-      - name: incoming
-        nfs:
-          path: /mnt/pool1/media/incoming
-          server: spielberg.farhoodliquor.dmz
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
