@@ -75,6 +75,8 @@ spec:
           mountPath: "/downloads/movies"
         - name: incoming-shows
           mountPath: "/downloads/shows"
+        - name: movies
+          mountPath: "/media/movies"
         - name: shows
           mountPath: "/media/shows"
         resources:
@@ -98,6 +100,10 @@ spec:
       - name: incoming-movies
         nfs:
           path: /mnt/pool1/media/incoming
+          server: spielberg.farhoodliquor.dmz
+      - name: movies
+        nfs:
+          path: /mnt/pool1/media/movies
           server: spielberg.farhoodliquor.dmz
       - name: shows
         nfs:
