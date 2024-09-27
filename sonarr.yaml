@@ -65,8 +65,6 @@ spec:
         volumeMounts:
         - name: sonarr-config
           mountPath: "/config"
-        - name: incoming
-          mountPath: "/downloads/shows"
         - name: shows
           mountPath: "/media/shows"
         resources:
@@ -77,10 +75,6 @@ spec:
       - name: sonarr-config
         persistentVolumeClaim:
           claimName: sonarr-config
-      - name: incoming
-        nfs:
-          path: /mnt/pool2/media/incoming
-          server: spielberg.farhoodliquor.dmz
       - name: shows
         nfs:
           path: /mnt/pool2/media/shows
