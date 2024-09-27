@@ -55,7 +55,7 @@ spec:
     matchLabels:
       app: tautulli
   serviceName: "tautulli"
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
