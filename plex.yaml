@@ -90,7 +90,7 @@ spec:
         intel.feature.node.kubernetes.io/gpu: "true"
 
 
-## Volumes
+## Volume Claims
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -123,4 +123,77 @@ spec:
   resources:
     requests:
       storage: 256Gi
-    
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-farhoodliquor-movies
+  namespace: mediaserver
+  labels:
+    name: plex-farhoodliquor-movies
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-farhoodliquor-shows
+  namespace: mediaserver
+  labels:
+    name: plex-farhoodliquor-shows
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+      
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-farhoodliquor-movies-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool1/media/movies
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-farhoodliquor-shows-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool2/media/shows
+    server: spielberg.farhoodliquor.dmz
