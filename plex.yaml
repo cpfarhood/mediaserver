@@ -8,7 +8,7 @@ metadata:
    labels:
      app: plex
    annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.99
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.107
      external-dns.alpha.kubernetes.io/hostname: mediaserver.farhoodliquor.com
 spec:
   selector:
@@ -52,8 +52,8 @@ spec:
           value: America/Detroit
         - name: VERSION
           value: docker
-#        - name: PLEX_CLAIM
-#          value: claim-claim-token #optional
+        - name: PLEX_CLAIM
+          value: claim-8coDfPdQ6yAdpd8gP3wK
 #        - name: ADVERITSE_IP
 #          value: https://0.0.0.0:32400
         volumeMounts:
