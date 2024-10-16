@@ -65,6 +65,8 @@ spec:
         volumeMounts:
         - name: rdtclient-db
           mountPath: "/data/db"
+        - name: rdtclient-remotemedia
+          mountPath: "/media/remote"
         - name: shows
           mountPath: "/media/shows"
         resources:
@@ -75,6 +77,9 @@ spec:
       - name: rdtclient-db
         persistentVolumeClaim:
           claimName: rdtclient-shows-db
+      - name: rdtclient-remotemedia
+        persistentVolumeClaim:
+          claimName: rdtclient-remotemedia
       - name: shows
         nfs:
           path: /mnt/pool2/media/shows
@@ -99,3 +104,38 @@ spec:
     requests:
       storage: 8Gi
       
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rdtclient-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rdtclient-shows-farhoodliquor-remotemedia
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rdtclient-shows-farhoodliquor-remotemedia-pv
+  labels:
+    name: rdtclient-shows-farhoodliquor-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  storageClassName: rclone
+  csi:
+    driver: csi-rclone
+    volumeHandle: data-id
+    volumeAttributes:
+      remote: "webdav"
+      remotePath: "/"
+      webdav-url: "http://zurg.mediaserver.k8s/dav/"
