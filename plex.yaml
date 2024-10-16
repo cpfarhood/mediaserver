@@ -59,6 +59,8 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
+        - name: plex-remotemedia
+          mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/movies"
         - name: shows
@@ -75,6 +77,9 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
+      - name: plex-remotemedia
+        persistentVolumeClaim:
+          claimName: plex-farhoodliquor-remotemedia
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
@@ -155,6 +160,21 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-farhoodliquor-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: plex-farhoodliquor-remotemedia
       
 ## Volumes
 ---
@@ -197,3 +217,22 @@ spec:
   nfs:
     path: /mnt/pool2/media/shows
     server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-farhoodliquor-remotemedia-pv
+  labels:
+    name: plex-farhoodliquor-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  storageClassName: rclone
+  csi:
+    driver: csi-rclone
+    volumeHandle: data-id
+    volumeAttributes:
+      remote: "webdav"
+      remotePath: "http://zurg:9999/dav/"
