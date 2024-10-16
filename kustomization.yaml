@@ -19,6 +19,6 @@ resources:
   - transmission.yaml
   - rdtclient-movies.yaml
   - rdtclient-shows.yaml
-#  - zurg.yaml
+  - zurg.yaml
   - sealedsecret-openvpn-credentials.yaml
   - sealedsecret-zurg-config.yaml
