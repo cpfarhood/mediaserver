@@ -39,6 +39,10 @@ spec:
       containers:
       - name: zurg
         image: ghcr.io/debridmediamanager/zurg-testing:latest
+        lifecycle:
+          postStart:
+            exec:
+              command: [ "cp", "/var/zurg-config/config.yaml", "/app/config.yaml" ]
         ports:
         - containerPort: 9999
           name: http-9999
