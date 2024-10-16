@@ -235,4 +235,5 @@ spec:
     volumeHandle: data-id
     volumeAttributes:
       remote: "webdav"
-      url: "http://zurg.mediaserver.k8s/dav/"
+      remotePath: "/"
+      webdav-url: "http://zurg.mediaserver.k8s/dav/"
