@@ -39,10 +39,10 @@ spec:
       containers:
       - name: zurg
         image: ghcr.io/debridmediamanager/zurg-testing:latest
-        lifecycle:
-          postStart:
-            exec:
-              command: [ "cp", "/var/zurg-config/config.yaml", "/app/config.yml" ]
+#        lifecycle:
+#          postStart:
+#            exec:
+#              command: [ "cp", "/var/zurg-config/config.yaml", "/app/config.yml" ]
         ports:
         - containerPort: 9999
           name: http-9999
@@ -50,7 +50,8 @@ spec:
         - name: zurg-data
           mountPath: "/app/data"
         - name: zurg-config
-          mountPath: /var/zurg-config
+          mountPath: /app/config.yml
+          subPath: config.yaml
           readOnly: true
         resources:
           requests:
@@ -63,6 +64,9 @@ spec:
       - name: zurg-config
         secret:
           secretName: zurg-config
+          items:
+          - key: config.yaml
+            path: config.yaml
 
 ## Volumes
 ---
