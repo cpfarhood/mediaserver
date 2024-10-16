@@ -65,7 +65,7 @@ spec:
         volumeMounts:
         - name: rdtclient-db
           mountPath: "/data/db"
-        - name: rdtclient-remotemedia
+        - name: rdtclient-movies-remotemedia
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/movies"
@@ -77,9 +77,9 @@ spec:
       - name: rdtclient-db
         persistentVolumeClaim:
           claimName: rdtclient-movies-db
-      - name: rdtclient-remotemedia
+      - name: rdtclient-movies-remotemedia
         persistentVolumeClaim:
-          claimName: rdtclient-remotemedia
+          claimName: rdtclient-movies-remotemedia
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
@@ -108,7 +108,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rdtclient-remotemedia
+  name: rdtclient-movies-remotemedia
 spec:
   accessModes:
   - ReadWriteMany
