@@ -65,6 +65,8 @@ spec:
         volumeMounts:
         - name: sonarr-config
           mountPath: "/config"
+        - name: sonarr-remotemedia
+          mountPath: "/media/remote"
         - name: shows
           mountPath: "/media/shows"
         resources:
@@ -75,6 +77,9 @@ spec:
       - name: sonarr-config
         persistentVolumeClaim:
           claimName: sonarr-config
+      - name: sonarr-remotemedia
+        persistentVolumeClaim:
+          claimName: sonarr-farhoodliquor-remotemedia
       - name: shows
         nfs:
           path: /mnt/pool2/media/shows
@@ -98,3 +103,38 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarr-farhoodliquor-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: sonarr-farhoodliquor-remotemedia
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-farhoodliquor-remotemedia-pv
+  labels:
+    name: sonarr-farhoodliquor-remotemedia
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  storageClassName: rclone
+  csi:
+    driver: csi-rclone
+    volumeHandle: data-id
+    volumeAttributes:
+      remote: "webdav"
+      remotePath: "/"
+      webdav-url: "http://zurg.mediaserver.k8s/dav/"
