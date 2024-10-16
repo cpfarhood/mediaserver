@@ -17,5 +17,6 @@ resources:
   #- headphones.yaml
   - sabnzbd.yaml
   - transmission.yaml
-  - rdtclient.yaml
+  - rdtclient-movies.yaml
+  - rdtclient-shows.yaml
   - sealedsecret-openvpn-credentials.yaml
