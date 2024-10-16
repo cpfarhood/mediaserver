@@ -30,7 +30,7 @@ spec:
     matchLabels:
       app: plex-debrid
   serviceName: "plex-debrid"
-  replicas: 2
+  replicas: 1
   template:
     metaconfig:
       labels:
