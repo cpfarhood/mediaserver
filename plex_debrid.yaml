@@ -3,7 +3,7 @@
 ---
 apiVersion: v1
 kind: Service
-metaconfig:
+metadata:
   name: plex-debrid
   namespace: mediaserver
   labels:
@@ -22,7 +22,7 @@ spec:
 ---
 apiVersion: apps/v1
 kind: StatefulSet
-metaconfig:
+metadata:
   name: plex-debrid
   namespace: mediaserver
 spec:
