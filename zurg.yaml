@@ -3,39 +3,44 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: rdtclient
+  name: zurg
   namespace: mediaserver
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirect@kubernetescrd
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: rdtclient.mediaserver.k8s
+  - host: zurg.mediaserver.k8s
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name:  rdtclient
+            name:  zurg
             port:
-              number: 6500
-              
-              
+              number: 9999
+  tls:
+  - hosts:
+    - requests.farhoodliquor.com
+    secretName: farhoodliquor-com-cert-letsencrypt-prod
+
+
 ## Service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-   name: rdtclient
+   name: zurg
    namespace: mediaserver
    labels:
-     app: rdtclient
+     app: zurg
 spec:
-  type: ClusterIP
-  #clusterIP: None
+  clusterIP: None
   ports:
-  - port: 6500
+  - port: 9999
   selector:
-    app: rdtclient
+    app: zurg
 
 
 ## StatefulSet
@@ -43,48 +48,36 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: rdtclient
+  name: zurg
   namespace: mediaserver
 spec:
   selector:
     matchLabels:
-      app: rdtclient
-  serviceName: "rdtclient"
+      app: zurg
+  serviceName: "zurg"
   replicas: 1
   template:
     metadata:
       labels:
-        app: rdtclient
+        app: zurg
     spec:
       containers:
-      - name: rdtclient
-        image: rogerfar/rdtclient:latest
+      - name: zurg
+        image: ghcr.io/debridmediamanager/zurg-testing:latest
         ports:
-        - containerPort: 6500
-          name: http-6500
+        - containerPort: 9999
+          name: http-9999
         volumeMounts:
-        - name: rdtclient-db
-          mountPath: "/data/db"
-        - name: movies
-          mountPath: "/media/movies"
-        - name: shows
-          mountPath: "/media/shows"
+        - name: zurg-config
+          mountPath: "/app/config"
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: rdtclient-db
+      - name: zurg-config
         persistentVolumeClaim:
-          claimName: rdtclient-db
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
-      - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
-          server: spielberg.farhoodliquor.dmz
+          claimName: zurg-config
 
 
 ## Volumes
@@ -92,10 +85,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rdtclient-db
+  name: zurg-config
   namespace: mediaserver
   labels:
-    name: rdtclient-db
+    name: zurg-config
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:

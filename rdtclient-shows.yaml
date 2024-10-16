@@ -1,0 +1,100 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rdtclient-shows
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: rdtclient-shows.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  rdtclient-shows
+            port:
+              number: 6500
+              
+              
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: rdtclient-shows
+   namespace: mediaserver
+   labels:
+     app: rdtclient-shows
+spec:
+  type: ClusterIP
+  #clusterIP: None
+  ports:
+  - port: 6500
+  selector:
+    app: rdtclient-shows
+
+
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rdtclient-shows
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: rdtclient-shows
+  serviceName: "rdtclient-shows"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rdtclient-shows
+    spec:
+      containers:
+      - name: rdtclient-shows
+        image: rogerfar/rdtclient:latest
+        ports:
+        - containerPort: 6500
+          name: http-6500
+        volumeMounts:
+        - name: rdtclient-db
+          mountPath: "/data/db"
+        - name: shows
+          mountPath: "/media/shows"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: rdtclient-db
+        persistentVolumeClaim:
+          claimName: rdtclient-shows-db
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
+          server: spielberg.farhoodliquor.dmz
+
+
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rdtclient-shows-db
+  namespace: mediaserver
+  labels:
+    name: rdtclient-shows-db
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
