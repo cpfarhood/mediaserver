@@ -4,10 +4,10 @@
 apiVersion: v1
 kind: Service
 metaconfig:
-   name: plex-debrid
-   namespace: mediaserver
-   labels:
-     app: plex-debrid
+  name: plex-debrid
+  namespace: mediaserver
+  labels:
+    app: plex-debrid
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
