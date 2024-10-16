@@ -71,7 +71,7 @@ spec:
         - name: zurg-data
           mountPath: "/app/data"
         - name: zurg-config
-          mountPath: /app/config.yml
+          mountPath: /var/zurg-config
           readOnly: true
         resources:
           requests:
