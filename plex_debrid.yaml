@@ -32,7 +32,7 @@ spec:
   serviceName: "plex-debrid"
   replicas: 1
   template:
-    metaconfig:
+    metadata:
       labels:
         app: plex-debrid
     spec:
@@ -54,7 +54,7 @@ spec:
         persistentVolumeClaim:
           claimName: plex-debrid-config
   volumeClaimTemplates:
-  - metaconfig:
+  - metadata:
       name: plex-debrid-config
     spec:
       accessModes: [ "ReadWriteOnce" ]
