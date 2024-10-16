@@ -1,0 +1,106 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rdtclient
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: rdtclient.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  rdtclient
+            port:
+              number: 6500
+              
+              
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: rdtclient
+   namespace: mediaserver
+   labels:
+     app: rdtclient
+spec:
+  type: ClusterIP
+  #clusterIP: None
+  ports:
+  - port: 6500
+  selector:
+    app: rdtclient
+
+
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rdtclient
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: rdtclient
+  serviceName: "rdtclient"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rdtclient
+    spec:
+      containers:
+      - name: rdtclient
+        image: rogerfar/rdtclient:latest
+        ports:
+        - containerPort: 6500
+          name: http-6500
+        volumeMounts:
+        - name: rdtclient-db
+          mountPath: "/data/db"
+        - name: movies
+          mountPath: "/media/movies"
+        - name: shows
+          mountPath: "/media/shows"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: rdtclient-db
+        persistentVolumeClaim:
+          claimName: rdtclient-db
+      - name: movies
+        nfs:
+          path: /mnt/pool1/media/movies
+          server: spielberg.farhoodliquor.dmz
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
+          server: spielberg.farhoodliquor.dmz
+
+
+## Volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rdtclient-db
+  namespace: mediaserver
+  labels:
+    name: rdtclient-db
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
