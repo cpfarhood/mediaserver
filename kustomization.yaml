@@ -4,6 +4,7 @@ namespace: mediaserver
 resources:
   #- clusterplex.yaml
   - plex.yaml
+  - plex_debrid.yaml
   - tautulli.yaml
   - overseerr.yaml
   #- jellyfin.yaml
