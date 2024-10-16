@@ -68,27 +68,32 @@ spec:
         - containerPort: 9999
           name: http-9999
         volumeMounts:
+        - name: zurg-data
+          mountPath: "/app/data"
         - name: zurg-config
-          mountPath: "/app/config"
+          mountPath: /app/config.yml
+          readOnly: true
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: zurg-config
+      - name: zurg-data
         persistentVolumeClaim:
-          claimName: zurg-config
-
+          claimName: zurg-data
+      - name: zurg-config
+        secret:
+          secretName: zurg-config
 
 ## Volumes
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: zurg-config
+  name: zurg-data
   namespace: mediaserver
   labels:
-    name: zurg-config
+    name: zurg-data
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
