@@ -65,10 +65,10 @@ spec:
         volumeMounts:
         - name: rdtclient-db
           mountPath: "/data/db"
+        - name: library
+          mountPath: /media/library
         - name: rdtclient-remotemedia
           mountPath: "/media/remote"
-        - name: movies
-          mountPath: "/media/movies"
         resources:
           requests:
             memory: "128Mi"
@@ -77,13 +77,13 @@ spec:
       - name: rdtclient-db
         persistentVolumeClaim:
           claimName: rdtclient-db
+        - name: library
+          nfs:
+            path: /mnt/pool0/media/library
+            server: spielberg.farhoodliquor.dmz
       - name: rdtclient-remotemedia
         persistentVolumeClaim:
           claimName: rdtclient-remotemedia
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
 
 
 
