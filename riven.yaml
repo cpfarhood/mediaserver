@@ -1,4 +1,39 @@
+## Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sabnzbd
+  namespace: mediaserver
+spec:
+  ingressClassName: traefik-internal
+  rules:
+  - host: riven.mediaserver.k8s
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name:  riven-frontend
+            port:
+              number: 3000
+              
 ## Services
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: riven-db
+  name: riven-db
+spec:
+  ports:
+    - name: "riven-db"
+      port: 5432
+      targetPort: 5432
+  selector:
+    app: riven-db
 ---
 apiVersion: v1
 kind: Service
@@ -28,6 +63,7 @@ spec:
   selector:
     app: riven-frontend
 ---
+
 ## StatefulSets
 ---
 apiVersion: apps/v1
@@ -49,6 +85,9 @@ spec:
       containers:
         - name: riven-db
           image: postgres:17.0-alpine3.20
+          ports:
+            - containerPort: 5432
+              protocol: TCP
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -168,7 +207,7 @@ spec:
             - name: DIALECT
               value: postgres
             - name: ORIGIN
-              value: https://riven.farhoodliquor.com
+              value: http://riven.mediaserver.k8s
             - name: PGID
               value: "1000"
             - name: PUID
