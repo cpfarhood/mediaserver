@@ -62,9 +62,9 @@ spec:
         - name: plex-remotemedia
           mountPath: "/media/remote"
         - name: movies
-          mountPath: "/media/movies"
+          mountPath: "/media/local/movies"
         - name: shows
-          mountPath: "/media/shows"
+          mountPath: "/media/local/shows"
         - name: plex-transcode
           mountPath: "/transcode"
         resources:
