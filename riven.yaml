@@ -166,6 +166,8 @@ spec:
               name: riven-config
             - mountPath: /media/remote
               name: riven-remotemedia
+            - mountPath: /media/library
+              name: library
             - mountPath: /media/local/movies
               name: movies
             - mountPath: /media/local/anime_movies
@@ -182,6 +184,10 @@ spec:
         - name: riven-remotemedia
           persistentVolumeClaim:
             claimName: riven-remotemedia
+        - name: library
+          nfs:
+            path: /mnt/pool0/media/library
+            server: spielberg.farhoodliquor.dmz
         - name: movies
           nfs:
             path: /mnt/pool1/media/movies

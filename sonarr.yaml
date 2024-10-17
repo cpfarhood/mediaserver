@@ -68,7 +68,7 @@ spec:
         - name: sonarr-remotemedia
           mountPath: "/media/remote"
         - name: shows
-          mountPath: "/media/shows"
+          mountPath: "/media/local/shows"
         resources:
           requests:
             memory: "128Mi"
