@@ -3,7 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sabnzbd
+  name: riven
   namespace: mediaserver
 spec:
   ingressClassName: traefik-internal
@@ -27,6 +27,7 @@ metadata:
   labels:
     app: riven-db
   name: riven-db
+  namespace: mediaserver
 spec:
   ports:
     - name: "riven-db"
@@ -41,6 +42,7 @@ metadata:
   labels:
     app: riven
   name: riven
+  namespace: mediaserver
 spec:
   ports:
     - name: "riven"
@@ -55,6 +57,7 @@ metadata:
   labels:
     app: riven-frontend
   name: riven-frontend
+  namespace: mediaserver
 spec:
   ports:
     - name: "riven-frontend"
@@ -72,6 +75,7 @@ metadata:
   labels:
     app: riven-db
   name: riven-db
+  namespace: mediaserver
 spec:
   replicas: 1
   selector:
@@ -119,6 +123,7 @@ metadata:
   labels:
     app: riven
   name: riven
+  namespace: mediaserver
 spec:
   replicas: 1
   selector:
@@ -188,6 +193,7 @@ metadata:
   labels:
     app: riven-frontend
   name: riven-frontend
+  namespace: mediaserver
 spec:
   replicas: 1
   selector:
@@ -228,6 +234,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: riven-db
+  namespace: mediaserver
 spec:
   accessModes:
     - ReadWriteOnce
@@ -242,6 +249,7 @@ metadata:
   labels:
     io.kompose.service: riven-config
   name: riven-config
+  namespace: mediaserver
 spec:
   accessModes:
     - ReadWriteOnce
