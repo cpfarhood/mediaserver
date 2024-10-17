@@ -139,9 +139,9 @@ spec:
       containers:
         - env:
             - name: PGID
-              value: "1000"
+              value: "911"
             - name: PUID
-              value: "1000"
+              value: "911"
             - name: RIVEN_DATABASE_HOST
               value: postgresql+psycopg2://postgres:postgres@riven-db/riven
             - name: RIVEN_FORCE_ENV
