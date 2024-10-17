@@ -30,8 +30,7 @@ metadata:
   labels:
     app: rdtclient
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  clusterIP: none
   ports:
   - port: 6500
     targetPort: 6500
