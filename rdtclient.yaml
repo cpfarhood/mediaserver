@@ -30,7 +30,8 @@ metadata:
   labels:
     app: rdtclient
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - port: 6500
   selector:
