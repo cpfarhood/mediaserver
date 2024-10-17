@@ -50,7 +50,7 @@ spec:
     matchLabels:
       app: radarr
   serviceName: "radarr"
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
@@ -135,6 +135,6 @@ spec:
     driver: csi-rclone
     volumeHandle: data-id
     volumeAttributes:
-      remote: "webdav"
+      remote: "http"
       remotePath: "/"
-      webdav-url: "http://zurg.mediaserver.k8s/dav/"
+      webdav-url: "http://zurg.mediaserver.k8s/http/"
