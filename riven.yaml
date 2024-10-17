@@ -1,0 +1,248 @@
+## Services
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: riven
+  name: riven
+spec:
+  ports:
+    - name: "riven"
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: riven
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: riven-frontend
+  name: riven-frontend
+spec:
+  ports:
+    - name: "riven-frontend"
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: riven-frontend
+---
+## StatefulSets
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: riven-db
+  name: riven-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riven-db
+  template:
+    metadata:
+      labels:
+        app: riven-db
+    spec:
+      containers:
+        - name: riven-db
+          image: postgres:17.0-alpine3.20
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: POSTGRES_DB
+              value: riven
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+              livenessProbe:
+                exec:
+                  command:
+                    - pg_isready -U postgres
+                failureThreshold: 5
+                periodSeconds: 10
+                timeoutSeconds: 5
+              volumeMounts:
+                - mountPath: /var/lib/postgresql/data/pgdata
+                  name: riven-db
+      restartPolicy: Always
+      volumes:
+        - name: riven-db
+          persistentVolumeClaim:
+            claimName: riven-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: riven
+  name: riven
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riven
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: riven
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: RIVEN_DATABASE_HOST
+              value: postgresql+psycopg2://postgres:postgres@riven-db/riven
+            - name: RIVEN_FORCE_ENV
+              value: "true"
+            - name: TZ
+              value: America/Detroit
+          image: spoked/riven:latest
+          livenessProbe:
+            exec:
+              command:
+                - curl -s http://localhost:8080 >/dev/null || exit 1
+            failureThreshold: 10
+            periodSeconds: 30
+            timeoutSeconds: 10
+          name: riven
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          tty: true
+          volumeMounts:
+            - mountPath: /riven/data
+              name: riven-config
+            - mountPath: /media/remote
+              name: riven-remotemedia
+            - mountPath: /media/local/movies
+              name: movies
+            - mountPath: /media/local/shows
+              name: shows
+      restartPolicy: Always
+      volumes:
+        - name: riven-config
+          persistentVolumeClaim:
+            claimName: riven-config
+        - name: riven-remotemedia
+          persistentVolumeClaim:
+            claimName: riven-remotemedia
+        - name: movies
+          nfs:
+            path: /mnt/pool1/media/movies
+            server: spielberg.farhoodliquor.dmz
+        - name: shows
+          nfs:
+            path: /mnt/pool2/media/shows
+            server: spielberg.farhoodliquor.dmz
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: riven-frontend
+  name: riven-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riven-frontend
+  template:
+    metadata:
+      labels:
+        app: riven-frontend
+    spec:
+      containers:
+        - env:
+            - name: BACKEND_URL
+              value: http://riven:8080
+            - name: DATABASE_URL
+              value: postgres://postgres:postgres@riven-db/riven
+            - name: DIALECT
+              value: postgres
+            - name: ORIGIN
+              value: https://riven.farhoodliquor.com
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: America/Detroit
+          image: spoked/riven-frontend:latest
+          name: riven-frontend
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          tty: true
+      restartPolicy: Always
+
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: riven-config
+  name: riven-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: riven-remotemedia-pv
+  labels:
+    name: riven-remotemedia
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  storageClassName: rclone
+  csi:
+    driver: csi-rclone
+    volumeHandle: data-id
+    volumeAttributes:
+      remote: "http"
+      remotePath: "/http/"
+      http-url: "http://zurg.mediaserver.k8s/http/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-remotemedia
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: riven-remotemedia

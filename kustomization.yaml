@@ -22,3 +22,4 @@ resources:
   - zurg.yaml
   - sealedsecret-openvpn-credentials.yaml
   - sealedsecret-zurg-config.yaml
+  - riven.yaml
