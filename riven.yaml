@@ -30,9 +30,9 @@ metadata:
   namespace: mediaserver
 spec:
   ports:
-    - name: "riven-db"
-      port: 5432
-      targetPort: 5432
+  - name: "riven-db"
+    port: 5432
+    targetPort: 5432
   selector:
     app: riven-db
 ---
