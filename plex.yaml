@@ -236,4 +236,4 @@ spec:
     volumeAttributes:
       remote: "http"
       remotePath: "/"
-      webdav-url: "http://zurg.mediaserver.k8s/http/"
+      http-url: "http://zurg.mediaserver.k8s/http/"
