@@ -169,7 +169,7 @@ spec:
             - mountPath: /media/local/movies
               name: movies
             - mountPath: /media/local/anime_movies
-              name: anime_movies
+              name: anime-movies
             - mountPath: /media/local/shows
               name: shows
       restartPolicy: Always
@@ -184,7 +184,7 @@ spec:
           nfs:
             path: /mnt/pool1/media/movies
             server: spielberg.farhoodliquor.dmz
-        - name: anime_movies
+        - name: anime-movies
           nfs:
             path: /mnt/pool1/media/anime_movies
             server: spielberg.farhoodliquor.dmz
