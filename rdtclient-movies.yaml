@@ -136,6 +136,6 @@ spec:
     driver: csi-rclone
     volumeHandle: data-id
     volumeAttributes:
-      remote: "webdav"
-      remotePath: "/"
-      webdav-url: "http://zurg.mediaserver.k8s/dav/"
+      remote: "http"
+      remotePath: "/http/"
+      http-url: "http://zurg.mediaserver.k8s/http/"

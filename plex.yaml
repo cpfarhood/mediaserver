@@ -235,5 +235,5 @@ spec:
     volumeHandle: data-id
     volumeAttributes:
       remote: "http"
-      remotePath: "/"
+      remotePath: "/http/"
       http-url: "http://zurg.mediaserver.k8s/http/"
