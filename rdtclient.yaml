@@ -3,19 +3,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: rdtclient-movies
+  name: rdtclient
   namespace: mediaserver
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: rdtclient-movies.mediaserver.k8s
+  - host: rdtclient.mediaserver.k8s
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name:  rdtclient-movies
+            name:  rdtclient
             port:
               number: 6500
               
@@ -25,17 +25,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-   name: rdtclient-movies
+   name: rdtclient
    namespace: mediaserver
    labels:
-     app: rdtclient-movies
+     app: rdtclient
 spec:
   type: ClusterIP
   #clusterIP: None
   ports:
   - port: 6500
   selector:
-    app: rdtclient-movies
+    app: rdtclient
 
 
 ## StatefulSet
@@ -43,21 +43,21 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: rdtclient-movies
+  name: rdtclient
   namespace: mediaserver
 spec:
   selector:
     matchLabels:
-      app: rdtclient-movies
-  serviceName: "rdtclient-movies"
+      app: rdtclient
+  serviceName: "rdtclient"
   replicas: 1
   template:
     metadata:
       labels:
-        app: rdtclient-movies
+        app: rdtclient
     spec:
       containers:
-      - name: rdtclient-movies
+      - name: rdtclient
         image: rogerfar/rdtclient:latest
         ports:
         - containerPort: 6500
@@ -65,7 +65,7 @@ spec:
         volumeMounts:
         - name: rdtclient-db
           mountPath: "/data/db"
-        - name: rdtclient-movies-remotemedia
+        - name: rdtclient-remotemedia
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/movies"
@@ -76,10 +76,10 @@ spec:
       volumes:
       - name: rdtclient-db
         persistentVolumeClaim:
-          claimName: rdtclient-movies-db
-      - name: rdtclient-movies-remotemedia
+          claimName: rdtclient-db
+      - name: rdtclient-remotemedia
         persistentVolumeClaim:
-          claimName: rdtclient-movies-remotemedia
+          claimName: rdtclient-remotemedia
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
@@ -92,10 +92,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rdtclient-movies-db
+  name: rdtclient-db
   namespace: mediaserver
   labels:
-    name: rdtclient-movies-db
+    name: rdtclient-db
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
@@ -108,7 +108,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rdtclient-movies-remotemedia
+  name: rdtclient-remotemedia
 spec:
   accessModes:
   - ReadWriteMany
@@ -118,14 +118,14 @@ spec:
   storageClassName: rclone
   selector:
     matchLabels:
-      name: rdtclient-movies-farhoodliquor-remotemedia
+      name: rdtclient-farhoodliquor-remotemedia
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: rdtclient-movies-farhoodliquor-remotemedia-pv
+  name: rdtclient-farhoodliquor-remotemedia-pv
   labels:
-    name: rdtclient-movies-farhoodliquor-remotemedia
+    name: rdtclient-farhoodliquor-remotemedia
 spec:
   accessModes:
   - ReadWriteMany
