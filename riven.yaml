@@ -172,6 +172,8 @@ spec:
               name: anime-movies
             - mountPath: /media/local/shows
               name: shows
+            - mountPath: /media/local/anime_shows
+              name: anime-shows
       restartPolicy: Always
       volumes:
         - name: riven-config
@@ -191,6 +193,10 @@ spec:
         - name: shows
           nfs:
             path: /mnt/pool2/media/shows
+            server: spielberg.farhoodliquor.dmz
+        - name: anime-shows
+          nfs:
+            path: /mnt/pool2/media/anime_shows
             server: spielberg.farhoodliquor.dmz
 ---
 apiVersion: apps/v1
