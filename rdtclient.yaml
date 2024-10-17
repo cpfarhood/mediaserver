@@ -19,16 +19,16 @@ spec:
             port:
               number: 6500
               
-              
+          
 ## Service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-   name: rdtclient
-   namespace: mediaserver
-   labels:
-     app: rdtclient
+  name: rdtclient
+  namespace: mediaserver
+  labels:
+    app: rdtclient
 spec:
   type: ClusterIP
   ports:
@@ -83,7 +83,6 @@ spec:
       - name: rdtclient-remotemedia
         persistentVolumeClaim:
           claimName: rdtclient-remotemedia
-
 
 
 ## Volumes
