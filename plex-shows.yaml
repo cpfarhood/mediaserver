@@ -1,0 +1,130 @@
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: plex-shows
+   namespace: mediaserver
+   labels:
+     app: plex-shows
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.106
+spec:
+  selector:
+    app: plex-shows
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 443
+    targetPort: 32400
+    name: http-32400
+---
+
+
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: plex-shows
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: plex-shows
+  serviceName: "plex-shows"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: plex-shows
+    spec:
+      containers:
+      - name: plex
+        image: docker.io/plexinc/pms-docker:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 32400
+          name: http-32400
+        env:
+        - name: TZ
+          value: America/Detroit
+        - name: VERSION
+          value: docker
+        - name: PLEX_CLAIM
+          value: claim-LxXyM8Yyb_JonQXRScBP
+#        - name: ADVERITSE_IP
+#          value: https://0.0.0.0:32400
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+        - name: zurg-remotemedia
+          mountPath: "/media/remote"
+        - name: movies
+          mountPath: "/media/local/movies"
+        - name: shows
+          mountPath: "/media/local/shows"
+        - name: transcode
+          mountPath: "/transcode"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "2000m"
+          limits:
+            gpu.intel.com/i915: 1
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: plex-config
+      - name: zurg-remotemedia
+        persistentVolumeClaim:
+          claimName: zurg-remotemedia
+      - name: transcode
+        persistentVolumeClaim:
+          claimName: transcode
+      - name: movies
+        nfs:
+          path: /mnt/pool1/media/movies
+          server: spielberg.farhoodliquor.dmz
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
+          server: spielberg.farhoodliquor.dmz
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+
+
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config
+  namespace: mediaserver
+  labels:
+    name: config
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transcode
+  namespace: mediaserver
+  labels:
+    name: transcode
+    kustomize.toolkit.fluxcd.io/prune: enabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-ephemeral
+  resources:
+    requests:
+      storage: 256Gi
+---
