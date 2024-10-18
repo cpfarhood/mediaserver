@@ -78,10 +78,10 @@ spec:
       - name: rdtclient-db
         persistentVolumeClaim:
           claimName: rdtclient-db
-        - name: library
-          nfs:
-            path: /mnt/pool0/media/library
-            server: spielberg.farhoodliquor.dmz
+      - name: library
+        nfs:
+          path: /mnt/pool0/media/library
+          server: spielberg.farhoodliquor.dmz
       - name: zurg-remotemedia
         persistentVolumeClaim:
           claimName: zurg-remotemedia
