@@ -31,7 +31,7 @@ metadata:
      app: rdtclient
 spec:
   type: ClusterIP
-  #clusterIP: None
+  clusterIP: None
   ports:
   - port: 6500
   selector:
