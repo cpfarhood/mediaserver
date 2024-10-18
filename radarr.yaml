@@ -78,28 +78,15 @@ spec:
       - name: radarr-config
         persistentVolumeClaim:
           claimName: radarr-config
-      - name: radarr-remotemedia
+      - name: zurg-remotemedia
         persistentVolumeClaim:
-          claimName: radarr-farhoodliquor-remotemedia
+          claimName: zurg-remotemedia
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
           server: spielberg.farhoodliquor.dmz
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: radarr-farhoodliquor-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: rclone
-  selector:
-    matchLabels:
-      name: radarr-farhoodliquor-remotemedia
+
 
 ## Volumes
 ---
@@ -119,22 +106,3 @@ spec:
     requests:
       storage: 8Gi
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-farhoodliquor-remotemedia-pv
-  labels:
-    name: radarr-farhoodliquor-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 10Gi
-  storageClassName: rclone
-  csi:
-    driver: csi-rclone
-    volumeHandle: data-id
-    volumeAttributes:
-      remote: "http"
-      remotePath: "/http/"
-      http-url: "http://zurg.mediaserver.k8s/http/"
