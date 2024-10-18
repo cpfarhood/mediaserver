@@ -70,6 +70,8 @@ spec:
           mountPath: /media/library
         - name: zurg-remotemedia
           mountPath: "/media/remote"
+        - name: shows
+          mountPath: "/media/local/shows"
         resources:
           requests:
             memory: "128Mi"
@@ -85,7 +87,10 @@ spec:
       - name: zurg-remotemedia
         persistentVolumeClaim:
           claimName: zurg-remotemedia
-
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
+          server: spielberg.farhoodliquor.dmz
 
 ## Volumes
 ---
