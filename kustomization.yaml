@@ -5,7 +5,6 @@ resources:
   - volumes.yaml
   #- clusterplex.yaml
   - plex.yaml
-  - plex-shows.yaml
   - tautulli.yaml
 #  - overseerr.yaml
 #  - jellyfin.yaml
