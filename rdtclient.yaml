@@ -33,8 +33,6 @@ spec:
   clusterIP: None
   ports:
   - port: 6500
-    targetPort: 6500
-    name: rdtclient
   selector:
     app: rdtclient
 
