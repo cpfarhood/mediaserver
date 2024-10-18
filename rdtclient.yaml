@@ -25,16 +25,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rdtclient
-  namespace: mediaserver
-  labels:
-    app: rdtclient
+   name: rdtclient
+   namespace: mediaserver
+   labels:
+     app: rdtclient
 spec:
-  clusterIP: None
+  type: ClusterIP
+  #clusterIP: None
   ports:
   - port: 6500
   selector:
     app: rdtclient
+
 
 
 ## StatefulSet
