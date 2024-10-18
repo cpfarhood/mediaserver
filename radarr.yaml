@@ -66,7 +66,7 @@ spec:
         volumeMounts:
         - name: radarr-config
           mountPath: "/config"
-        - name: radarr-remotemedia
+        - name: zurg-remotemedia
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
