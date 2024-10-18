@@ -52,7 +52,7 @@ spec:
         - name: VERSION
           value: docker
         - name: PLEX_CLAIM
-          value: claim-LxXyM8Yyb_JonQXRScBP
+          value: claim-nyYyEWCh-ArAFozjzmVq
 #        - name: ADVERITSE_IP
 #          value: https://0.0.0.0:32400
         volumeMounts:
