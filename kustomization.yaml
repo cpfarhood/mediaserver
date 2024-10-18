@@ -17,8 +17,8 @@ resources:
 #  - headphones.yaml
   - sabnzbd.yaml
   - transmission.yaml
-  - rdtclient.yaml
-#  - rdtclient-shows.yaml
+#  - rdtclient.yaml
+  - rdtclient-shows.yaml
   - zurg.yaml
   - sealedsecret-openvpn-credentials.yaml
   - sealedsecret-zurg-config.yaml
