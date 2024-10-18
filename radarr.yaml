@@ -66,6 +66,8 @@ spec:
         volumeMounts:
         - name: radarr-config
           mountPath: "/config"
+        - name: library
+          mountPath: /media/library
         - name: zurg-remotemedia
           mountPath: "/media/remote"
         - name: movies
@@ -81,6 +83,10 @@ spec:
       - name: zurg-remotemedia
         persistentVolumeClaim:
           claimName: zurg-remotemedia
+      - name: library
+        nfs:
+          path: /mnt/pool0/media/library
+          server: spielberg.farhoodliquor.dmz
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
