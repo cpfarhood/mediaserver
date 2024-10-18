@@ -68,7 +68,7 @@ spec:
           mountPath: "/data/db"
         - name: library
           mountPath: /media/library
-        - name: rdtclient-remotemedia
+        - name: zurg-remotemedia
           mountPath: "/media/remote"
         resources:
           requests:
@@ -82,9 +82,9 @@ spec:
           nfs:
             path: /mnt/pool0/media/library
             server: spielberg.farhoodliquor.dmz
-      - name: rdtclient-remotemedia
+      - name: zurg-remotemedia
         persistentVolumeClaim:
-          claimName: rdtclient-remotemedia
+          claimName: zurg-remotemedia
 
 
 ## Volumes
@@ -105,40 +105,3 @@ spec:
     requests:
       storage: 8Gi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: rdtclient-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: rclone
-  selector:
-    matchLabels:
-      name: rdtclient-farhoodliquor-remotemedia
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: rdtclient-farhoodliquor-remotemedia-pv
-  labels:
-    name: rdtclient-farhoodliquor-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 10Gi
-  storageClassName: rclone
-  csi:
-    driver: csi-rclone
-    volumeHandle: data-id
-    volumeAttributes:
-      remote: "http"
-      remotePath: "/http/"
-      http-url: "http://zurg.mediaserver.k8s/http/"
-      attr-timeout: "1h"
-      buffer-size: "4MiB"
-      vfs-disk-space-total-size: "10PiB"
