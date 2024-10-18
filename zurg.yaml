@@ -21,7 +21,7 @@ spec:
 ## StatefulSet
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: DaemonSet
 metadata:
   name: zurg
   namespace: mediaserver
@@ -29,20 +29,20 @@ spec:
   selector:
     matchLabels:
       app: zurg
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: <label-key>
-              operator: In
-              values:
-              - <label-value>
-          topologyKey: kubernetes.io/hostname
+#  affinity:
+#    podAntiAffinity:
+#      preferredDuringSchedulingIgnoredDuringExecution:
+#      - weight: 100
+#       podAffinityTerm:
+#          labelSelector:
+#           matchExpressions:
+#            - key: <label-key>
+#              operator: In
+#              values:
+#              - <label-value>
+#          topologyKey: kubernetes.io/hostname
   serviceName: "zurg"
-  replicas: 3
+#  replicas: 3
   template:
     metadata:
       labels:
@@ -67,20 +67,23 @@ spec:
             cpu: "100m"
       volumes:
       - name: zurg-data
-        persistentVolumeClaim:
-          claimName: zurg-data
+        emptyDir: 
+          medium: Memory
+          sizeLimit: 4Gi
+#        persistentVolumeClaim:
+#          claimName: zurg-data
       - name: zurg-config
         secret:
           secretName: zurg-config
           items:
           - key: config.yml
             path: config.yml
-  volumeClaimTemplates:
-  - metadata:
-      name: zurg-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "longhorn-ephemeral"
-      resources:
-        requests:
-          storage: 16Gi
+#  volumeClaimTemplates:
+#  - metadata:
+#      name: zurg-data
+#    spec:
+#      accessModes: [ "ReadWriteOnce" ]
+#      storageClassName: "longhorn-ephemeral"
+#      resources:
+#        requests:
+#          storage: 16Gi
