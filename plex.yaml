@@ -19,7 +19,7 @@ spec:
   - port: 443
     targetPort: 32400
     name: http-32400
-##
+---
 
 
 ## StatefulSet
@@ -59,7 +59,7 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
-        - name: plex-remotemedia
+        - name: zurg-remotemedia
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
@@ -77,9 +77,9 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-      - name: plex-remotemedia
+      - name: zurg-remotemedia
         persistentVolumeClaim:
-          claimName: plex-farhoodliquor-remotemedia
+          claimName: zurg-remotemedia
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode
@@ -129,111 +129,3 @@ spec:
     requests:
       storage: 256Gi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-farhoodliquor-movies
-  namespace: mediaserver
-  labels:
-    name: plex-farhoodliquor-movies
-    kustomize.toolkit.fluxcd.io/prune: enabled
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-farhoodliquor-shows
-  namespace: mediaserver
-  labels:
-    name: plex-farhoodliquor-shows
-    kustomize.toolkit.fluxcd.io/prune: enabled
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-farhoodliquor-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: rclone
-  selector:
-    matchLabels:
-      name: plex-farhoodliquor-remotemedia
-      
-## Volumes
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-farhoodliquor-movies-pv
-spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - soft
-    - rsize=32768
-    - wsize=32768
-  nfs:
-    path: /mnt/pool1/media/movies
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-farhoodliquor-shows-pv
-spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - soft
-    - rsize=32768
-    - wsize=32768
-  nfs:
-    path: /mnt/pool2/media/shows
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-farhoodliquor-remotemedia-pv
-  labels:
-    name: plex-farhoodliquor-remotemedia
-spec:
-  accessModes:
-  - ReadWriteMany
-  capacity:
-    storage: 10Gi
-  storageClassName: rclone
-  csi:
-    driver: csi-rclone
-    volumeHandle: data-id
-    volumeAttributes:
-      remote: "http"
-      remotePath: "/http/"
-      http-url: "http://zurg.mediaserver.k8s/http/"
