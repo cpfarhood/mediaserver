@@ -100,7 +100,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-#  storageClassName: rclone
+  storageClassName: nfs
   resources:
     requests:
       storage: 10Gi
@@ -115,7 +115,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-#  storageClassName: rclone
+  storageClassName: nfs
   resources:
     requests:
       storage: 10Gi
@@ -130,7 +130,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-#  storageClassName: rclone
+  storageClassName: nfs
   resources:
     requests:
       storage: 10Gi
@@ -144,8 +144,8 @@ metadata:
   name: mediaserver-remote
 spec:
   accessModes:
-  - ReadWriteMany
-#  storageClassName: rclone
+  - ReadOnlyMany
+  storageClassName: rclone
   resources:
     requests:
       storage: 10Gi
