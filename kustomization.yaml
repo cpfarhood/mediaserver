@@ -4,23 +4,23 @@ namespace: mediaserver
 resources:
   - volumes.yaml
   #- clusterplex.yaml
-  - plex.yaml
-  - plex-livetv.yaml
+#  - plex.yaml
+#  - plex-livetv.yaml
   - tautulli.yaml
   - overseerr.yaml
 #  - jellyfin.yaml
 #  - autobrr.yaml
   - prowlarr.yaml
-  - sonarr.yaml
-  - radarr.yaml
+#  - sonarr.yaml
+#  - radarr.yaml
 #  - lidarr.yaml
 #  - readarr.yaml
 #  - lazylibrarian.yaml
 #  - headphones.yaml
-  - sabnzbd.yaml
-  - transmission.yaml
-  - rdtclient.yaml
+#  - sabnzbd.yaml
+#  - transmission.yaml
+#  - rdtclient.yaml
   - zurg.yaml
   - sealedsecret-openvpn-credentials.yaml
   - sealedsecret-zurg-config.yaml
-  - riven.yaml
+#  - riven.yaml
