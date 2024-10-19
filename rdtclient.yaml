@@ -68,9 +68,11 @@ spec:
           mountPath: "/data/db"
         - name: library
           mountPath: /media/library
-        - name: mediaserver-remote
+        - name: remote
           mountPath: "/media/remote"
         - name: shows
+          mountPath: "/media/local/shows"
+        - name: movies
           mountPath: "/media/local/shows"
         resources:
           requests:
@@ -81,16 +83,18 @@ spec:
         persistentVolumeClaim:
           claimName: rdtclient-db
       - name: library
-        nfs:
-          path: /mnt/pool0/media/library
-          server: spielberg.farhoodliquor.dmz
-      - name: mediaserver-remote
+        persistentVolumeClaim:
+          claimName: mediaserver-library
+      - name: shows
+        persistentVolumeClaim:
+          claimName: mediaserver-shows
+      - name: movies
+        persistentVolumeClaim:
+          claimName: mediaserver-movies
+      - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
-      - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
-          server: spielberg.farhoodliquor.dmz
+
 
 ## Volumes
 ---
