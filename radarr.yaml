@@ -77,7 +77,7 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: radarr-config
+      - name: config
         persistentVolumeClaim:
           claimName: radarr-config
       - name: library
