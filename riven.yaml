@@ -8,17 +8,18 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: riven.mediaserver.k8s
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name:  riven-frontend
-            port:
-              number: 3000
-              
+    - host: riven.mediaserver.k8s
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: riven-frontend
+                port:
+                  number: 3000
+---
+
 ## Services
 ---
 apiVersion: v1
@@ -30,9 +31,9 @@ metadata:
   namespace: mediaserver
 spec:
   ports:
-  - name: "riven-db"
-    port: 5432
-    targetPort: 5432
+    - name: "riven-db"
+      port: 5432
+      targetPort: 5432
   selector:
     app: riven-db
 ---
@@ -66,6 +67,7 @@ spec:
   selector:
     app: riven-frontend
 ---
+
 
 ## StatefulSets
 ---
@@ -163,9 +165,9 @@ spec:
           tty: true
           volumeMounts:
             - mountPath: /riven/data
-              name: riven-config
+              name: config
             - mountPath: /media/remote
-              name: riven-remotemedia
+              name: remote
             - mountPath: /media/library
               name: library
             - mountPath: /media/local/movies
@@ -178,27 +180,24 @@ spec:
               name: anime-shows
       restartPolicy: Always
       volumes:
-        - name: riven-config
+        - name: config
           persistentVolumeClaim:
             claimName: riven-config
-        - name: riven-remotemedia
+        - name: remote
           persistentVolumeClaim:
-            claimName: riven-remotemedia
+            claimName: mediaserver-remote
         - name: library
-          nfs:
-            path: /mnt/pool0/media/library
-            server: spielberg.farhoodliquor.dmz
+          persistentVolumeClaim:
+            claimName: mediaserver-library
+        - name: shows
+          persistentVolumeClaim:
+            claimName: mediaserver-shows
         - name: movies
-          nfs:
-            path: /mnt/pool1/media/movies
-            server: spielberg.farhoodliquor.dmz
+          persistentVolumeClaim:
+            claimName: mediaserver-movies
         - name: anime-movies
           nfs:
             path: /mnt/pool1/media/anime_movies
-            server: spielberg.farhoodliquor.dmz
-        - name: shows
-          nfs:
-            path: /mnt/pool2/media/shows
             server: spielberg.farhoodliquor.dmz
         - name: anime-shows
           nfs:
@@ -245,7 +244,7 @@ spec:
               protocol: TCP
           tty: true
       restartPolicy: Always
-
+---
 ## Volume Claims
 ---
 apiVersion: v1
@@ -275,39 +274,5 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
 
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: riven-remotemedia-pv
-  labels:
-    name: riven-remotemedia
-spec:
-  accessModes:
-    - ReadWriteMany
-  capacity:
-    storage: 10Gi
-  storageClassName: rclone
-  csi:
-    driver: csi-rclone
-    volumeHandle: data-id
-    volumeAttributes:
-      remote: "http"
-      remotePath: "/http/"
-      http-url: "http://zurg.mediaserver.k8s/http/"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: riven-remotemedia
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: rclone
-  selector:
-    matchLabels:
-      name: riven-remotemedia
