@@ -56,9 +56,9 @@ spec:
         - name: ADVERITSE_IP
           value: https://65.43.40.106
         volumeMounts:
-        - name: plex-livetv-config
+        - name: config
           mountPath: "/config"
-        - name: plex-livetv-transcode
+        - name: transcode
           mountPath: "/transcode"
         - name: recordings
           mountPath: "/media/local/recordings"
@@ -69,10 +69,10 @@ spec:
           limits:
             gpu.intel.com/i915: 1
       volumes:
-      - name: plex-livetv-config
+      - name: config
         persistentVolumeClaim:
           claimName: plex-livetv-config
-      - name: plex-livetv-transcode
+      - name: transcode
         persistentVolumeClaim:
           claimName: plex-livetv-transcode
       - name: recordings
