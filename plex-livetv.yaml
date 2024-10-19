@@ -3,15 +3,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-   name: plex
+   name: plex-livetv
    namespace: mediaserver
    labels:
-     app: plex
+     app: plex-livetv
    annotations:
      metallb.universe.tf/loadBalancerIPs: 65.43.40.106
 spec:
   selector:
-    app: plex
+    app: plex-livetv
   type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
@@ -26,18 +26,18 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: plex
+  name: plex-livetv
   namespace: mediaserver
 spec:
   selector:
     matchLabels:
-      app: plex
-  serviceName: "plex"
+      app: plex-livetv
+  serviceName: "plex-livetv"
   replicas: 1
   template:
     metadata:
       labels:
-        app: plex
+        app: plex-livetv
     spec:
       containers:
       - name: plex
@@ -52,44 +52,27 @@ spec:
         - name: VERSION
           value: docker
         - name: PLEX_CLAIM
-          value: claim-sLPQHyQbVe5g8yGv4Nf-
+          value: claim-hYeQHHAdgzmQ45FV686q
 #        - name: ADVERITSE_IP
 #          value: https://0.0.0.0:32400
         volumeMounts:
-        - name: plex-config
+        - name: plex-livetv-config
           mountPath: "/config"
-        - name: zurg-remotemedia
-          mountPath: "/media/remote"
-        - name: movies
-          mountPath: "/media/local/movies"
-        - name: shows
-          mountPath: "/media/local/shows"
-        - name: plex-transcode
+        - name: plex-livetv-transcode
           mountPath: "/transcode"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "2000m"
+            memory: "1Gi"
+            cpu: "1000m"
           limits:
             gpu.intel.com/i915: 1
       volumes:
-      - name: plex-config
+      - name: plex-livetv-config
         persistentVolumeClaim:
-          claimName: plex-config
-      - name: zurg-remotemedia
+          claimName: plex-livetv-config
+      - name: plex-livetv-transcode
         persistentVolumeClaim:
-          claimName: zurg-remotemedia
-      - name: plex-transcode
-        persistentVolumeClaim:
-          claimName: plex-transcode
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
-      - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
-          server: spielberg.farhoodliquor.dmz
+          claimName: plex-livetv-transcode
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
 
@@ -99,10 +82,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-config
+  name: plex-livetv-config
   namespace: mediaserver
   labels:
-    name: plex-config
+    name: plex-livetv-config
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
@@ -115,10 +98,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-transcode
+  name: plex-livetv-transcode
   namespace: mediaserver
   labels:
-    name: plex-transcode
+    name: plex-livetv-transcode
     kustomize.toolkit.fluxcd.io/prune: enabled
 spec:
   accessModes:
