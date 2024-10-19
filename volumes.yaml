@@ -3,6 +3,28 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: mediaserver-library-pv
+  labels:
+    name: mediaserver-library
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool0/media/library
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: mediaserver-movies-pv
   labels:
     name: mediaserver-movies
@@ -92,6 +114,21 @@ spec:
 ---
 
 ## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-library
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-library
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

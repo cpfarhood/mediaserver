@@ -63,11 +63,11 @@ spec:
         - containerPort: 8989
           name: http-8989
         volumeMounts:
-        - name: sonarr-config
+        - name: config
           mountPath: "/config"
         - name: library
           mountPath: /media/library
-        - name: mediaserver-remote
+        - name: remote
           mountPath: "/media/remote"
         - name: shows
           mountPath: "/media/local/shows"
@@ -76,20 +76,18 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: sonarr-config
+      - name: config
         persistentVolumeClaim:
           claimName: sonarr-config
+      - name: library
+        persistentVolumeClaim:
+          claimName: mediaserver-library
+      - name: shows
+        persistentVolumeClaim:
+          claimName: mediaserver-shows
       - name: mediaserver-remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
-      - name: library
-        nfs:
-          path: /mnt/pool0/media/library
-          server: spielberg.farhoodliquor.dmz
-      - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
-          server: spielberg.farhoodliquor.dmz
 
 
 ## Volumes
