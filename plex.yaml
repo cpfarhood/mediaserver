@@ -56,15 +56,15 @@ spec:
 #        - name: ADVERITSE_IP
 #          value: https://0.0.0.0:32400
         volumeMounts:
-        - name: plex-config
+        - name: config
           mountPath: "/config"
-        - name: mediaserver-remote
+        - name: remote
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
         - name: shows
           mountPath: "/media/local/shows"
-        - name: plex-transcode
+        - name: transcode
           mountPath: "/transcode"
         resources:
           requests:
@@ -73,23 +73,21 @@ spec:
           limits:
             gpu.intel.com/i915: 1
       volumes:
-      - name: plex-config
+      - name: config
         persistentVolumeClaim:
           claimName: plex-config
-      - name: mediaserver-remote
-        persistentVolumeClaim:
-          claimName: mediaserver-remote
-      - name: plex-transcode
+      - name: transcode
         persistentVolumeClaim:
           claimName: plex-transcode
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
       - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
-          server: spielberg.farhoodliquor.dmz
+        persistentVolumeClaim:
+          claimName: mediaserver-shows
+      - name: movies
+        persistentVolumeClaim:
+          claimName: mediaserver-movies
+      - name: remote
+        persistentVolumeClaim:
+          claimName: mediaserver-remote
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
 
