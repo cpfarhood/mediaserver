@@ -60,6 +60,8 @@ spec:
           mountPath: "/config"
         - name: plex-livetv-transcode
           mountPath: "/transcode"
+        - name: shows
+          mountPath: "/media/local/shows"
         resources:
           requests:
             memory: "1Gi"
@@ -73,6 +75,10 @@ spec:
       - name: plex-livetv-transcode
         persistentVolumeClaim:
           claimName: plex-livetv-transcode
+      - name: shows
+        nfs:
+          path: /mnt/pool2/media/shows
+          server: spielberg.farhoodliquor.dmz
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
 
