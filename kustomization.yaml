@@ -5,7 +5,7 @@ resources:
   - volumes.yaml
   #- clusterplex.yaml
   - plex.yaml
-  - plex-livetv.yaml
+#  - plex-livetv.yaml
   - tautulli.yaml
   - overseerr.yaml
 #  - jellyfin.yaml
