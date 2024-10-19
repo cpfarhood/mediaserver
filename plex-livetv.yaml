@@ -52,9 +52,9 @@ spec:
         - name: VERSION
           value: docker
         - name: PLEX_CLAIM
-          value: claim-hjWN6s4NiXgNE-x7By9_
+          value: claim-s5ze8dETkas9PNJ9YkPk
         - name: ADVERITSE_IP
-          value: http://65.43.40.106:443
+          value: https://65.43.40.106
         volumeMounts:
         - name: plex-livetv-config
           mountPath: "/config"
