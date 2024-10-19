@@ -85,7 +85,7 @@ spec:
       - name: shows
         persistentVolumeClaim:
           claimName: mediaserver-shows
-      - name: mediaserver-remote
+      - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
 
