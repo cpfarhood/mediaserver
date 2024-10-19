@@ -4,7 +4,7 @@ namespace: mediaserver
 resources:
   - volumes.yaml
   #- clusterplex.yaml
-#  - plex.yaml
+  - plex.yaml
 #  - plex-livetv.yaml
   - tautulli.yaml
   - overseerr.yaml
