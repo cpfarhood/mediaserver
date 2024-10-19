@@ -73,7 +73,7 @@ spec:
         - name: shows
           mountPath: "/media/local/shows"
         - name: movies
-          mountPath: "/media/local/shows"
+          mountPath: "/media/local/movies"
         resources:
           requests:
             memory: "128Mi"
