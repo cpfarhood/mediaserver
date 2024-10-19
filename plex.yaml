@@ -58,7 +58,7 @@ spec:
         volumeMounts:
         - name: plex-config
           mountPath: "/config"
-        - name: zurg-remotemedia
+        - name: mediaserver-remote
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
@@ -76,9 +76,9 @@ spec:
       - name: plex-config
         persistentVolumeClaim:
           claimName: plex-config
-      - name: zurg-remotemedia
+      - name: mediaserver-remote
         persistentVolumeClaim:
-          claimName: zurg-remotemedia
+          claimName: mediaserver-remote
       - name: plex-transcode
         persistentVolumeClaim:
           claimName: plex-transcode

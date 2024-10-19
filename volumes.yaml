@@ -1,8 +1,11 @@
+## Physical Volumes
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-farhoodliquor-movies-pv
+  name: mediaserver-movies-pv
+  labels:
+    name: mediaserver-movies
 spec:
   capacity:
     storage: 10Gi
@@ -22,7 +25,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-farhoodliquor-shows-pv
+  name: mediaserver-shows-pv
+  labels:
+    name: mediaserver-shows
 spec:
   capacity:
     storage: 10Gi
@@ -40,29 +45,37 @@ spec:
     server: spielberg.farhoodliquor.dmz
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: zurg-remotemedia
+  name: mediaserver-recordings-pv
+  labels:
+    name: mediaserver-recordings
 spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
   accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: rclone
-  selector:
-    matchLabels:
-      name: zurg-remotemedia
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool2/media/recordings
+    server: spielberg.farhoodliquor.dmz
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: zurg-remotemedia-pv
+  name: mediaserver-remote-pv
   labels:
-    name: zurg-remotemedia
+    name: mediaserver-remote
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 10Gi
   storageClassName: rclone
@@ -76,3 +89,68 @@ spec:
       attr-timeout: "1h"
       buffer-size: "1MiB"
       vfs-disk-space-total-size: "10PiB"
+---
+
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-shows
+spec:
+  accessModes:
+  - ReadWriteMany
+#  storageClassName: rclone
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-shows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-movies
+spec:
+  accessModes:
+  - ReadWriteMany
+#  storageClassName: rclone
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-movies
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-recordings
+spec:
+  accessModes:
+  - ReadWriteMany
+#  storageClassName: rclone
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-recordings
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-remote
+spec:
+  accessModes:
+  - ReadWriteMany
+#  storageClassName: rclone
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-remote
+
+---

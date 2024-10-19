@@ -68,7 +68,7 @@ spec:
           mountPath: "/data/db"
         - name: library
           mountPath: /media/library
-        - name: zurg-remotemedia
+        - name: mediaserver-remote
           mountPath: "/media/remote"
         - name: shows
           mountPath: "/media/local/shows"
@@ -84,9 +84,9 @@ spec:
         nfs:
           path: /mnt/pool0/media/library
           server: spielberg.farhoodliquor.dmz
-      - name: zurg-remotemedia
+      - name: mediaserver-remote
         persistentVolumeClaim:
-          claimName: zurg-remotemedia
+          claimName: mediaserver-remote
       - name: shows
         nfs:
           path: /mnt/pool2/media/shows

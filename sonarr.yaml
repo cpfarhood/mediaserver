@@ -67,7 +67,7 @@ spec:
           mountPath: "/config"
         - name: library
           mountPath: /media/library
-        - name: zurg-remotemedia
+        - name: mediaserver-remote
           mountPath: "/media/remote"
         - name: shows
           mountPath: "/media/local/shows"
@@ -79,9 +79,9 @@ spec:
       - name: sonarr-config
         persistentVolumeClaim:
           claimName: sonarr-config
-      - name: zurg-remotemedia
+      - name: mediaserver-remote
         persistentVolumeClaim:
-          claimName: zurg-remotemedia
+          claimName: mediaserver-remote
       - name: library
         nfs:
           path: /mnt/pool0/media/library

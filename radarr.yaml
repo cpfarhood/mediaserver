@@ -68,7 +68,7 @@ spec:
           mountPath: "/config"
         - name: library
           mountPath: /media/library
-        - name: zurg-remotemedia
+        - name: mediaserver-remote
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
@@ -80,9 +80,9 @@ spec:
       - name: radarr-config
         persistentVolumeClaim:
           claimName: radarr-config
-      - name: zurg-remotemedia
+      - name: mediaserver-remote
         persistentVolumeClaim:
-          claimName: zurg-remotemedia
+          claimName: mediaserver-remote
       - name: library
         nfs:
           path: /mnt/pool0/media/library
