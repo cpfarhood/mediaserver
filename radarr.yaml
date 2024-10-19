@@ -64,11 +64,11 @@ spec:
         - containerPort: 7878
           name: http-7878
         volumeMounts:
-        - name: radarr-config
+        - name: config
           mountPath: "/config"
         - name: library
           mountPath: /media/library
-        - name: mediaserver-remote
+        - name: remote
           mountPath: "/media/remote"
         - name: movies
           mountPath: "/media/local/movies"
@@ -80,17 +80,15 @@ spec:
       - name: radarr-config
         persistentVolumeClaim:
           claimName: radarr-config
-      - name: mediaserver-remote
+      - name: library
+        persistentVolumeClaim:
+          claimName: mediaserver-library
+      - name: movies
+        persistentVolumeClaim:
+          claimName: mediaserver-movies
+      - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
-      - name: library
-        nfs:
-          path: /mnt/pool0/media/library
-          server: spielberg.farhoodliquor.dmz
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
 ---
 
 

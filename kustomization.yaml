@@ -2,25 +2,37 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: mediaserver
 resources:
+# Shared Volumes
   - volumes.yaml
-  #- clusterplex.yaml
-  - plex.yaml
-  - plex-livetv.yaml
-  - tautulli.yaml
-  - overseerr.yaml
-#  - jellyfin.yaml
-#  - autobrr.yaml
+  - sealedsecret-openvpn-credentials.yaml
+  - sealedsecret-zurg-config.yaml
+
+# Remote Media Service
+  - zurg.yaml
+
+# Indexers
   - prowlarr.yaml
   - sonarr.yaml
-#  - radarr.yaml
+  - radarr.yaml
 #  - lidarr.yaml
 #  - readarr.yaml
 #  - lazylibrarian.yaml
 #  - headphones.yaml
+#  - riven.yaml
+
+# Downloaders
 #  - sabnzbd.yaml
 #  - transmission.yaml
   - rdtclient.yaml
-  - zurg.yaml
-  - sealedsecret-openvpn-credentials.yaml
-  - sealedsecret-zurg-config.yaml
-#  - riven.yaml
+
+# Media Servers
+  #- clusterplex.yaml
+  - plex.yaml
+  - plex-livetv.yaml
+#  - jellyfin.yaml
+
+# Administrative
+  - tautulli.yaml
+  - overseerr.yaml
+#  - autobrr.yaml
+
