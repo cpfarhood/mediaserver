@@ -20,6 +20,7 @@ spec:
                   number: 3000
 ---
 
+
 ## Services
 ---
 apiVersion: v1
@@ -118,6 +119,10 @@ spec:
         - name: riven-db
           persistentVolumeClaim:
             claimName: riven-db
+---
+
+
+## Deployments
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -245,6 +250,8 @@ spec:
           tty: true
       restartPolicy: Always
 ---
+
+
 ## Volume Claims
 ---
 apiVersion: v1
@@ -252,6 +259,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: riven-db
   namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
     - ReadWriteOnce
@@ -263,10 +272,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    io.kompose.service: riven-config
   name: riven-config
   namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes:
     - ReadWriteOnce
