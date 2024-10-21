@@ -192,6 +192,21 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: mediaserver-anime-shows
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-shows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: mediaserver-movies
 spec:
   accessModes:
@@ -203,6 +218,21 @@ spec:
   selector:
     matchLabels:
       name: mediaserver-movies
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-anime-movies
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-movies
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
