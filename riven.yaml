@@ -119,17 +119,6 @@ spec:
         - name: riven-db
           persistentVolumeClaim:
             claimName: riven-db
-  volumeClaimTemplates:
-  - metadata:
-      name: riven-db
-      labels:
-        kustomize.toolkit.fluxcd.io/prune: disabled
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "longhorn-perpetual"
-      resources:
-        requests:
-          storage: 8Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -265,4 +254,38 @@ spec:
               protocol: TCP
           tty: true
       restartPolicy: Always
+---
+
+
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-db
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-config
+  namespace: mediaserver
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
 ---
