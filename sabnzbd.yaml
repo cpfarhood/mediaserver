@@ -89,17 +89,15 @@ spec:
       - name: sabnzbd-downloads
         persistentVolumeClaim:
           claimName: sabnzbd-downloads
+      - name: movies
+        persistentVolumeClaim:
+          claimName: mediaserver-movies
+      - name: shows
+        persistentVolumeClaim:
+          claimName: mediaserver-shows
       - name: downloads
         nfs:
           path: /mnt/pool0/downloads
-          server: spielberg.farhoodliquor.dmz
-      - name: movies
-        nfs:
-          path: /mnt/pool1/media/movies
-          server: spielberg.farhoodliquor.dmz
-      - name: shows
-        nfs:
-          path: /mnt/pool2/media/shows
           server: spielberg.farhoodliquor.dmz
 
 ## Volumes
