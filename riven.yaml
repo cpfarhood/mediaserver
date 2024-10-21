@@ -202,17 +202,9 @@ spec:
         - name: anime-movies
           persistentVolumeClaim:
             claimName: mediaserver-anime-movies
-  volumeClaimTemplates:
-  - metadata:
-      name: riven-config
-      labels:
-        kustomize.toolkit.fluxcd.io/prune: disabled
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "longhorn-perpetual"
-      resources:
-        requests:
-          storage: 8Gi
+---
+
+## Deployments
 ---
 apiVersion: apps/v1
 kind: Deployment
