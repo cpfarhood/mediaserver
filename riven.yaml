@@ -119,13 +119,20 @@ spec:
         - name: riven-db
           persistentVolumeClaim:
             claimName: riven-db
----
-
-
-## Deployments
+  volumeClaimTemplates:
+  - metadata:
+      name: riven-db
+      labels:
+        kustomize.toolkit.fluxcd.io/prune: disabled
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "longhorn-perpetual"
+      resources:
+        requests:
+          storage: 8Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: riven
@@ -200,14 +207,23 @@ spec:
         - name: movies
           persistentVolumeClaim:
             claimName: mediaserver-movies
-        - name: anime-movies
-          nfs:
-            path: /mnt/pool1/media/anime_movies
-            server: spielberg.farhoodliquor.dmz
         - name: anime-shows
-          nfs:
-            path: /mnt/pool2/media/anime_shows
-            server: spielberg.farhoodliquor.dmz
+          persistentVolumeClaim:
+            claimName: mediaserver-anime-shows
+        - name: anime-movies
+          persistentVolumeClaim:
+            claimName: mediaserver-anime-movies
+  volumeClaimTemplates:
+  - metadata:
+      name: riven-config
+      labels:
+        kustomize.toolkit.fluxcd.io/prune: disabled
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "longhorn-perpetual"
+      resources:
+        requests:
+          storage: 8Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -250,38 +266,3 @@ spec:
           tty: true
       restartPolicy: Always
 ---
-
-
-## Volume Claims
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: riven-db
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: riven-config
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
----
-

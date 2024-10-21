@@ -47,6 +47,28 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: mediaserver-anime-movies-pv
+  labels:
+    name: mediaserver-anime-movies
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool1/media/anime_movies
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: mediaserver-shows-pv
   labels:
     name: mediaserver-shows
@@ -64,6 +86,28 @@ spec:
     - wsize=32768
   nfs:
     path: /mnt/pool2/media/shows
+    server: spielberg.farhoodliquor.dmz
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediaserver-anime-shows-pv
+  labels:
+    name: mediaserver-anime-shows
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /mnt/pool2/media/anime_shows
     server: spielberg.farhoodliquor.dmz
 ---
 apiVersion: v1
