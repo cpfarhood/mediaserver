@@ -1,0 +1,86 @@
+
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: zurg-test
+   namespace: mediaserver
+   labels:
+     app: zurg-test
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 9999
+  selector:
+    app: zurg-test
+
+
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zurg-test
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: zurg-test
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+           matchExpressions:
+            - key: <label-key>
+              operator: In
+              values:
+              - <label-value>
+          topologyKey: kubernetes.io/hostname
+  serviceName: "zurg-test"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: zurg-test
+    spec:
+      containers:
+      - name: zurg
+        image: ghcr.io/debridmediamanager/zurg-testing:latest
+        ports:
+        - containerPort: 9999
+          name: http-9999
+        volumeMounts:
+        - name: zurg-data
+          mountPath: "/app/data"
+        - name: zurg-config
+          mountPath: /app/config.yml
+          subPath: config.yml
+          readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+      volumes:
+      - name: zurg-config
+        secret:
+          secretName: zurg-config
+          items:
+          - key: config.yml
+            path: config.yml
+  volumeClaimTemplates:
+  - metadata:
+      name: zurg-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: longhorn-perpetual
+      resources:
+        requests:
+          storage: 4Gi
+      selector:
+        matchLabels:
+          name: zurg-data
