@@ -71,7 +71,6 @@ spec:
             port: 9999
           initialDelaySeconds: 5       # Start probing after 1 minute (adjust as needed)
           periodSeconds: 5             # Check every 30 seconds
-          successThreshold: 1           # Ready when the probe succeeds once
           timeoutSeconds: 4            # Timeout after 10 seconds per attempt
         livenessProbe:
           httpGet:
@@ -80,7 +79,6 @@ spec:
           initialDelaySeconds: 60       # Start probing after 1 minute (adjust as needed)
           periodSeconds: 30             # Check every 30 seconds
           failureThreshold: 30          # After 30 checks (~15 minutes) fail the liveness check
-          successThreshold: 3           # Ready when the probe succeeds once
           timeoutSeconds: 10            # Timeout after 10 seconds per attempt
       volumes:
       - name: zurg-config
