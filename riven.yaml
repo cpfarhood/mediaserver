@@ -203,8 +203,6 @@ spec:
               name: config
             - mountPath: /media/remote
               name: remote
-            - mountPath: /media/library
-              name: library-old
             - mountPath: /media/local/movies
               name: movies-old
             - mountPath: /media/local/anime_movies

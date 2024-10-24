@@ -91,28 +91,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mediaserver-recordings-pv-old
-  labels:
-    name: mediaserver-recordings-old
-spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - soft
-    - rsize=32768
-    - wsize=32768
-  nfs:
-    path: /mnt/pool2/media/recordings
-    server: spielberg.farhoodliquor.dmz
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
   name: mediaserver-remote-pv
   labels:
     name: mediaserver-remote
@@ -188,21 +166,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-library-old
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
-  selector:
-    matchLabels:
-      name: mediaserver-library-old
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: mediaserver-shows-old
 spec:
   accessModes:
@@ -267,10 +230,10 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: nfs
+  storageClassName: longhorn-perpetual
   resources:
     requests:
-      storage: 10Gi
+      storage: 128Gi
   selector:
     matchLabels:
       name: mediaserver-recordings
