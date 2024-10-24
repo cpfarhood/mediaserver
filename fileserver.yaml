@@ -1,3 +1,22 @@
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fileserver-data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+  selector:
+    matchLabels:
+      name: fileserver-data
+---      
+      
+      
 ### Service
 ---
 apiVersion: v1
@@ -49,24 +68,9 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - name: movies
-          mountPath: /exports/movies
-        - name: shows
-          mountPath: /exports/shows
-        - name: anime-movies
-          mountPath: /exports/anime-movies
-        - name: anime-shows
-          mountPath: /exports/anime-shows
+        - name: data
+          mountPath: /exports
       volumes:
-        - name: shows
+        - name: data
           persistentVolumeClaim:
-            claimName: fileserver-shows
-        - name: movies
-          persistentVolumeClaim:
-            claimName: fileserver-movies
-        - name: anime-shows
-          persistentVolumeClaim:
-            claimName: fileserver-anime-shows
-        - name: anime-movies
-          persistentVolumeClaim:
-            claimName: fileserver-anime-movies
+            claimName: fileserver-data
