@@ -265,7 +265,7 @@ spec:
       storage: 10Gi
   selector:
     matchLabels:
-      name: mediaserver-anime-hows
+      name: mediaserver-anime-shows
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
