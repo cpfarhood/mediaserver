@@ -21,7 +21,7 @@ resources:
 #  - readarr.yaml
 #  - lazylibrarian.yaml
 #  - headphones.yaml
-#  - riven.yaml
+  - riven.yaml
 
 # Downloaders
 #  - sabnzbd.yaml
