@@ -7,9 +7,6 @@ resources:
   - sealedsecret-openvpn-credentials.yaml
   - sealedsecret-zurg-config.yaml
 
-# Local Media Library
-#  - fileserver.yaml
-
 # Remote Media Service
   - zurg.yaml
 

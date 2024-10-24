@@ -50,23 +50,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fileserver-data
-  labels:
-    name: fileserver-data
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
-  selector:
-    matchLabels:
-      name: fileserver-data
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: mediaserver-remote
 spec:
   accessModes: [ ReadOnlyMany ]

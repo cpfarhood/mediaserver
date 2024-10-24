@@ -113,6 +113,10 @@ spec:
               volumeMounts:
                 - mountPath: /var/lib/postgresql/data/pgdata
                   name: data
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "100m"
       restartPolicy: Always
       volumes:
       - name: data
@@ -158,6 +162,10 @@ spec:
           failureThreshold: 10
           periodSeconds: 30
           timeoutSeconds: 10
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "200m"
         ports:
         - containerPort: 8080
           protocol: TCP
