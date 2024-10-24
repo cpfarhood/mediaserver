@@ -165,3 +165,21 @@ spec:
   selector:
     matchLabels:
       name: plex-livetv-recordings
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prowlarr-config
+  namespace: mediaserver
+  labels:
+    name: prowlarr-config
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+  selector:
+    matchLabels:
+      name: prowlarr-config
