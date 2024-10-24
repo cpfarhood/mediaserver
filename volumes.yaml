@@ -50,6 +50,23 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: zurg-data
+  labels:
+    name: zurg-data
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 32Gi
+  selector:
+    matchLabels:
+     name: zurg-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: mediaserver-remote
 spec:
   accessModes: [ ReadOnlyMany ]
