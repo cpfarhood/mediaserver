@@ -234,9 +234,6 @@ spec:
   resources:
     requests:
       storage: 128Gi
-  selector:
-    matchLabels:
-      name: mediaserver-recordings
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
