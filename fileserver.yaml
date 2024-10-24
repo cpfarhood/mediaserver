@@ -6,6 +6,8 @@ metadata:
   name: fileserver
   namespace: mediaserver
 spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - name: nfs
     port: 2049
