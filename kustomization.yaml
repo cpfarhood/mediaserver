@@ -29,9 +29,9 @@ resources:
 #  - rdtclient.yaml
 
 # Media Servers
-  #- clusterplex.yaml
-  - plex.yaml
-  - plex-livetv.yaml
+#  - clusterplex.yaml
+#  - plex.yaml
+#  - plex-livetv.yaml
 #  - jellyfin.yaml
 
 # Administrative

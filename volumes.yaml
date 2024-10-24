@@ -93,3 +93,21 @@ spec:
     matchLabels:
       name: riven-config
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-config
+  namespace: mediaserver
+  labels:
+    name: plex-config
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+  selector:
+    matchLabels:
+      name: plex-config

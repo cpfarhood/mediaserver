@@ -81,8 +81,8 @@ spec:
         persistentVolumeClaim:
           claimName: plex-config
       - name: transcode
-        persistentVolumeClaim:
-          claimName: plex-transcode
+        emptyDir: 
+          sizeLimit: 128Gi
       - name: shows
         persistentVolumeClaim:
           claimName: mediaserver-shows-old
@@ -97,36 +97,3 @@ spec:
 
 
 ## Volume Claims
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-config
-  namespace: mediaserver
-  labels:
-    name: plex-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-transcode
-  namespace: mediaserver
-  labels:
-    name: plex-transcode
-    kustomize.toolkit.fluxcd.io/prune: enabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-ephemeral
-  resources:
-    requests:
-      storage: 256Gi
----
