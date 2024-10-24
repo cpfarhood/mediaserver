@@ -204,15 +204,15 @@ spec:
             - mountPath: /media/remote
               name: remote
             - mountPath: /media/library
-              name: library
+              name: library-old
             - mountPath: /media/local/movies
-              name: movies
+              name: movies-old
             - mountPath: /media/local/anime_movies
-              name: anime-movies
+              name: anime-movies-old
             - mountPath: /media/local/shows
-              name: shows
+              name: shows-old
             - mountPath: /media/local/anime_shows
-              name: anime-shows
+              name: anime-shows-old
       restartPolicy: Always
       volumes:
         - name: config
@@ -223,17 +223,32 @@ spec:
             claimName: mediaserver-remote
         - name: library
           persistentVolumeClaim:
-            claimName: mediaserver-library-old
+            claimName: mediaserver-library
         - name: shows
           persistentVolumeClaim:
-            claimName: mediaserver-shows-old
+            claimName: mediaserver-shows
         - name: movies
           persistentVolumeClaim:
-            claimName: mediaserver-movies-old
+            claimName: mediaserver-movies
         - name: anime-shows
           persistentVolumeClaim:
-            claimName: mediaserver-anime-shows-old
+            claimName: mediaserver-anime-shows
         - name: anime-movies
+          persistentVolumeClaim:
+            claimName: mediaserver-anime-movies
+        - name: library-old
+          persistentVolumeClaim:
+            claimName: mediaserver-library-old
+        - name: shows-old
+          persistentVolumeClaim:
+            claimName: mediaserver-shows-old
+        - name: movies-old
+          persistentVolumeClaim:
+            claimName: mediaserver-movies-old
+        - name: anime-shows-old
+          persistentVolumeClaim:
+            claimName: mediaserver-anime-shows-old
+        - name: anime-movies-old
           persistentVolumeClaim:
             claimName: mediaserver-anime-movies-old
 ---
