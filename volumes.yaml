@@ -118,11 +118,11 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-movies
+  name: fileserver-movies
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: longhorn-shared
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 128Gi
@@ -130,11 +130,11 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-shows
+  name: fileserver-shows
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: longhorn-shared
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 128Gi
@@ -142,11 +142,11 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-anime-movies
+  name: fileserver-anime-movies
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: longhorn-shared
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 128Gi
@@ -154,11 +154,11 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-anime-shows
+  name: fileserver-anime-shows
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: longhorn-shared
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 128Gi
