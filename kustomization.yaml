@@ -30,7 +30,7 @@ resources:
 
 # Media Servers
 #  - clusterplex.yaml
-#  - plex.yaml
+  - plex.yaml
 #  - plex-livetv.yaml
 #  - jellyfin.yaml
 

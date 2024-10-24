@@ -64,10 +64,8 @@ spec:
           mountPath: "/config"
         - name: remote
           mountPath: "/media/remote"
-        - name: movies
-          mountPath: "/media/local/movies"
-        - name: shows
-          mountPath: "/media/local/shows"
+        - name: local
+          mountPath: "/media/local"
         - name: transcode
           mountPath: "/transcode"
         resources:
@@ -83,17 +81,12 @@ spec:
       - name: transcode
         emptyDir: 
           sizeLimit: 128Gi
-      - name: shows
-        persistentVolumeClaim:
-          claimName: mediaserver-shows-old
-      - name: movies
-        persistentVolumeClaim:
-          claimName: mediaserver-movies-old
+      - name: local
+        nfs:
+          path: /exports
+          server: fileserver.mediaserver.k8s
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
-
-
-## Volume Claims
