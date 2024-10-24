@@ -41,9 +41,9 @@ spec:
   resources:
     requests:
       storage: 128Gi
-  selector:
-    matchLabels:
-      name: fileserver-data
+#  selector:
+#    matchLabels:
+#      name: fileserver-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -72,9 +72,9 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  selector:
-    matchLabels:
-      name: riven-db
+#  selector:
+#    matchLabels:
+#     name: riven-db
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -89,7 +89,7 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  selector:
-    matchLabels:
-      name: riven-config
+#  selector:
+#    matchLabels:
+#      name: riven-config
 ---
