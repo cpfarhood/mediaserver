@@ -16,7 +16,7 @@ spec:
   csi:
     driver: driver.longhorn.io
     fsType: ext4
-  volumeHandle: fileserver-data
+    volumeHandle: fileserver-data
 ---
 apiVersion: v1
 kind: PersistentVolume
