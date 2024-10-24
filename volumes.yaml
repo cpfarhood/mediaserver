@@ -9,14 +9,14 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  accessModes:
-    - ReadWriteOnce
+  volumeMode: Filesystem
+  accessModes: [ ReadWriteOnce ]
   persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn-perpetual
-  csi:
-    driver: driver.longhorn.io
-    fsType: ext4
-    volumeHandle: fileserver-data
+#  csi:
+#    driver: driver.longhorn.io
+#    fsType: ext4
+#    volumeHandle: fileserver-data
 ---
 apiVersion: v1
 kind: PersistentVolume
