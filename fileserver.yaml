@@ -51,10 +51,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /exports
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: fileserver-data
   volumeClaimTemplates:
   - metadata:
       name: data

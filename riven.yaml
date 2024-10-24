@@ -110,10 +110,10 @@ spec:
 ---
 
 
-## Deployments
+## StatefulSets
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: riven-db
@@ -152,12 +152,21 @@ spec:
                 timeoutSeconds: 5
               volumeMounts:
                 - mountPath: /var/lib/postgresql/data/pgdata
-                  name: riven-db
+                  name: data
       restartPolicy: Always
       volumes:
-        - name: riven-db
+        - name: data
           persistentVolumeClaim:
             claimName: riven-db
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "longhorn-perpetual"
+      resources:
+        requests:
+          storage: 128Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
