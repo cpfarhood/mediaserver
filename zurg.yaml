@@ -63,7 +63,7 @@ spec:
           readOnly: true
         resources:
           requests:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "100m"
       volumes:
       - name: zurg-data

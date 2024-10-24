@@ -72,7 +72,7 @@ spec:
           mountPath: "/app/config"
         resources:
           requests:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "100m"
       volumes:
       - name: overseerr-config

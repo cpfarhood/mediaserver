@@ -202,6 +202,7 @@ metadata:
   name: riven-frontend
   namespace: mediaserver
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: riven-frontend
