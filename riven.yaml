@@ -204,13 +204,13 @@ spec:
             - mountPath: /media/remote
               name: remote
             - mountPath: /media/local/movies
-              name: movies-old
+              name: movies
             - mountPath: /media/local/anime_movies
-              name: anime-movies-old
+              name: anime-movies
             - mountPath: /media/local/shows
-              name: shows-old
+              name: shows
             - mountPath: /media/local/anime_shows
-              name: anime-shows-old
+              name: anime-shows
       restartPolicy: Always
       volumes:
         - name: config
@@ -231,18 +231,6 @@ spec:
         - name: anime-movies
           persistentVolumeClaim:
             claimName: mediaserver-anime-movies
-        - name: shows-old
-          persistentVolumeClaim:
-            claimName: mediaserver-shows-old
-        - name: movies-old
-          persistentVolumeClaim:
-            claimName: mediaserver-movies-old
-        - name: anime-shows-old
-          persistentVolumeClaim:
-            claimName: mediaserver-anime-shows-old
-        - name: anime-movies-old
-          persistentVolumeClaim:
-            claimName: mediaserver-anime-movies-old
 ---
 
 
