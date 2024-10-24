@@ -33,7 +33,7 @@ spec:
     matchLabels:
       app: plex-livetv
   serviceName: "plex-livetv"
-  replicas: 0
+  replicas: 1
   template:
     metadata:
       labels:
