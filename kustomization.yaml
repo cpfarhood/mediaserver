@@ -21,9 +21,9 @@ resources:
   - riven.yaml
 
 # Downloaders
-  - sabnzbd.yaml
+#  - sabnzbd.yaml
 #  - transmission.yaml
-  - rdtclient.yaml
+#  - rdtclient.yaml
 
 # Media Servers
   #- clusterplex.yaml

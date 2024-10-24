@@ -8,19 +8,12 @@ metadata:
     name: mediaserver-library
 spec:
   capacity:
-    storage: 10Gi
+    storage: 128Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  mountOptions:
-    - soft
-    - rsize=32768
-    - wsize=32768
-  nfs:
-    path: /mnt/pool0/media/library
-    server: spielberg.farhoodliquor.dmz
+  storageClassName: longhorn-perpetual
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -28,6 +21,66 @@ metadata:
   name: mediaserver-movies-pv
   labels:
     name: mediaserver-movies
+spec:
+  capacity:
+    storage: 128Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn-perpetual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediaserver-shows-pv
+  labels:
+    name: mediaserver-shows
+spec:
+  capacity:
+    storage: 128Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn-perpetual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediaserver-anime-movies-pv
+  labels:
+    name: mediaserver-anime-movies
+spec:
+  capacity:
+    storage: 128Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn-perpetual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediaserver-anime-shows-pv
+  labels:
+    name: mediaserver-anime-shows
+spec:
+  capacity:
+    storage: 128Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn-perpetual
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediaserver-movies-pv-old
+  labels:
+    name: mediaserver-movies-old
 spec:
   capacity:
     storage: 10Gi
@@ -47,9 +100,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mediaserver-anime-movies-pv
+  name: mediaserver-anime-movies-pv-old
   labels:
-    name: mediaserver-anime-movies
+    name: mediaserver-anime-movies-old
 spec:
   capacity:
     storage: 10Gi
@@ -69,9 +122,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mediaserver-shows-pv
+  name: mediaserver-shows-pv-old
   labels:
-    name: mediaserver-shows
+    name: mediaserver-shows-old
 spec:
   capacity:
     storage: 10Gi
@@ -91,9 +144,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mediaserver-anime-shows-pv
+  name: mediaserver-anime-shows-pv-old
   labels:
-    name: mediaserver-anime-shows
+    name: mediaserver-anime-shows-old
 spec:
   capacity:
     storage: 10Gi
@@ -113,9 +166,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mediaserver-recordings-pv
+  name: mediaserver-recordings-pv-old
   labels:
-    name: mediaserver-recordings
+    name: mediaserver-recordings-old
 spec:
   capacity:
     storage: 10Gi
@@ -162,56 +215,11 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-library
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
-  selector:
-    matchLabels:
-      name: mediaserver-library
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mediaserver-shows
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
-  selector:
-    matchLabels:
-      name: mediaserver-shows
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mediaserver-anime-shows
-spec:
-  accessModes:
-  - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 10Gi
-  selector:
-    matchLabels:
-      name: mediaserver-anime-shows
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: mediaserver-movies
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: nfs
+  storageClassName: longhorn-perpetual
   resources:
     requests:
       storage: 10Gi
@@ -222,7 +230,52 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: mediaserver-shows
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-shows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: mediaserver-anime-movies
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-movies
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-anime-shows
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-hows
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-library-old
 spec:
   accessModes:
   - ReadWriteMany
@@ -232,7 +285,67 @@ spec:
       storage: 10Gi
   selector:
     matchLabels:
-      name: mediaserver-anime-movies
+      name: mediaserver-library-old
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-shows-old
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-shows-old
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-anime-shows-old
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-shows-old
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-movies-old
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-movies-old
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mediaserver-anime-movies-old
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      name: mediaserver-anime-movies-old
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
