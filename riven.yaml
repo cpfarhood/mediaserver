@@ -162,7 +162,7 @@ metadata:
   name: riven
   namespace: mediaserver
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: riven
@@ -203,14 +203,8 @@ spec:
               name: config
             - mountPath: /media/remote
               name: remote
-            - mountPath: /media/local/movies
-              name: movies
-            - mountPath: /media/local/anime_movies
-              name: anime-movies
-            - mountPath: /media/local/shows
-              name: shows
-            - mountPath: /media/local/anime_shows
-              name: anime-shows
+            - mountPath: /media/local
+              name: local
       restartPolicy: Always
       volumes:
         - name: config
@@ -219,18 +213,10 @@ spec:
         - name: remote
           persistentVolumeClaim:
             claimName: mediaserver-remote
-        - name: shows
-          persistentVolumeClaim:
-            claimName: mediaserver-shows
-        - name: movies
-          persistentVolumeClaim:
-            claimName: mediaserver-movies
-        - name: anime-shows
-          persistentVolumeClaim:
-            claimName: mediaserver-anime-shows
-        - name: anime-movies
-          persistentVolumeClaim:
-            claimName: mediaserver-anime-movies
+        - name: local
+          nfs:
+            path: /exports
+            server: fileserver.mediaserver.k8s
 ---
 
 
@@ -244,7 +230,7 @@ metadata:
   name: riven-frontend
   namespace: mediaserver
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: riven-frontend
