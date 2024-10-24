@@ -7,8 +7,8 @@ metadata:
   labels:
     name: fileserver-data
 spec:
-#  capacity:
-#    storage: 128Gi
+  capacity:
+    storage: 128Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
