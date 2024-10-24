@@ -5,8 +5,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: fileserver-data
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: [ ReadWriteOnce ]
   storageClassName: longhorn-perpetual
   resources:
     requests:
