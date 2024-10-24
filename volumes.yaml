@@ -52,10 +52,13 @@ spec:
   capacity:
     storage: 8Gi
   volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  accessModes: [ ReadWriteOnce ]
   persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn-perpetual
+  csi:
+    driver: driver.longhorn.io
+    fsType: ext4
+    volumeHandle: fileserver-data
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -67,10 +70,13 @@ spec:
   capacity:
     storage: 8Gi
   volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  accessModes: [ ReadWriteOnce ]
   persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn-perpetual
+  csi:
+    driver: driver.longhorn.io
+    fsType: ext4
+    volumeHandle: fileserver-data
 ---
 
 
