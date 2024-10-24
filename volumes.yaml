@@ -102,8 +102,7 @@ metadata:
     name: plex-config
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  accessModes:
-  - ReadWriteOnce
+  accessModes: [ ReadWriteOnce ]
   storageClassName: longhorn-perpetual
   resources:
     requests:
@@ -111,3 +110,21 @@ spec:
   selector:
     matchLabels:
       name: plex-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-livetv-config
+  namespace: mediaserver
+  labels:
+    name: plex-livetv-config
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+  selector:
+    matchLabels:
+      name: plex-livetv-config

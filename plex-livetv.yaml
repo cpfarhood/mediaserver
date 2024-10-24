@@ -77,8 +77,8 @@ spec:
         persistentVolumeClaim:
           claimName: plex-livetv-config
       - name: transcode
-        persistentVolumeClaim:
-          claimName: plex-livetv-transcode
+        emptyDir: 
+          sizeLimit: 128Gi
       - name: recordings
         persistentVolumeClaim:
           claimName: mediaserver-recordings
@@ -87,36 +87,4 @@ spec:
 
 
 ## Volume Claims
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-livetv-config
-  namespace: mediaserver
-  labels:
-    name: plex-livetv-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-livetv-transcode
-  namespace: mediaserver
-  labels:
-    name: plex-livetv-transcode
-    kustomize.toolkit.fluxcd.io/prune: enabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-ephemeral
-  resources:
-    requests:
-      storage: 256Gi
 ---
