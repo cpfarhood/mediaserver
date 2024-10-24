@@ -58,7 +58,7 @@ spec:
   csi:
     driver: driver.longhorn.io
     fsType: ext4
-    volumeHandle: fileserver-data
+    volumeHandle: riven-db
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -76,19 +76,35 @@ spec:
   csi:
     driver: driver.longhorn.io
     fsType: ext4
-    volumeHandle: fileserver-data
+    volumeHandle: riven-config
 ---
 
 
-## Volume Claims for RWX Volumes
+## Volume Claims
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fileserver-data
+  labels:
+    name: fileserver-data
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+  selector:
+    matchLabels:
+      name: fileserver-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mediaserver-remote
 spec:
-  accessModes:
-  - ReadOnlyMany
+  accessModes: [ ReadOnlyMany ]
   storageClassName: rclone
   resources:
     requests:
@@ -96,5 +112,38 @@ spec:
   selector:
     matchLabels:
       name: mediaserver-remote
-
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-db
+  labels:
+    name: riven-db
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+  selector:
+    matchLabels:
+      name: riven-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: riven-config
+  labels:
+    name: riven-config
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 8Gi
+  selector:
+    matchLabels:
+      name: riven-config
 ---
