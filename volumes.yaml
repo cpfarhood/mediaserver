@@ -121,7 +121,7 @@ metadata:
   name: fileserver-movies
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: longhorn-perpetual
   resources:
     requests:
@@ -133,7 +133,7 @@ metadata:
   name: fileserver-shows
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: longhorn-perpetual
   resources:
     requests:
@@ -145,7 +145,7 @@ metadata:
   name: fileserver-anime-movies
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: longhorn-perpetual
   resources:
     requests:
@@ -157,7 +157,7 @@ metadata:
   name: fileserver-anime-shows
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: longhorn-perpetual
   resources:
     requests:
