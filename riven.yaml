@@ -179,8 +179,8 @@ spec:
           claimName: mediaserver-remote
       - name: local
         nfs:
-          path: /exports
-          server: fileserver.mediaserver.k8s
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
 ---
 
 

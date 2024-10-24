@@ -83,8 +83,8 @@ spec:
           sizeLimit: 128Gi
       - name: local
         nfs:
-          path: /exports
-          server: fileserver.mediaserver.k8s
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
