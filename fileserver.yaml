@@ -60,3 +60,6 @@ spec:
       resources:
         requests:
           storage: 128Gi
+      selector:
+        matchLabels:
+          name: fileserver-data
