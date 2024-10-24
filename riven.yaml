@@ -116,7 +116,7 @@ spec:
           resources:
             requests:
               memory: "1Gi"
-              cpu: "100m"
+              cpu: "500m"
       restartPolicy: Always
       volumes:
       - name: data
@@ -165,7 +165,7 @@ spec:
         resources:
           requests:
             memory: "1Gi"
-            cpu: "200m"
+            cpu: "1000m"
         ports:
         - containerPort: 8080
           protocol: TCP
