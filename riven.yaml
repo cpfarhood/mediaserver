@@ -154,10 +154,6 @@ spec:
                 - mountPath: /var/lib/postgresql/data/pgdata
                   name: data
       restartPolicy: Always
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: riven-db
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -166,10 +162,10 @@ spec:
       storageClassName: "longhorn-perpetual"
       resources:
         requests:
-          storage: 128Gi
+          storage: 8Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: riven
@@ -213,16 +209,13 @@ spec:
           tty: true
           volumeMounts:
             - mountPath: /riven/data
-              name: config
+              name: data
             - mountPath: /media/remote
               name: remote
             - mountPath: /media/local
               name: local
       restartPolicy: Always
       volumes:
-        - name: config
-          persistentVolumeClaim:
-            claimName: riven-config
         - name: remote
           persistentVolumeClaim:
             claimName: mediaserver-remote
@@ -230,6 +223,19 @@ spec:
           nfs:
             path: /exports
             server: fileserver.mediaserver.k8s
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "longhorn-perpetual"
+      resources:
+        requests:
+          storage: 8Gi
+---
+
+
+## Deployments
 ---
 apiVersion: apps/v1
 kind: Deployment
