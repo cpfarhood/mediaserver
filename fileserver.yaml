@@ -53,15 +53,7 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /exports
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "longhorn-perpetual"
-      resources:
-        requests:
-          storage: 128Gi
-      selector:
-        matchLabels:
-          name: fileserver-data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: fileserver-data
