@@ -223,19 +223,19 @@ spec:
             claimName: mediaserver-remote
         - name: library
           persistentVolumeClaim:
-            claimName: mediaserver-library
+            claimName: mediaserver-library-old
         - name: shows
           persistentVolumeClaim:
-            claimName: mediaserver-shows
+            claimName: mediaserver-shows-old
         - name: movies
           persistentVolumeClaim:
-            claimName: mediaserver-movies
+            claimName: mediaserver-movies-old
         - name: anime-shows
           persistentVolumeClaim:
-            claimName: mediaserver-anime-shows
+            claimName: mediaserver-anime-shows-old
         - name: anime-movies
           persistentVolumeClaim:
-            claimName: mediaserver-anime-movies
+            claimName: mediaserver-anime-movies-old
 ---
 
 

@@ -85,10 +85,10 @@ spec:
           claimName: plex-transcode
       - name: shows
         persistentVolumeClaim:
-          claimName: mediaserver-shows
+          claimName: mediaserver-shows-old
       - name: movies
         persistentVolumeClaim:
-          claimName: mediaserver-movies
+          claimName: mediaserver-movies-old
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
