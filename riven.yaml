@@ -104,17 +104,16 @@ spec:
 ---
 
 
-## StatefulSets
+## Deployments
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   labels:
     app: riven-db
   name: riven-db
   namespace: mediaserver
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: riven-db
@@ -155,14 +154,13 @@ spec:
             claimName: riven-db
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   labels:
     app: riven
   name: riven
   namespace: mediaserver
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: riven
@@ -218,10 +216,6 @@ spec:
             path: /exports
             server: fileserver.mediaserver.k8s
 ---
-
-
-## Deployments
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -230,7 +224,6 @@ metadata:
   name: riven-frontend
   namespace: mediaserver
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: riven-frontend
