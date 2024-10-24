@@ -8,7 +8,7 @@ resources:
   - sealedsecret-zurg-config.yaml
 
 # Local Media Library
-  - fileserver.yaml
+#  - fileserver.yaml
 
 # Remote Media Service
   - zurg.yaml
@@ -21,7 +21,7 @@ resources:
 #  - readarr.yaml
 #  - lazylibrarian.yaml
 #  - headphones.yaml
-  - riven.yaml
+#  - riven.yaml
 
 # Downloaders
 #  - sabnzbd.yaml
