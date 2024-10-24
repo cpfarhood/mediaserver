@@ -66,16 +66,21 @@ spec:
             memory: "256Mi"
             cpu: "100m"
       volumes:
-      - name: zurg-data
-#        emptyDir: 
-#          medium: Memory
-#          sizeLimit: 4Gi
-        persistentVolumeClaim:
-          claimName: zurg-data
       - name: zurg-config
         secret:
           secretName: zurg-config
           items:
           - key: config.yml
             path: config.yml
-
+  volumeClaimTemplates:
+  - metadata:
+      name: zurg-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: longhorn-perpetual
+      resources:
+        requests:
+          storage: 32Gi
+      selector:
+        matchLabels:
+          name: zurg-data
