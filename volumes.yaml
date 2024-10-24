@@ -3,12 +3,32 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: mediaserver-local-pv
+  labels:
+    name: mediaserver-local
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes: [ ReadWriteMany ]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - soft
+    - rsize=32768
+    - wsize=32768
+  nfs:
+    path: /exports
+    server: fileserver.mediaserver.k8s
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: mediaserver-remote-pv
   labels:
     name: mediaserver-remote
 spec:
-  accessModes:
-  - ReadOnlyMany
+  accessModes: [ ReadOnlyMany ]
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 10Gi
@@ -23,9 +43,8 @@ spec:
       attr-timeout: "1h"
       buffer-size: "1MiB"
       vfs-disk-space-total-size: "10PiB"
+
 ---
-
-
 ## Volume Claims
 ---
 apiVersion: v1
@@ -128,3 +147,21 @@ spec:
   selector:
     matchLabels:
       name: plex-livetv-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-livetv-recordings
+  namespace: mediaserver
+  labels:
+    name: plex-livetv-recordings
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteOnce ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 128Gi
+  selector:
+    matchLabels:
+      name: plex-livetv-recordings

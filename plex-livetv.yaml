@@ -81,10 +81,6 @@ spec:
           sizeLimit: 128Gi
       - name: recordings
         persistentVolumeClaim:
-          claimName: mediaserver-recordings
+          claimName: plex-livetv-recordings
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
-
-
-## Volume Claims
----
