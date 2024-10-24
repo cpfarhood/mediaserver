@@ -162,7 +162,7 @@ metadata:
   name: riven
   namespace: mediaserver
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: riven
@@ -244,7 +244,7 @@ metadata:
   name: riven-frontend
   namespace: mediaserver
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: riven-frontend
