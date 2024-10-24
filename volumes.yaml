@@ -13,9 +13,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
+  csi:
+    driver: driver.longhorn.io
+    fsType: ext4
 ---
 apiVersion: v1
 kind: PersistentVolume
