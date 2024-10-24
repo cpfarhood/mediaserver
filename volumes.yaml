@@ -9,7 +9,6 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -24,7 +23,6 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -39,7 +37,6 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -54,7 +51,6 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -69,7 +65,6 @@ metadata:
 spec:
   capacity:
     storage: 128Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
