@@ -114,6 +114,10 @@ spec:
                 - mountPath: /var/lib/postgresql/data/pgdata
                   name: data
       restartPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -170,6 +174,10 @@ spec:
           - mountPath: /media/local
             name: local
       restartPolicy: Always
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
       volumes:
       - name: config
         persistentVolumeClaim:
@@ -224,5 +232,9 @@ spec:
             - containerPort: 3000
               protocol: TCP
           tty: true
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
       restartPolicy: Always
 ---

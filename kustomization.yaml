@@ -8,7 +8,7 @@ resources:
   - sealedsecret-zurg-config.yaml
 
 # Local Media Library
-  - fileserver.yaml
+#  - fileserver.yaml
 
 # Remote Media Service
   - zurg.yaml
