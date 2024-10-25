@@ -43,23 +43,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: riven-db
-  labels:
-    name: riven-db
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchLabels:
-     name: riven-db
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: riven-config
   labels:
     name: riven-config
