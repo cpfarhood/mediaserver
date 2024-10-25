@@ -155,6 +155,12 @@ spec:
         - name: TZ
           value: America/Detroit
         image: spoked/riven:latest
+        readinessProbe:
+          exec:
+            command:
+            - curl -s http://localhost:8080 >/dev/null || exit 1
+          periodSeconds: 30
+          timeoutSeconds: 10
         livenessProbe:
           exec:
             command:
@@ -166,6 +172,9 @@ spec:
           requests:
             memory: "1Gi"
             cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "4000m"
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -212,36 +221,42 @@ spec:
         app: riven-frontend
     spec:
       containers:
-        - env:
-            - name: BACKEND_URL
-              value: http://riven:8080
-            - name: DATABASE_URL
-              value: postgres://postgres:postgres@riven-db/riven
-            - name: DIALECT
-              value: postgres
-            - name: ORIGIN
-              value: http://riven.mediaserver.k8s
-            - name: PGID
-              value: "1000"
-            - name: PUID
-              value: "1000"
-            - name: TZ
-              value: America/Detroit
-          image: spoked/riven-frontend:latest
-          name: riven-frontend
-          ports:
-            - name: riven-frontend-http
-              containerPort: 3000
-              protocol: TCP
-          tty: true
-          readinessProbe:                # Check that the http server is responding to ensure the container is up
-            httpGet:
-              path: /
-              port: riven-frontend-http
-          livelinessProbe:
-            httpGet:
-              path: /
-              port: riven-frontend-http
-              failureThreshold: 5
+      - name: riven-frontend
+        env:
+        - name: BACKEND_URL
+          value: http://riven:8080
+        - name: DATABASE_URL
+          value: postgres://postgres:postgres@riven-db/riven
+        - name: DIALECT
+          value: postgres
+        - name: ORIGIN
+          value: http://riven.mediaserver.k8s
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America/Detroit
+        image: spoked/riven-frontend:latest
+        ports:
+        - name: riven-frontend-http
+          containerPort: 3000
+          protocol: TCP
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        readinessProbe:                # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: riven-frontend-http
+        livelinessProbe:
+          httpGet:
+            path: /
+            port: riven-frontend-http
+            failureThreshold: 5
       restartPolicy: Always
 ---
