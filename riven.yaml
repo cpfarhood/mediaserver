@@ -168,19 +168,25 @@ spec:
               value: America/Detroit
           image: spoked/riven:latest
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "curl -s http://localhost:8080 >/dev/null || exit 1"
+            httpGet:
+              path: /
+              port: backend-http
+#            exec:
+#              command:
+#                - sh
+#                - -c
+#                - "curl -s http://localhost:8080 >/dev/null || exit 1"
             periodSeconds: 30
             timeoutSeconds: 10
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "curl -s http://localhost:8080 >/dev/null || exit 1"
+            httpGet:
+              path: /
+              port: backend-http
+#            exec:
+#              command:
+#                - sh
+#                - -c
+#                - "curl -s http://localhost:8080 >/dev/null || exit 1"
             failureThreshold: 10
             periodSeconds: 30
             timeoutSeconds: 10
@@ -192,9 +198,8 @@ spec:
               memory: "4Gi"
               cpu: "4000m"
           ports:
-            - containerPort: 8080
-              protocol: TCP
-          tty: true
+            - name: backend-http
+              containerPort: 8080
           volumeMounts:
             - mountPath: /riven/data
               name: config
