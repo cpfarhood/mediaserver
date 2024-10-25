@@ -38,7 +38,7 @@ spec:
       - name: tinymediamanager
         image: tinymediamanager/tinymediamanager:latest
         ports:
-        - name: tinymediamanager-http
+        - name: http-4000
           containerPort: 4000
         volumeMounts:
         - name: data
@@ -55,11 +55,11 @@ spec:
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /
-            port: tinymediamanager-http
+            port: http-4000
         livenessProbe:                 # Check that the chose torrent is available to ensure the container is serving data
           httpGet:
             path: /
-            port: tinymediamanager-http
+            port: http-4000
           failureThreshold: 5         # 90 intervals * 10 seconds = 15 minutes seed time from Debrid
       volumes:
       - name: data
