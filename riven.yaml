@@ -244,7 +244,7 @@ spec:
             - name: TZ
               value: America/Detroit
           ports:
-            - name: riven-frontend-http
+            - name: frontend-http
               containerPort: 3000
           resources:
             requests:
@@ -256,10 +256,10 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: riven-frontend-http
+              port: frontend-http
           livenessProbe:
             httpGet:
               path: /
-              port: riven-frontend-http
+              port: frontend-http
               failureThreshold: 5
 ---
