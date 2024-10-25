@@ -230,10 +230,8 @@ spec:
           image: spoked/riven-frontend:latest
           name: riven-frontend
           ports:
-            - name: riven-frontend-http
-              containerPort: 3000
-              protocol: TCP
-          tty: true
+          - name: riven-frontend
+            containerPort: 3000
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /
