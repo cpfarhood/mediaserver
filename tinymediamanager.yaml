@@ -1,0 +1,83 @@
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: tinymediamanager
+   namespace: mediaserver
+   labels:
+     app: tinymediamanager
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 4000
+  selector:
+    app: tinymediamanager
+
+
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinymediamanager
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app: tinymediamanager
+  serviceName: "tinymediamanager"
+  template:
+    metadata:
+      labels:
+        app: tinymediamanager
+    spec:
+      containers:
+      - name: tinymediamanager
+        image: tinymediamanager/tinymediamanager:latest
+        ports:
+        - name: tinymediamanager-http
+          containerPort: 4000
+        volumeMounts:
+        - name: data
+          mountPath: "/data"
+        - name: local
+          mountPath: "/media"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        readinessProbe:                # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: tinymediamanager-http
+        livenessProbe:                 # Check that the chose torrent is available to ensure the container is serving data
+          httpGet:
+            path: /
+            port: tinymediamanager-http
+          failureThreshold: 5         # 90 intervals * 10 seconds = 15 minutes seed time from Debrid
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: tinymediamanager-data
+      - name: local
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
+  volumeClaimTemplates:
+  - metadata:
+      name: tinymediamanager-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: longhorn-perpetual
+      resources:
+        requests:
+          storage: 8Gi
+      selector:
+        matchLabels:
+          name: tinymediamanager-data
