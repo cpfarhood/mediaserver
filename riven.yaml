@@ -99,6 +99,16 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
+            - name: POSTGRES_SHARED_BUFFERS
+              value: "512MB"                # 25% of 2GB
+            - name: POSTGRES_WORK_MEM
+              value: "4MB"                  # Low per-connection memory
+            - name: POSTGRES_MAINTENANCE_WORK_MEM
+              value: "128MB"                # Maintenance tasks like VACUUM
+            - name: POSTGRES_MAX_CONNECTIONS
+              value: "50"                   # Limited connections to prevent memory overuse
+            - name: POSTGRES_EFFECTIVE_CACHE_SIZE
+              value: "1.5GB"                # Around 75% of total memory
           livenessProbe:
             exec:
               command:
