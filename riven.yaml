@@ -220,8 +220,10 @@ spec:
       labels:
         app: riven-frontend
     spec:
+      restartPolicy: Always
       containers:
       - name: riven-frontend
+        image: spoked/riven-frontend:latest
         env:
         - name: BACKEND_URL
           value: http://riven:8080
@@ -237,11 +239,9 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Detroit
-        image: spoked/riven-frontend:latest
         ports:
-        - name: "riven-frontend-http"
+        - name: riven-frontend-http
           containerPort: 3000
-          protocol: TCP
         resources:
           requests:
             memory: "100Mi"
@@ -258,5 +258,4 @@ spec:
             path: /
             port: riven-frontend-http
             failureThreshold: 5
-      restartPolicy: Always
 ---
