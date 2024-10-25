@@ -65,6 +65,9 @@ spec:
           requests:
             memory: "256Mi"
             cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /
@@ -73,7 +76,7 @@ spec:
           httpGet:
             path: /http/__unplayable__/ubuntu-24.04.1-live-server-amd64.iso/
             port: zurg-http
-          failureThreshold: 90        # 90 intervals * 10 seconds = 15 minutes
+          failureThreshold: 90         # 90 intervals * 10 seconds = 15 minutes seed time from Debrid
       volumes:
       - name: zurg-config
         secret:

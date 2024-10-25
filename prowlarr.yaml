@@ -73,6 +73,11 @@ spec:
           httpGet:
             path: /
             port: prowlarr-http
+        livelinessProbe:               # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: prowlarr-http
+            failureThreshold: 5
       volumes:
       - name: prowlarr-config
         persistentVolumeClaim:
