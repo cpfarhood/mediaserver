@@ -18,6 +18,8 @@ spec:
                 name: riven-frontend
                 port:
                   number: 3000
+---
+
 
 ## Services
 ---
@@ -65,6 +67,8 @@ spec:
       targetPort: 3000
   selector:
     app: riven-frontend
+---
+
 
 ## StatefulSets
 ---
@@ -99,31 +103,25 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
-          livenessProbe:
-            exec:
-              command:
-                - pg_isready
-                - "-U"
-                - postgres
-            failureThreshold: 5
-            periodSeconds: 10
-            timeoutSeconds: 5
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data/pgdata
-              name: data
+              livenessProbe:
+                exec:
+                  command:
+                    - pg_isready -U postgres
+                failureThreshold: 5
+                periodSeconds: 10
+                timeoutSeconds: 5
+              volumeMounts:
+                - mountPath: /var/lib/postgresql/data/pgdata
+                  name: data
           resources:
             requests:
               memory: "1Gi"
               cpu: "500m"
       restartPolicy: Always
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 10Gi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: riven-db
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -144,66 +142,55 @@ spec:
         app: riven
     spec:
       containers:
-        - name: riven
-          env:
-            - name: PGID
-              value: "911"
-            - name: PUID
-              value: "911"
-            - name: RIVEN_DATABASE_HOST
-              value: postgresql+psycopg2://postgres:postgres@riven-db/riven
-            - name: RIVEN_FORCE_ENV
-              value: "true"
-            - name: TZ
-              value: America/Detroit
-          image: spoked/riven:latest
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "curl -s http://localhost:8080 >/dev/null || exit 1"
-            periodSeconds: 30
-            timeoutSeconds: 10
-          livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "curl -s http://localhost:8080 >/dev/null || exit 1"
-            failureThreshold: 10
-            periodSeconds: 30
-            timeoutSeconds: 10
-          resources:
-            requests:
-              memory: "1Gi"
-              cpu: "1000m"
-            limits:
-              memory: "4Gi"
-              cpu: "4000m"
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-          tty: true
-          volumeMounts:
-            - mountPath: /riven/data
-              name: config
-            - mountPath: /media/remote
-              name: remote
-            - mountPath: /media/local
-              name: local
+      - name: riven
+        env:
+        - name: PGID
+          value: "911"
+        - name: PUID
+          value: "911"
+        - name: RIVEN_DATABASE_HOST
+          value: postgresql+psycopg2://postgres:postgres@riven-db/riven
+        - name: RIVEN_FORCE_ENV
+          value: "true"
+        - name: TZ
+          value: America/Detroit
+        image: spoked/riven:latest
+        livenessProbe:
+          exec:
+            command:
+            - curl -s http://localhost:8080 >/dev/null || exit 1
+          failureThreshold: 10
+          periodSeconds: 30
+          timeoutSeconds: 10
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        tty: true
+        volumeMounts:
+          - mountPath: /riven/data
+            name: config
+          - mountPath: /media/remote
+            name: remote
+          - mountPath: /media/local
+            name: local
       restartPolicy: Always
       volumes:
-        - name: config
-          persistentVolumeClaim:
-            claimName: riven-config
-        - name: remote
-          persistentVolumeClaim:
-            claimName: mediaserver-remote
-        - name: local
-          nfs:
-            path: /mnt/pool0/media
-            server: spielberg.farhoodliquor.dmz
+      - name: config
+        persistentVolumeClaim:
+          claimName: riven-config
+      - name: remote
+        persistentVolumeClaim:
+          claimName: mediaserver-remote
+      - name: local
+        nfs:
+          path: /mnt/pool0/media
+          server: spielberg.farhoodliquor.dmz
+---
+
 
 ## Deployments
 ---
@@ -224,11 +211,8 @@ spec:
       labels:
         app: riven-frontend
     spec:
-      restartPolicy: Always
       containers:
-        - name: riven-frontend
-          image: spoked/riven-frontend:latest
-          env:
+        - env:
             - name: BACKEND_URL
               value: http://riven:8080
             - name: DATABASE_URL
@@ -243,23 +227,16 @@ spec:
               value: "1000"
             - name: TZ
               value: America/Detroit
+          image: spoked/riven-frontend:latest
+          name: riven-frontend
           ports:
-            - name: frontend-http
+            - name: riven-frontend-http
               containerPort: 3000
-          resources:
-            requests:
-              memory: "100Mi"
-              cpu: "100m"
-            limits:
-              memory: "2Gi"
-              cpu: "2000m"
-          readinessProbe:
-            httpGet:
-              path: /
-              port: frontend-http
-          livenessProbe:
-            httpGet:
-              path: /
-              port: frontend-http
-              failureThreshold: 5
+              protocol: TCP
+          tty: true
+        readinessProbe:                # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: riven-frontend-http
+      restartPolicy: Always
 ---
