@@ -234,14 +234,14 @@ spec:
               containerPort: 3000
               protocol: TCP
           tty: true
-        readinessProbe:                # Check that the http server is responding to ensure the container is up
-          httpGet:
-            path: /
-            port: riven-frontend-http
-        livelinessProbe:
-          httpGet:
-            path: /
-            port: riven-frontend-http
-            failureThreshold: 5
+          readinessProbe:                # Check that the http server is responding to ensure the container is up
+            httpGet:
+              path: /
+              port: riven-frontend-http
+          livelinessProbe:
+            httpGet:
+              path: /
+              port: riven-frontend-http
+              failureThreshold: 5
       restartPolicy: Always
 ---
