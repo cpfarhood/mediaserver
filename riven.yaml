@@ -109,7 +109,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data/pgdata
+            - mountPath: /var/lib/postgresql/data
               name: data
           resources:
             requests:
