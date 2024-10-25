@@ -9,7 +9,6 @@ resources:
 
 # Remote Media Service
   - zurg.yaml
-  - zurg-test.yaml
 
 # Indexers
   - prowlarr.yaml
