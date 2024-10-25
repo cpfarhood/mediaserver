@@ -92,7 +92,7 @@ spec:
               protocol: TCP
           env:
             - name: PGDATA
-              value: /pgdata
+              value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_DB
               value: riven
             - name: POSTGRES_PASSWORD
@@ -109,7 +109,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
           volumeMounts:
-            - mountPath: /pgdata
+            - mountPath: /var/lib/postgresql
               name: data
           resources:
             requests:
