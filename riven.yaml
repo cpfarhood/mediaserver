@@ -239,7 +239,7 @@ spec:
           value: America/Detroit
         image: spoked/riven-frontend:latest
         ports:
-        - name: riven-frontend-http
+        - name: "riven-frontend-http"
           containerPort: 3000
           protocol: TCP
         resources:
