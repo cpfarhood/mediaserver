@@ -47,6 +47,11 @@ spec:
           mountPath: "/media/local/"
         - name: remote
           mountPath: "/media/remote/"
+        env:
+        - name: "USER_ID"
+          value: "911"
+        - name: "GROUP_ID"
+          value: "911"
         resources:
           requests:
             memory: "256Mi"
