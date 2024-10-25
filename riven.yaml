@@ -238,5 +238,10 @@ spec:
           httpGet:
             path: /
             port: riven-frontend-http
+        livelinessProbe:
+          httpGet:
+            path: /
+            port: riven-frontend-http
+            failureThreshold: 5
       restartPolicy: Always
 ---
