@@ -48,10 +48,10 @@ spec:
         resources:
           requests:
             memory: "256Mi"
-            cpu: "100m"
+            cpu: "200m"
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "2Gi"
+            cpu: "2000"
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /
