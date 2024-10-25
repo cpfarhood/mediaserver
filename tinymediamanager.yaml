@@ -54,8 +54,8 @@ spec:
           value: "911"
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "1Gi"
+            cpu: "500m"
           limits:
             memory: "4Gi"
             cpu: "2000m"
@@ -67,7 +67,7 @@ spec:
           httpGet:
             path: /
             port: http-4000
-          failureThreshold: 5         # 90 intervals * 10 seconds = 15 minutes seed time from Debrid
+          failureThreshold: 6
       volumes:
       - name: data
         persistentVolumeClaim:
