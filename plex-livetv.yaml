@@ -71,6 +71,8 @@ spec:
             memory: "1Gi"
             cpu: "1000m"
           limits:
+            memory: "2Gi"
+            cpu: "3000m"
             gpu.intel.com/i915: 1
       volumes:
       - name: config
