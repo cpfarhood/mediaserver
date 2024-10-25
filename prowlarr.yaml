@@ -60,8 +60,8 @@ spec:
       - name: prowlarr
         image: lscr.io/linuxserver/prowlarr:latest
         ports:
-        - containerPort: 9696
-          name: http-9696
+        - name: prowlarr-http
+          containerPort: 9696
         volumeMounts:
         - name: prowlarr-config
           mountPath: "/config"
@@ -69,6 +69,10 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "100m"
+        readinessProbe:                # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: prowlarr-http
       volumes:
       - name: prowlarr-config
         persistentVolumeClaim:
