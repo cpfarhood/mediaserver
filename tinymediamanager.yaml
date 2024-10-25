@@ -44,14 +44,16 @@ spec:
         - name: data
           mountPath: "/data"
         - name: local
-          mountPath: "/media"
+          mountPath: "/media/local/"
+        - name: remote
+          mountPath: "/media/remote/"
         resources:
           requests:
             memory: "256Mi"
             cpu: "200m"
           limits:
             memory: "2Gi"
-            cpu: "2000"
+            cpu: "2000m"
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /
@@ -69,3 +71,6 @@ spec:
         nfs:
           path: /mnt/pool0/media
           server: spielberg.farhoodliquor.dmz
+      - name: remote
+        persistentVolumeClaim:
+          claimName: mediaserver-remote
