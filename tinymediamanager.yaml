@@ -69,15 +69,3 @@ spec:
         nfs:
           path: /mnt/pool0/media
           server: spielberg.farhoodliquor.dmz
-  volumeClaimTemplates:
-  - metadata:
-      name: tinymediamanager-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: longhorn-perpetual
-      resources:
-        requests:
-          storage: 8Gi
-      selector:
-        matchLabels:
-          name: tinymediamanager-data
