@@ -42,7 +42,7 @@ spec:
       containers:
       - name: plex
         image: docker.io/plexinc/pms-docker:plexpass
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 32400
           name: http-32400
@@ -77,12 +77,14 @@ spec:
             cpu: "6000m"
             gpu.intel.com/i915: 1
         readinessProbe:                # Check that the http server is responding to ensure the container is up
-          httpGet:
-            path: /
+        #  httpGet:
+        #    path: /
+          tcpSocket:
             port: http-32400
         livelinessProbe:               # Check that the http server is responding to ensure the container is up
-          httpGet:
-            path: /
+        #  httpGet:
+        #    path: /
+          tcpSocket:
             port: http-32400
             failureThreshold: 6
       volumes:
