@@ -75,7 +75,7 @@ spec:
       - name: local
         nfs:
           path: /mnt/pool0/media
-          server: spielberg.farhoodliquor.dmz
+          server: truenas.farhoodliquor.dmz
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote

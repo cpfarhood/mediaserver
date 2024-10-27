@@ -169,4 +169,4 @@ spec:
   - wsize=32768
   nfs:
     path: /mnt/pool0/media/
-    server: spielberg.farhoodliquor.dmz
+    server: truenas.farhoodliquor.dmz

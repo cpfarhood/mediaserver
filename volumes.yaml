@@ -20,7 +20,12 @@ spec:
       remotePath: "/http/"
       http-url: "http://zurg.mediaserver.k8s/http/"
       attr-timeout: "1h"
-      buffer-size: "1MiB"
+      buffer-size: "128MiB"
+      vfs-cache-mode: "full"
+      vfs-cache-max-age: "24h"
+      vfs-cache-max-size: "128G"
+      vfs-read-chunk-size: "32M"
+      vfs-read-chunk-size-limit: "1G"
       vfs-disk-space-total-size: "10PiB"
 
 ---
