@@ -80,12 +80,12 @@ spec:
         #  httpGet:
         #    path: /
           tcpSocket:
-            port: http-32400
+            port: 32400
         livelinessProbe:               # Check that the http server is responding to ensure the container is up
         #  httpGet:
         #    path: /
           tcpSocket:
-            port: http-32400
+            port: 32400
             failureThreshold: 6
       volumes:
       - name: config
