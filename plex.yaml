@@ -82,7 +82,9 @@ spec:
         livelinessProbe:               # Check that the http server is responding to ensure the container is up
           tcpSocket:
             port: 32400
-            failureThreshold: 6
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            failureThreshold: 5
       volumes:
       - name: config
         persistentVolumeClaim:
