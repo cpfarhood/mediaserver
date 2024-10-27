@@ -79,13 +79,19 @@ spec:
         readinessProbe:                # Check that the http server is responding to ensure the container is up
         #  httpGet:
         #    path: /
-          tcpSocket:
-            port: 32400
+        #  tcpSocket:
+        #    port: 32400
+          exec:
+            command:
+            - "sh /healtcheck.sh"
         livelinessProbe:               # Check that the http server is responding to ensure the container is up
         #  httpGet:
         #    path: /
-          tcpSocket:
-            port: 32400
+        #  tcpSocket:
+        #    port: 32400
+          exec:
+            command:
+            - "sh /healtcheck.sh"
             failureThreshold: 6
       volumes:
       - name: config
