@@ -72,9 +72,13 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: tinymediamanager-data
+#      - name: local
+#        persistentVolumeClaim:
+#          claimName: mediaserver-local
       - name: local
-        persistentVolumeClaim:
-          claimName: mediaserver-local
+        nfs:
+          path: /mnt/pool0/media
+          server: truenas.farhoodliquor.dmz
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
