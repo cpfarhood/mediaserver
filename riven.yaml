@@ -166,7 +166,7 @@ spec:
               value: "true"
             - name: TZ
               value: America/Detroit
-          image: spoked/riven:latest
+          image: spoked/riven:0.16.2
           readinessProbe:
             httpGet:
               path: /
@@ -247,7 +247,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: riven-frontend
-          image: spoked/riven-frontend:latest
+          image: spoked/riven-frontend:0.16.3
           env:
             - name: BACKEND_URL
               value: http://riven:8080
