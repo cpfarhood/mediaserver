@@ -92,13 +92,13 @@ spec:
       - name: transcode
         emptyDir: 
           sizeLimit: 128Gi
-#      - name: local
-#        nfs:
-#          path: /mnt/pool0/media
-#          server: truenas.farhoodliquor.dmz
       - name: local
-        persistentVolumeClaim:
-          claimName: mediaserver-local
+        nfs:
+          path: /mnt/pool0/media
+          server: truenas.farhoodliquor.dmz
+#      - name: local
+#        persistentVolumeClaim:
+#          claimName: mediaserver-local
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
