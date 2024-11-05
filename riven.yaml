@@ -207,20 +207,20 @@ spec:
               name: remote
             - mountPath: /media/local
               name: local
-            - mountPath: /media/local-new
-              name: local-new
+            - mountPath: /media/local-old
+              name: local-old
       restartPolicy: Always
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: riven-config
-        - name: local-new
+        - name: local
           persistentVolumeClaim:
             claimName: mediaserver-local
         - name: remote
           persistentVolumeClaim:
             claimName: mediaserver-remote
-        - name: local
+        - name: local-old
           nfs:
             path: /mnt/pool0/media
             server: truenas.farhoodliquor.dmz
