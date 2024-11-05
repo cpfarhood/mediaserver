@@ -166,7 +166,7 @@ spec:
               value: "true"
             - name: TZ
               value: America/Detroit
-          image: spoked/riven:0.16.3
+          image: spoked/riven:0.16.2
           readinessProbe:
             httpGet:
               path: /
