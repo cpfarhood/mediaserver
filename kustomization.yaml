@@ -11,7 +11,7 @@ resources:
   - tinymediamanager.yaml
   
 # Remote Media Service
-  - zurg.yaml
+#  - zurg.yaml
 
 # Indexers
   - prowlarr.yaml
