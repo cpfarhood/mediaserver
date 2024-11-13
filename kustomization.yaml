@@ -5,7 +5,7 @@ resources:
 # Shared Volumes
   - volumes.yaml
   - sealedsecret-openvpn-credentials.yaml
-  - sealedsecret-zurg-config.yaml
+#  - sealedsecret-zurg-config.yaml
 
 # Media Management
   - tinymediamanager.yaml
