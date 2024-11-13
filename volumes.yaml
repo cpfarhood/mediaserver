@@ -18,7 +18,7 @@ spec:
     volumeAttributes:
       remote: "http"
       remotePath: "/http/"
-      http-url: "http://zurg.mediaserver.k8s/http/"
+      http-url: "http://zurg.streaming.k8s/http/"
       attr-timeout: "1h"
       buffer-size: "128MiB"
       vfs-cache-mode: "full"
