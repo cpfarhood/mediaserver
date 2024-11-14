@@ -27,7 +27,6 @@ metadata:
     app.kubernetes.io/name: tinymediamanager
   annotations:
     polaris.fairwinds.com/tagNotSpecified-exempt: true  
-
 spec:
   selector:
     matchLabels:
