@@ -1,4 +1,4 @@
-## Ingress
+## This is a monitoring tool for Plex Media Server
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
