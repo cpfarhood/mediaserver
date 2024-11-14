@@ -9,9 +9,6 @@ resources:
 
 # Media Management
   - tinymediamanager.yaml
-  
-# Remote Media Service
-#  - zurg.yaml
 
 # Indexers
   - prowlarr.yaml
@@ -21,7 +18,6 @@ resources:
 #  - readarr.yaml
 #  - lazylibrarian.yaml
 #  - headphones.yaml
-  - riven.yaml
 
 # Downloaders
 #  - sabnzbd.yaml
