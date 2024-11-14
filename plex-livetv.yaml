@@ -1,4 +1,4 @@
-## Service
+## This is a separate Plex Media Server for Live TV as ClusterPlex doesn't work with Live TV
 ---
 apiVersion: v1
 kind: Service
