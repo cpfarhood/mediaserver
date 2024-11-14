@@ -1,4 +1,4 @@
-## Service
+## This is the Plex Media Streaming Server Deployment
 ---
 apiVersion: v1
 kind: Service
