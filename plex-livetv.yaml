@@ -6,12 +6,12 @@ metadata:
    name: plex-livetv
    namespace: mediaserver
    labels:
-     app: plex-livetv
+     app.kubernetes.io/name: plex-livetv
    annotations:
      metallb.universe.tf/loadBalancerIPs: 65.43.40.106
 spec:
   selector:
-    app: plex-livetv
+    app.kubernetes.io/name: plex-livetv
   type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
@@ -31,13 +31,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: plex-livetv
+      app.kubernetes.io/name: plex-livetv
   serviceName: "plex-livetv"
   replicas: 1
   template:
     metadata:
       labels:
-        app: plex-livetv
+        app.kubernetes.io/name: plex-livetv
     spec:
       containers:
       - name: plex

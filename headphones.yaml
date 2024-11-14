@@ -28,13 +28,13 @@ metadata:
   name: headphones
   namespace: mediaserver
   labels:
-    app: headphones
+    app.kubernetes.io/name: headphones
 spec:
   clusterIP: None
   ports:
   - port: 8181
   selector:
-    app: headphones
+    app.kubernetes.io/name: headphones
 
 
 ## Deployment
@@ -47,13 +47,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: headphones
+      app.kubernetes.io/name: headphones
   serviceName: "headphones"
   replicas: 1
   template:
     metadata:
       labels:
-        app: headphones
+        app.kubernetes.io/name: headphones
     spec:
       containers:
       - name: headphones

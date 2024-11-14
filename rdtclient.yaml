@@ -28,14 +28,14 @@ metadata:
    name: rdtclient
    namespace: mediaserver
    labels:
-     app: rdtclient
+     app.kubernetes.io/name: rdtclient
 spec:
   type: ClusterIP
   clusterIP: None
   ports:
   - port: 6500
   selector:
-    app: rdtclient
+    app.kubernetes.io/name: rdtclient
 
 
 
@@ -49,13 +49,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: rdtclient
+      app.kubernetes.io/name: rdtclient
   serviceName: "rdtclient"
   replicas: 1
   template:
     metadata:
       labels:
-        app: rdtclient
+        app.kubernetes.io/name: rdtclient
     spec:
       containers:
       - name: rdtclient

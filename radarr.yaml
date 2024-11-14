@@ -28,14 +28,14 @@ metadata:
    name: radarr
    namespace: mediaserver
    labels:
-     app: radarr
+     app.kubernetes.io/name: radarr
 spec:
   type: ClusterIP
   #clusterIP: None
   ports:
   - port: 7878
   selector:
-    app: radarr
+    app.kubernetes.io/name: radarr
 
 
 ## StatefulsSet
@@ -48,13 +48,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: radarr
+      app.kubernetes.io/name: radarr
   serviceName: "radarr"
   replicas: 1
   template:
     metadata:
       labels:
-        app: radarr
+        app.kubernetes.io/name: radarr
     spec:
       containers:
       - name: radarr

@@ -28,13 +28,13 @@ metadata:
   name: lazylibrarian
   namespace: mediaserver
   labels:
-    app: lazylibrarian
+    app.kubernetes.io/name: lazylibrarian
 spec:
   clusterIP: None
   ports:
   - port: 5299
   selector:
-    app: lazylibrarian
+    app.kubernetes.io/name: lazylibrarian
 
 
 ## Deployment
@@ -47,13 +47,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: lazylibrarian
+      app.kubernetes.io/name: lazylibrarian
   serviceName: "lazylibrarian"
   replicas: 1
   template:
     metadata:
       labels:
-        app: lazylibrarian
+        app.kubernetes.io/name: lazylibrarian
     spec:
       containers:
       - name: lazylibrarian

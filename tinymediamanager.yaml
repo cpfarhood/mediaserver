@@ -6,7 +6,7 @@ metadata:
    name: tinymediamanager
    namespace: mediaserver
    labels:
-     app: tinymediamanager
+     app.kubernetes.io/name: tinymediamanager
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
@@ -14,7 +14,7 @@ spec:
   - port: 80
     targetPort: 4000
   selector:
-    app: tinymediamanager
+    app.kubernetes.io/name: tinymediamanager
 
 
 ## StatefulSet
@@ -23,16 +23,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tinymediamanager
-  namespace: mediaserver
+  labels:
+    app.kubernetes.io/name: tinymediamanager
+  annotations:
+    polaris.fairwinds.com/tagNotSpecified-exempt: true  
+
 spec:
   selector:
     matchLabels:
-      app: tinymediamanager
+      app.kubernetes.io/name: tinymediamanager
   serviceName: "tinymediamanager"
   template:
     metadata:
       labels:
-        app: tinymediamanager
+        app.kubernetes.io/name: tinymediamanager
     spec:
       containers:
       - name: tinymediamanager
@@ -68,6 +72,9 @@ spec:
             path: /
             port: http-4000
           failureThreshold: 6
+        securityContext:
+          runAsRoot: false
+          allowPrivilegeEscalation: false
       volumes:
       - name: data
         persistentVolumeClaim:

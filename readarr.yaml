@@ -6,7 +6,7 @@ metadata:
   name: readarr
   namespace: mediaserver
   labels:
-    app: readarr
+    app.kubernetes.io/name: readarr
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
@@ -15,7 +15,7 @@ spec:
     targetPort: 8787
     name: http-8787
   selector:
-    app: readarr
+    app.kubernetes.io/name: readarr
 
 
 ## StatefulSet
@@ -28,14 +28,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: readarr
+      app.kubernetes.io/name: readarr
   serviceName: "readarr"
   replicas: 1
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: readarr
+        app.kubernetes.io/name: readarr
     spec:
       terminationGracePeriodSeconds: 10
       containers:

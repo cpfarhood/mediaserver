@@ -34,13 +34,13 @@ metadata:
    name: overseerr
    namespace: mediaserver
    labels:
-     app: overseerr
+     app.kubernetes.io/name: overseerr
 spec:
   clusterIP: None
   ports:
   - port: 5055
   selector:
-    app: overseerr
+    app.kubernetes.io/name: overseerr
 
 
 ## StatefulSet
@@ -53,13 +53,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: overseerr
+      app.kubernetes.io/name: overseerr
   serviceName: "overseerr"
   replicas: 1
   template:
     metadata:
       labels:
-        app: overseerr
+        app.kubernetes.io/name: overseerr
     spec:
       containers:
       - name: overseer

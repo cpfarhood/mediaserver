@@ -28,14 +28,14 @@ metadata:
    name: sabnzbd
    namespace: mediaserver
    labels:
-     app: sabnzbd
+     app.kubernetes.io/name: sabnzbd
 spec:
   type: ClusterIP
   #clusterIP: None
   ports:
   - port: 8080
   selector:
-    app: sabnzbd
+    app.kubernetes.io/name: sabnzbd
 
 
 ## StatefulSet
@@ -48,13 +48,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: sabnzbd
+      app.kubernetes.io/name: sabnzbd
   serviceName: "sabnzbd"
   replicas: 1
   template:
     metadata:
       labels:
-        app: sabnzbd
+        app.kubernetes.io/name: sabnzbd
     spec:
       containers:
       - name: sabnzbd

@@ -18,7 +18,7 @@ metadata:
    name: autobrr
    namespace: mediaserver
    labels:
-     app: autobrr
+     app.kubernetes.io/name: autobrr
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
@@ -27,7 +27,7 @@ spec:
     targetPort: 7474
     name: http-7474
   selector:
-    app: autobrr
+    app.kubernetes.io/name: autobrr
 
 
 ## StatefulSet
@@ -40,14 +40,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: autobrr
+      app.kubernetes.io/name: autobrr
   serviceName: "autobrr"
   replicas: 1
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: autobrr
+        app.kubernetes.io/name: autobrr
     spec:
       containers:
       - name: autobrr

@@ -28,13 +28,13 @@ metadata:
    name: lidarr
    namespace: mediaserver
    labels:
-     app: lidarr
+     app.kubernetes.io/name: lidarr
 spec:
   clusterIP: None
   ports:
   - port: 8686
   selector:
-    app: lidarr
+    app.kubernetes.io/name: lidarr
 
 
 ## StatefulSet
@@ -47,13 +47,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: lidarr
+      app.kubernetes.io/name: lidarr
   serviceName: "lidarr"
   replicas: 1
   template:
     metadata:
       labels:
-        app: lidarr
+        app.kubernetes.io/name: lidarr
     spec:
       containers:
       - name: lidarr

@@ -6,12 +6,12 @@ metadata:
    name: plex
    namespace: mediaserver
    labels:
-     app: plex
+     app.kubernetes.io/name: plex
    annotations:
      metallb.universe.tf/loadBalancerIPs: 65.43.40.107
 spec:
   selector:
-    app: plex
+    app.kubernetes.io/name: plex
   type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
@@ -31,13 +31,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: plex
+      app.kubernetes.io/name: plex
   serviceName: "plex"
   replicas: 1
   template:
     metadata:
       labels:
-        app: plex
+        app.kubernetes.io/name: plex
     spec:
       containers:
       - name: plex
