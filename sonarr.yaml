@@ -65,26 +65,19 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: library
-          mountPath: /media/library
         - name: remote
           mountPath: "/media/remote"
-        - name: shows
-          mountPath: "/media/local/shows"
+        - name: library
+          mountPath: /media/local
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: sonarr-config
-      - name: library
-        persistentVolumeClaim:
-          claimName: mediaserver-library
-      - name: shows
-        persistentVolumeClaim:
-          claimName: mediaserver-shows
+      - name: local
+        nfs:
+          path: /mnt/pool0/media
+          server: truenas.farhoodliquor.dmz
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
