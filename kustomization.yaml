@@ -10,13 +10,19 @@ resources:
 # Media Management
   - tinymediamanager.yaml
 
-# Indexers
+# Prowlarr Indexer Manager
   - prowlarr.yaml
 
-# Sonarr
+# Sonarr Media Manager
   - statefulset-sonarr.yaml
   - service-sonarr.yaml
   - ingress-sonarr.yaml
+
+# Sabnzbd Downloader
+  - statefulset-sabnzbd.yaml
+  - service-sabnzbd.yaml
+  - ingress-sabnzbd.yaml
+  
 #  - radarr.yaml
 #  - lidarr.yaml
 #  - readarr.yaml
@@ -24,7 +30,6 @@ resources:
 #  - headphones.yaml
 
 # Downloaders
-  - sabnzbd.yaml
 #  - transmission.yaml
 #  - rdtclient.yaml
 
