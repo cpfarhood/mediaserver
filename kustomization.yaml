@@ -41,6 +41,7 @@ resources:
 
 # Administrative
   - tautulli.yaml
+  - ingress-tautulli.yaml
   - overseerr.yaml
 #  - autobrr.yaml
 
