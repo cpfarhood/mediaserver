@@ -36,10 +36,6 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: incomplete
-        nfs:
-          path: /mnt/pool0/downloads
-          server: truenas.farhoodliquor.dmz
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
