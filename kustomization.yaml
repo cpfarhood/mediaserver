@@ -22,7 +22,12 @@ resources:
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
   - ingress-sabnzbd.yaml
-  
+
+# RDTClient Downloader
+  - statefulset-rdtclient.yaml
+  - service-rdtclient.yaml
+  - ingress-rdtclient.yaml
+
 #  - radarr.yaml
 #  - lidarr.yaml
 #  - readarr.yaml
@@ -31,7 +36,6 @@ resources:
 
 # Downloaders
 #  - transmission.yaml
-#  - rdtclient.yaml
 
 # Media Servers
 #  - clusterplex.yaml
