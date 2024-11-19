@@ -1,0 +1,60 @@
+## StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sabnzbd
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd
+  serviceName: "sabnzbd"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sabnzbd
+    spec:
+      containers:
+      - name: sabnzbd
+        image: lscr.io/linuxserver/sabnzbd:latest
+        ports:
+        - containerPort: 8080
+          name: http-8080
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+        - name: downloads
+          mountPath: "/downloads/complete"
+        - name: incomplete
+          mountPath: "/downloads/incomplete"
+        - name: backups
+          mountPath: "/downloads/backups"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: incomplete
+        nfs:
+          path: /mnt/pool0/downloads
+          server: truenas.farhoodliquor.dmz
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
+  - metadata:
+      name: backups
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 32Gi

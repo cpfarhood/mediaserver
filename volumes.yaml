@@ -134,3 +134,20 @@ spec:
   selector:
     matchLabels:
       name: prowlarr-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads
+  labels:
+    name: downloads
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: longhorn-perpetual
+  resources:
+    requests:
+      storage: 256Gi
+  selector:
+    matchLabels:
+      name: downloads
