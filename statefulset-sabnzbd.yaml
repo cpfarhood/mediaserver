@@ -27,8 +27,6 @@ spec:
           mountPath: "/config"
         - name: downloads
           mountPath: "/downloads/complete"
-        - name: incomplete
-          mountPath: "/downloads/incomplete"
         - name: backups
           mountPath: "/downloads/backups"
         resources:
