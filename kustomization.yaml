@@ -12,7 +12,11 @@ resources:
 
 # Indexers
   - prowlarr.yaml
-  - sonarr.yaml
+
+# Sonarr
+  - statefulset-sonarr.yaml
+  - service-sonarr.yaml
+  - ingress-sonarr.yaml
 #  - radarr.yaml
 #  - lidarr.yaml
 #  - readarr.yaml
