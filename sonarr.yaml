@@ -49,7 +49,7 @@ spec:
           mountPath: "/config"
         - name: remote
           mountPath: "/media/remote"
-        - name: library
+        - name: local
           mountPath: /media/local
         resources:
           requests:
