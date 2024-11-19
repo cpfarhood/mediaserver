@@ -34,38 +34,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tinymediamanager-data
-  namespace: mediaserver
-  labels:
-    name: tinymediamanager-data
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchLabels:
-      name: tinymediamanager-data
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mediaserver-local
-spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
-  selector:
-    matchLabels:
-      name: mediaserver-local
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: mediaserver-remote
 spec:
   accessModes: [ ReadOnlyMany ]
@@ -80,9 +48,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: riven-config
+  name: tinymediamanager-data
+  namespace: mediaserver
   labels:
-    name: riven-config
+    name: tinymediamanager-data
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes: [ ReadWriteOnce ]
@@ -92,7 +61,7 @@ spec:
       storage: 8Gi
   selector:
     matchLabels:
-      name: riven-config
+      name: tinymediamanager-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

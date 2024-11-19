@@ -88,23 +88,12 @@ spec:
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
 
-
-## Volumes
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sonarr-config
-  namespace: mediaserver
-  labels:
-    name: sonarr-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
----
