@@ -25,29 +25,27 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: library
-          mountPath: /media/library
         - name: remote
           mountPath: "/media/remote"
-        - name: movies
-          mountPath: "/media/local/movies"
+        - name: local
+          mountPath: /media/local
+        - name: downloads
+          mountPath: "/downloads"
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radarr-config
-      - name: library
-        persistentVolumeClaim:
-          claimName: mediaserver-library
-      - name: movies
-        persistentVolumeClaim:
-          claimName: mediaserver-movies
+      - name: local
+        nfs:
+          path: /mnt/pool0/media
+          server: truenas.farhoodliquor.dmz
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: config
