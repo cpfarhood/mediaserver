@@ -29,6 +29,8 @@ spec:
           mountPath: /media/local
         - name: remote
           mountPath: "/media/remote"
+        - name: downloads
+          mountPath: "/downloads"
         resources:
           requests:
             memory: "256Mi"
@@ -44,6 +46,9 @@ spec:
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: db
