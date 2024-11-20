@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: tinymediamanager
   labels:
@@ -54,12 +54,6 @@ spec:
           runAsRoot: false
           allowPrivilegeEscalation: false
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: tinymediamanager-data
-#      - name: local
-#        persistentVolumeClaim:
-#          claimName: mediaserver-local
       - name: local
         nfs:
           path: /mnt/pool0/media
@@ -67,3 +61,11 @@ spec:
       - name: remote
         persistentVolumeClaim:
           claimName: mediaserver-remote
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi

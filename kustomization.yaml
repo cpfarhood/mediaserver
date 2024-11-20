@@ -9,7 +9,7 @@ resources:
 
 # Media Management
   - service-tinymediamanager.yaml
-  - deployment-tinymediamanager.yaml
+  - statefulset-tinymediamanager.yaml
 
 # Prowlarr Indexer Manager
   - prowlarr.yaml
