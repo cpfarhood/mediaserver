@@ -43,9 +43,13 @@ resources:
   - plex-livetv.yaml
 #  - jellyfin.yaml
 
+# Media Request System
+  - statefulset-overseerr.yaml
+  - service-overseerr.yaml
+  - ingress-overseerr.yaml
+
 # Administrative
   - tautulli.yaml
   - ingress-tautulli.yaml
-  - overseerr.yaml
 #  - autobrr.yaml
 
