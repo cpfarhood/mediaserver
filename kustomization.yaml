@@ -19,6 +19,11 @@ resources:
   - service-sonarr.yaml
   - ingress-sonarr.yaml
 
+# Radarr Media Manager
+  - statefulset-radarr.yaml
+  - service-radarr.yaml
+  - ingress-radarr.yaml
+
 # Sabnzbd Downloader
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
