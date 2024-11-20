@@ -33,8 +33,11 @@ spec:
           mountPath: "/downloads"
         resources:
           requests:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
       volumes:
       - name: local
         nfs:
