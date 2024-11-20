@@ -1,24 +1,3 @@
-## Service
----
-apiVersion: v1
-kind: Service
-metadata:
-   name: tinymediamanager
-   namespace: mediaserver
-   labels:
-     app.kubernetes.io/name: tinymediamanager
-spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
-  ports:
-  - port: 80
-    targetPort: 4000
-  selector:
-    app.kubernetes.io/name: tinymediamanager
-
-
-## StatefulSet
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -57,7 +36,7 @@ spec:
           value: "911"
         resources:
           requests:
-            memory: "1Gi"
+            memory: "2Gi"
             cpu: "500m"
           limits:
             memory: "4Gi"

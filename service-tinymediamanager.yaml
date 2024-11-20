@@ -1,0 +1,17 @@
+## Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: tinymediamanager
+   namespace: mediaserver
+   labels:
+     app.kubernetes.io/name: tinymediamanager
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 4000
+  selector:
+    app.kubernetes.io/name: tinymediamanager
