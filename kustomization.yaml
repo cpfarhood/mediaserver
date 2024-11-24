@@ -4,8 +4,6 @@ namespace: mediaserver
 resources:
 # Shared Volumes
   - volumes.yaml
-  - sealedsecret-openvpn-credentials.yaml
-#  - sealedsecret-zurg-config.yaml
 
 # Media Management
   - service-tinymediamanager.yaml
@@ -42,6 +40,7 @@ resources:
 
 # Downloaders
 #  - transmission.yaml
+#  - sealedsecret-openvpn-credentials.yaml
 
 # Media Servers
 #  - clusterplex.yaml
@@ -50,9 +49,9 @@ resources:
 #  - jellyfin.yaml
 
 # Media Request System
-  - statefulset-overseerr.yaml
-  - service-overseerr.yaml
-  - ingress-overseerr.yaml
+#  - statefulset-overseerr.yaml
+#  - service-overseerr.yaml
+#  - ingress-overseerr.yaml
 
 # Administrative
   - tautulli.yaml
