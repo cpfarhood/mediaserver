@@ -59,13 +59,17 @@ spec:
             periodSeconds: 3
             failureThreshold: 5
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: plex-livetv-config
       - name: transcode
         emptyDir: 
           sizeLimit: 128Gi
   volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 32Gi
   - metadata:
       name: recordings
     spec:
