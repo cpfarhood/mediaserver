@@ -10,7 +10,9 @@ resources:
 #  - statefulset-tinymediamanager.yaml
 
 # Prowlarr Indexer Manager
-#  - prowlarr.yaml
+  - statefulset-prowlarr.yaml
+  - service-prowlarr.yaml
+  - ingress-prowlarr.yaml
 
 # Sonarr Media Manager
   - statefulset-sonarr.yaml
