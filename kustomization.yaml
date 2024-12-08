@@ -3,34 +3,34 @@ kind: Kustomization
 namespace: mediaserver
 resources:
 # Shared Volumes
-  - volumes.yaml
+#  - volumes.yaml
 
 # Media Management
-  - service-tinymediamanager.yaml
-  - statefulset-tinymediamanager.yaml
+#  - service-tinymediamanager.yaml
+#  - statefulset-tinymediamanager.yaml
 
 # Prowlarr Indexer Manager
-  - prowlarr.yaml
+#  - prowlarr.yaml
 
 # Sonarr Media Manager
-  - statefulset-sonarr.yaml
-  - service-sonarr.yaml
-  - ingress-sonarr.yaml
+#  - statefulset-sonarr.yaml
+#  - service-sonarr.yaml
+#  - ingress-sonarr.yaml
 
 # Radarr Media Manager
-  - statefulset-radarr.yaml
-  - service-radarr.yaml
-  - ingress-radarr.yaml
+#  - statefulset-radarr.yaml
+#  - service-radarr.yaml
+#  - ingress-radarr.yaml
 
 # Sabnzbd Downloader
-  - statefulset-sabnzbd.yaml
-  - service-sabnzbd.yaml
-  - ingress-sabnzbd.yaml
+#  - statefulset-sabnzbd.yaml
+#  - service-sabnzbd.yaml
+#  - ingress-sabnzbd.yaml
 
 # RDTClient Downloader
-  - statefulset-rdtclient.yaml
-  - service-rdtclient.yaml
-  - ingress-rdtclient.yaml
+#  - statefulset-rdtclient.yaml
+#  - service-rdtclient.yaml
+#  - ingress-rdtclient.yaml
 
 #  - radarr.yaml
 #  - lidarr.yaml
@@ -55,7 +55,7 @@ resources:
 #  - ingress-overseerr.yaml
 
 # Administrative
-  - tautulli.yaml
-  - ingress-tautulli.yaml
+#  - tautulli.yaml
+#  - ingress-tautulli.yaml
 #  - autobrr.yaml
 
