@@ -14,6 +14,10 @@ resources:
   - service-prowlarr.yaml
   - ingress-prowlarr.yaml
 
+# Flaresolverr Resolver
+  - deployment-flaresolverr.yaml
+  - service-flaresolverr.yaml
+
 # Sonarr Media Manager
   - statefulset-sonarr.yaml
   - service-sonarr.yaml
