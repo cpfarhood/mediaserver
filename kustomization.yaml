@@ -34,9 +34,17 @@ resources:
   - ingress-sabnzbd.yaml
 
 # RDTClient Downloader
-  - statefulset-rdtclient.yaml
-  - service-rdtclient.yaml
-  - ingress-rdtclient.yaml
+#  - statefulset-rdtclient.yaml
+#  - service-rdtclient.yaml
+#  - ingress-rdtclient.yaml
+
+# Transmission Downloader
+  - configmap-transmission-config.yaml
+  - sealedsecret-openvpn-credentials.yaml
+  - statefulset-transmission.yaml
+  - service-transmission.yaml
+  - ingress-transmission.yaml
+
 
 #  - radarr.yaml
 #  - lidarr.yaml
@@ -44,12 +52,6 @@ resources:
 #  - lazylibrarian.yaml
 #  - headphones.yaml
 
-# Downloaders
-  - configmap-transmission-config.yaml
-  - sealedsecret-openvpn-credentials.yaml
-  - statefulset-transmission.yaml
-  - service-transmission.yaml
-  - ingress-transmission.yaml
 
 # Media Servers
 #  - clusterplex.yaml
