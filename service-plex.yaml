@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: plex
+   namespace: mediaserver
+   labels:
+     app.kubernetes.io/name: plex
+   annotations:
+     metallb.universe.tf/loadBalancerIPs: 65.43.40.107
+spec:
+  selector:
+    app.kubernetes.io/name: plex
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 443
+    targetPort: 32400
+    name: http-32400

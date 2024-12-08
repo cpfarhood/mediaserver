@@ -1,28 +1,3 @@
-## This is the Plex Media Streaming Server Deployment
----
-apiVersion: v1
-kind: Service
-metadata:
-   name: plex
-   namespace: mediaserver
-   labels:
-     app.kubernetes.io/name: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.107
-spec:
-  selector:
-    app.kubernetes.io/name: plex
-  type: LoadBalancer
-  externalTrafficPolicy: Local
-  ports:
-  - port: 443
-    targetPort: 32400
-    name: http-32400
----
-
-
-## StatefulSet
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -99,8 +74,8 @@ spec:
 #      - name: local
 #        persistentVolumeClaim:
 #          claimName: mediaserver-local
-      - name: remote
-        persistentVolumeClaim:
-          claimName: mediaserver-remote
+#      - name: remote
+#        persistentVolumeClaim:
+#          claimName: mediaserver-remote
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
