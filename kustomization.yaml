@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: mediaserver
 resources:
 # Shared Volumes
-#  - volumes.yaml
+  - volumes.yaml
 
 # Media Management
 #  - service-tinymediamanager.yaml
