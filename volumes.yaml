@@ -44,24 +44,7 @@ spec:
   selector:
     matchLabels:
       name: mediaserver-remote
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tinymediamanager-data
-  namespace: mediaserver
-  labels:
-    name: tinymediamanager-data
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchLabels:
-      name: tinymediamanager-data
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -80,74 +63,4 @@ spec:
   selector:
     matchLabels:
       name: plex-config
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-livetv-config
-  namespace: mediaserver
-  labels:
-    name: plex-livetv-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
-  selector:
-    matchLabels:
-      name: plex-livetv-config
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-livetv-recordings
-  namespace: mediaserver
-  labels:
-    name: plex-livetv-recordings
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 128Gi
-  selector:
-    matchLabels:
-      name: plex-livetv-recordings
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: prowlarr-config
-  namespace: mediaserver
-  labels:
-    name: prowlarr-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteOnce ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchLabels:
-      name: prowlarr-config
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: downloads
-  labels:
-    name: downloads
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 256Gi
-  selector:
-    matchLabels:
-      name: downloads
+

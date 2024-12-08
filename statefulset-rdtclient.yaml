@@ -56,22 +56,3 @@ spec:
       resources:
         requests:
           storage: 4Gi
-
-## Volumes
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: rdtclient-db
-  namespace: mediaserver
-  labels:
-    name: rdtclient-db
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
----
