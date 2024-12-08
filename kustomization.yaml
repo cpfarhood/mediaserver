@@ -29,9 +29,9 @@ resources:
   - ingress-radarr.yaml
 
 # Sabnzbd Downloader
-#  - statefulset-sabnzbd.yaml
-#  - service-sabnzbd.yaml
-#  - ingress-sabnzbd.yaml
+  - statefulset-sabnzbd.yaml
+  - service-sabnzbd.yaml
+  - ingress-sabnzbd.yaml
 
 # RDTClient Downloader
 #  - statefulset-rdtclient.yaml
