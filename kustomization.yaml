@@ -13,14 +13,14 @@ resources:
 #  - prowlarr.yaml
 
 # Sonarr Media Manager
-#  - statefulset-sonarr.yaml
-#  - service-sonarr.yaml
-#  - ingress-sonarr.yaml
+  - statefulset-sonarr.yaml
+  - service-sonarr.yaml
+  - ingress-sonarr.yaml
 
 # Radarr Media Manager
-#  - statefulset-radarr.yaml
-#  - service-radarr.yaml
-#  - ingress-radarr.yaml
+  - statefulset-radarr.yaml
+  - service-radarr.yaml
+  - ingress-radarr.yaml
 
 # Sabnzbd Downloader
 #  - statefulset-sabnzbd.yaml

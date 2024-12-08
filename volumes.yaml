@@ -1,66 +1,15 @@
-## Physical Volumes
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mediaserver-remote-pv
-  labels:
-    name: mediaserver-remote
-spec:
-  accessModes: [ ReadOnlyMany ]
-  persistentVolumeReclaimPolicy: Retain
-  capacity:
-    storage: 10Gi
-  storageClassName: rclone
-  csi:
-    driver: csi-rclone
-    volumeHandle: data-id
-    volumeAttributes:
-      remote: "http"
-      remotePath: "/http/"
-      http-url: "http://zurg.streaming.k8s/http/"
-      attr-timeout: "1h"
-      buffer-size: "128MiB"
-      vfs-cache-mode: "full"
-      vfs-cache-max-age: "24h"
-      vfs-cache-max-size: "128G"
-      vfs-read-chunk-size: "32M"
-      vfs-read-chunk-size-limit: "1G"
-      vfs-disk-space-total-size: "10PiB"
-
----
-## Volume Claims
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mediaserver-remote
-spec:
-  accessModes: [ ReadOnlyMany ]
-  storageClassName: rclone
-  resources:
-    requests:
-      storage: 10Gi
-  selector:
-    matchLabels:
-      name: mediaserver-remote
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-config
+  name: downloads
   namespace: mediaserver
   labels:
-    name: plex-config
+    name: downloads
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  accessModes: [ ReadWriteOnce ]
+  accessModes: [ ReadWriteMany ]
   storageClassName: longhorn-perpetual
   resources:
     requests:
-      storage: 128Gi
-  selector:
-    matchLabels:
-      name: plex-config
-
+      storage: 256Gi
