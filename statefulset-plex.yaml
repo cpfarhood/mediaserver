@@ -37,8 +37,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: remote
-          mountPath: "/media/remote"
+#        - name: remote
+#          mountPath: "/media/remote"
         - name: local
           mountPath: "/media/local"
         - name: transcode
