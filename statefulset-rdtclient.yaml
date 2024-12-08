@@ -1,5 +1,3 @@
-## StatefulSet
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -26,8 +24,6 @@ spec:
           mountPath: "/data/db"
         - name: local
           mountPath: /media/local
-        - name: remote
-          mountPath: "/media/remote"
         - name: downloads
           mountPath: "/downloads"
         resources:
@@ -42,9 +38,6 @@ spec:
         nfs:
           path: /mnt/pool0/media
           server: truenas.farhoodliquor.dmz
-      - name: remote
-        persistentVolumeClaim:
-          claimName: mediaserver-remote
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads

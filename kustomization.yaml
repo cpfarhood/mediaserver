@@ -34,9 +34,9 @@ resources:
   - ingress-sabnzbd.yaml
 
 # RDTClient Downloader
-#  - statefulset-rdtclient.yaml
-#  - service-rdtclient.yaml
-#  - ingress-rdtclient.yaml
+  - statefulset-rdtclient.yaml
+  - service-rdtclient.yaml
+  - ingress-rdtclient.yaml
 
 #  - radarr.yaml
 #  - lidarr.yaml
