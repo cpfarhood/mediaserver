@@ -45,8 +45,11 @@ resources:
 #  - headphones.yaml
 
 # Downloaders
-#  - transmission.yaml
-#  - sealedsecret-openvpn-credentials.yaml
+  - configmap-transmission-config.yaml
+  - sealedsecret-openvpn-credentials.yaml
+  - statefulset-transmission.yaml
+  - service-transmission.yaml
+  - ingress-transmission.yaml
 
 # Media Servers
 #  - clusterplex.yaml

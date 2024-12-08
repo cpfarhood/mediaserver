@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: transmission
+  namespace: mediaserver
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 0
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: transmission
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: transmission
+    spec:
+      containers:
+      - name: transmission
+        image: haugene/transmission-openvpn:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: transmission-config
+        - secretRef:
+            name: openvpn-credentials
+#        livenessProbe:
+#          failureThreshold: 3
+#          initialDelaySeconds: 10
+#          periodSeconds: 2
+#          successThreshold: 1
+#          tcpSocket:
+#            port: 9091
+#          timeoutSeconds: 2
+#       readinessProbe:
+#          failureThreshold: 3
+#          initialDelaySeconds: 10
+#          periodSeconds: 2
+#          successThreshold: 2
+#          tcpSocket:
+#            port: 9091
+#          timeoutSeconds: 2
+        resources:
+          requests:
+            memory: 1Gi
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+        - name: downloads
+          mountPath: /downloads
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
