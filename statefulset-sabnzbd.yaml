@@ -37,8 +37,9 @@ spec:
             cpu: "1000m"
       volumes:
       - name: downloads
-        persistentVolumeClaim:
-          claimName: downloads
+        nfs:
+          server: spielberg.dmz.farh.net
+          path: /mnt/pool0/downloads
   volumeClaimTemplates:
   - metadata:
       name: config
