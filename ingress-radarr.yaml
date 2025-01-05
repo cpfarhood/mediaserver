@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: radarr.mediaserver.k8s
+  - host: radarr.mediaserver.animaniacs.k8s
     http:
       paths:
       - path: /
