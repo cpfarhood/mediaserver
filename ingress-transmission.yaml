@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: transmission.mediaserver.k8s
+  - host: transmission.mediaserver.animaniacs.k8s
     http:
       paths:
       - path: /
