@@ -40,7 +40,7 @@ spec:
           server: truenas.farhoodliquor.dmz
       - name: downloads
         nfs:
-          server: truenas.dmz.farh.net
+          server: spielberg.dmz.farh.net
           path: /mnt/pool0/downloads
   volumeClaimTemplates:
   - metadata:
