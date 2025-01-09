@@ -137,7 +137,7 @@ spec:
   storageClassName: "nfs"
   nfs:
     path: /mnt/pool0/media     # The path to your media
-    server: truenas.farhoodliquor.dmz     # Your NFS server with Media
+    server: spielberg.dmz.farh.net     # Your NFS server with Media
   mountOptions:
     - soft
     - vers=4

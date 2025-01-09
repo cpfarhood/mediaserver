@@ -78,11 +78,11 @@ spec:
       - name: downloads
         nfs:
           path: /mnt/pool0/downloads
-          server: truenas.farhoodliquor.dmz
+          server: spielberg.dmz.farh.net
       - name: media
         nfs:
           path: /mnt/pool0/media
-          server: truenas.farhoodliquor.dmz
+          server: spielberg.dmz.farh.net
 
 
 ---

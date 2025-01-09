@@ -37,7 +37,7 @@ spec:
       - name: local
         nfs:
           path: /mnt/pool0/media
-          server: truenas.farhoodliquor.dmz
+          server: spielberg.dmz.farh.net
       - name: downloads
         nfs:
           server: spielberg.dmz.farh.net
