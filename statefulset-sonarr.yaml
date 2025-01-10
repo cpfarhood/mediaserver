@@ -24,8 +24,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: local
-          mountPath: /media/local
+        - name: shows
+          mountPath: /media/shows
         - name: downloads
           mountPath: "/downloads"
         resources:
@@ -36,9 +36,9 @@ spec:
             memory: "512Mi"
             cpu: "1000m"
       volumes:
-      - name: local
+      - name: shows
         nfs:
-          path: /mnt/pool0/media
+          path: /mnt/pool1/media/shows
           server: spielberg.dmz.farh.net
       - name: downloads
         nfs:

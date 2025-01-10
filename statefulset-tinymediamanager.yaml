@@ -25,10 +25,10 @@ spec:
         volumeMounts:
         - name: data
           mountPath: "/data"
-        - name: local
-          mountPath: "/media/local/"
-        - name: remote
-          mountPath: "/media/remote/"
+        - name: shows
+          mountPath: "/media/shows/"
+        - name: movies
+          mountPath: "/media/movies/"
         env:
         - name: "USER_ID"
           value: "911"
@@ -54,9 +54,13 @@ spec:
           runAsRoot: false
           allowPrivilegeEscalation: false
       volumes:
-      - name: local
+      - name: shows
         nfs:
-          path: /mnt/pool0/media
+          path: /mnt/pool1/media/shows
+          server: spielberg.dmz.farh.net
+      - name: movies
+        nfs:
+          path: /mnt/pool1/media/movies
           server: spielberg.dmz.farh.net
       - name: remote
         persistentVolumeClaim:
