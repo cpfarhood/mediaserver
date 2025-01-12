@@ -24,6 +24,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
+        - name: backups
+          mountPath: "/backups"
         - name: shows
           mountPath: /media/shows
         - name: downloads
@@ -36,6 +38,10 @@ spec:
             memory: "512Mi"
             cpu: "1000m"
       volumes:
+      - name: backups
+        nfs:
+          server: spielberg.dmz.farh.net
+          path: /mnt/pool0/backups/sonarr
       - name: shows
         nfs:
           path: /mnt/pool1/media/shows
