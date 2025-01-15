@@ -36,10 +36,13 @@ spec:
             memory: "8Gi"
             cpu: "2000m"
       volumes:
+#      - name: downloads
+#        nfs:
+#          server: spielberg.dmz.farh.net
+#          path: /mnt/pool0/downloads
       - name: downloads
-        nfs:
-          server: spielberg.dmz.farh.net
-          path: /mnt/pool0/downloads
+        persistentVolumeClaim:
+          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: config
