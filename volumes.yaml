@@ -9,7 +9,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes: [ ReadWriteMany ]
-  storageClassName: longhorn-perpetual
+  storageClassName: ceph-filesystem
   resources:
     requests:
-      storage: 256Gi
+      storage: 1Ti
