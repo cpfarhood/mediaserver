@@ -30,11 +30,11 @@ spec:
           mountPath: "/downloads/backups"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "250m"
-          limits:
             memory: "4Gi"
-            cpu: "1000m"
+            cpu: "500m"
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
       volumes:
       - name: downloads
         nfs:
