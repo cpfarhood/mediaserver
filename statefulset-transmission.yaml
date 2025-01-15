@@ -55,10 +55,13 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
+#      - name: downloads
+#        nfs:
+#          server: spielberg.dmz.farh.net
+#          path: /mnt/pool0/downloads
       - name: downloads
-        nfs:
-          server: spielberg.dmz.farh.net
-          path: /mnt/pool0/downloads
+        persistentVolumeClaim:
+          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: config
