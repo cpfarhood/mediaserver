@@ -44,8 +44,8 @@ resources:
 
 # Transmission Downloader
   - configmap-transmission-config.yaml
-  - sealedsecret-openvpn-credentials.yaml
-  - statefulset-transmission.yaml
+#  - sealedsecret-openvpn-credentials.yaml
+#  - statefulset-transmission.yaml
   - service-transmission.yaml
   - ingress-transmission.yaml
 
