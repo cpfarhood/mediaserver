@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: traefik-external
   rules:
-  - host: requests.farhoodliquor.com
+  - host: requests.farh.net
     http:
       paths:
       - path: /
@@ -21,5 +21,5 @@ spec:
               number: 5055
   tls:
   - hosts:
-    - requests.farhoodliquor.com
-    secretName: farhoodliquor-com-cert-letsencrypt-prod
+    - requests.farh.net
+    secretName: farh-net-cert-letsencrypt

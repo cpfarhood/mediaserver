@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: transmission.mediaserver.animaniacs.k8s
+  - host: transmission.animaniacs.farh.net
     http:
       paths:
       - path: /
@@ -16,3 +16,8 @@ spec:
             name:  transmission
             port:
               number: 9091
+
+  tls:
+  - hosts:
+    - transmission.animaniacs.farh.net
+    secretName: farh-net-cert-letsencrypt

@@ -1,5 +1,3 @@
-## Ingress
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,7 +5,7 @@ metadata:
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: rdtclient.mediaserver.animaniacs.k8s
+  - host: rdtclient.animaniacs.farh.net
     http:
       paths:
       - path: /
@@ -17,4 +15,7 @@ spec:
             name:  rdtclient
             port:
               number: 6500
- 
+  tls:
+  - hosts:
+    - rdtclient.animaniacs.farh.net
+    secretName: farh-net-cert-letsencrypt
