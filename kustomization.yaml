@@ -8,6 +8,9 @@ resources:
 
 # Certificate
   - certificate.yaml
+
+# Inrgress
+  - ingress.yaml
   
 # Shared Volumes
   - volumes.yaml

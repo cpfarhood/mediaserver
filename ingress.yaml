@@ -1,0 +1,63 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+spec:
+  ingressClassName: traefik-external
+  rules:
+  - host: mediaserver.farh.net
+    http:
+      paths:
+      - path: /sonarr/
+        pathType: Prefix
+        backend:
+          service:
+            name:  sonarr
+            port:
+              number: 8989
+      - path: /radarr/
+        pathType: Prefix
+        backend:
+          service:
+            name:  radarr
+            port:
+              number: 7878
+      - path: /prowlarr/
+        pathType: Prefix
+        backend:
+          service:
+            name:  prowlarr
+            port:
+              number: 9696
+      - path: /sabnzbd/
+        pathType: Prefix
+        backend:
+          service:
+            name:  sabnzbd
+            port:
+              number: 8080
+      - path: /transmission/
+        pathType: Prefix
+        backend:
+          service:
+            name:  transmission
+            port:
+              number: 9091
+      - path: /rdtclient/
+        pathType: Prefix
+        backend:
+          service:
+            name:  rdtclient
+            port:
+              number: 6500
+      - path: /stats/
+        pathType: Prefix
+        backend:
+          service:
+            name:  tautulli
+            port:
+              number: 8181
+  tls:
+  - hosts:
+    - mediaserver.farh.net
+    secretName: mediaserver-farh-net-cert-letsencrypt
