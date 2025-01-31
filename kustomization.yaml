@@ -22,7 +22,6 @@ resources:
 # Prowlarr Indexer Manager
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
-  - ingress-prowlarr.yaml
 
 # Flaresolverr Resolver
   - deployment-flaresolverr.yaml
@@ -31,29 +30,24 @@ resources:
 # Sonarr Media Manager
   - statefulset-sonarr.yaml
   - service-sonarr.yaml
-  - ingress-sonarr.yaml
 
 # Radarr Media Manager
   - statefulset-radarr.yaml
   - service-radarr.yaml
-  - ingress-radarr.yaml
 
 # Sabnzbd Downloader
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
-  - ingress-sabnzbd.yaml
 
 # RDTClient Downloader
 #  - statefulset-rdtclient.yaml
 #  - service-rdtclient.yaml
-#  - ingress-rdtclient.yaml
 
 # Transmission Downloader
   - configmap-transmission-config.yaml
 #  - sealedsecret-openvpn-credentials.yaml
 #  - statefulset-transmission.yaml
   - service-transmission.yaml
-  - ingress-transmission.yaml
 
 
 #  - radarr.yaml
@@ -74,10 +68,8 @@ resources:
 # Media Request System
 #  - statefulset-overseerr.yaml
 #  - service-overseerr.yaml
-#  - ingress-overseerr.yaml
 
 # Administrative
 #  - tautulli.yaml
-#  - ingress-tautulli.yaml
 #  - autobrr.yaml
 
