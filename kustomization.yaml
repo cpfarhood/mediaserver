@@ -4,7 +4,6 @@ namespace: mediaserver
 resources:
 
 # Flux Receiver
-  - secret-webhook-token.yaml
   - receiver-cpfarhood-mediaserver.yaml
 
 # Certificate
