@@ -1,5 +1,3 @@
-## StatefulSet
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -46,10 +44,6 @@ spec:
         nfs:
           path: /mnt/pool1/media/shows
           server: spielberg.dmz.farh.net
-#      - name: downloads
-#        nfs:
-#          server: spielberg.dmz.farh.net
-#          path: /mnt/pool0/downloads
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads

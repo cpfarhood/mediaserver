@@ -39,9 +39,8 @@ spec:
           path: /mnt/pool0/media
           server: spielberg.dmz.farh.net
       - name: downloads
-        nfs:
-          server: spielberg.dmz.farh.net
-          path: /mnt/pool0/downloads
+        persistentVolumeClaim:
+          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: db
