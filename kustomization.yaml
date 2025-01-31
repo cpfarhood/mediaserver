@@ -4,6 +4,7 @@ namespace: mediaserver
 resources:
 
 # Flux Receiver
+  - secret-webhook-token.yaml
   - receiver-cpfarhood-mediaserver.yaml
 
 # Certificate
@@ -49,17 +50,10 @@ resources:
 #  - statefulset-transmission.yaml
   - service-transmission.yaml
 
-
-#  - radarr.yaml
-#  - lidarr.yaml
-#  - readarr.yaml
-#  - lazylibrarian.yaml
-#  - headphones.yaml
-
 # Media Servers
 #  - clusterplex.yaml
-  - statefulset-plex.yaml
-  - service-plex.yaml
+#  - statefulset-plex.yaml
+#  - service-plex.yaml
 #  - statefulset-plex-livetv.yaml
 #  - service-plex-livetv.yaml
 #  - jellyfin.yaml
@@ -69,6 +63,6 @@ resources:
   - service-overseerr.yaml
 
 # Administrative
-#  - tautulli.yaml
+  - statefulset-tautulli.yaml
+  - service-tautulli.yaml
 #  - autobrr.yaml
-

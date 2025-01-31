@@ -1,27 +1,7 @@
-## Service
----
-apiVersion: v1
-kind: Service
-metadata:
-   name: tautulli
-   namespace: mediaserver
-   labels:
-     app.kubernetes.io/name: tautulli
-spec:
-  clusterIP: None
-  ports:
-  - port: 8181
-  selector:
-    app.kubernetes.io/name: tautulli
-
-
-## StatefulSet
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tautulli
-  namespace: mediaserver
 spec:
   selector:
     matchLabels:
@@ -41,7 +21,7 @@ spec:
         - containerPort: 8181
           name: http-8181
         volumeMounts:
-        - name: tautulli-config
+        - name: config
           mountPath: "/config"
         resources:
           requests:
@@ -54,22 +34,11 @@ spec:
       - name: tautulli-config
         persistentVolumeClaim:
           claimName: tautulli-config
-
-
-## Volumes
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tautulli-config
-  namespace: mediaserver
-  labels:
-    name: tautulli-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 4Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
