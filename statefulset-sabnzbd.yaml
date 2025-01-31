@@ -40,7 +40,7 @@ spec:
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
-  volumeClaimTemplates:
+volumeClaimTemplates:
   - metadata:
       name: config
     spec:
@@ -48,3 +48,11 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: config-new
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
+      storageClassName: longhorn-perpetual

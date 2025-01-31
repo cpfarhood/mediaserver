@@ -47,7 +47,7 @@ spec:
         nfs:
           path: /mnt/pool1/media/movies
           server: spielberg.dmz.farh.net
-  volumeClaimTemplates:
+volumeClaimTemplates:
   - metadata:
       name: config
     spec:
@@ -55,3 +55,11 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: config-new
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
+      storageClassName: longhorn-perpetual
