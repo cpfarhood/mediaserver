@@ -5,6 +5,9 @@ resources:
 
 # Flux Receiver
   - receiver-cpfarhood-mediaserver.yaml
+
+# Certificate
+  - certificate.yaml
   
 # Shared Volumes
   - volumes.yaml
