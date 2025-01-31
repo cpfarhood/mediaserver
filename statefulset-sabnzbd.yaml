@@ -25,7 +25,7 @@ spec:
         - name: downloads
           mountPath: "/downloads"
         - name: backups
-          mountPath: "/downloads/backups"
+          mountPath: "/backups"
         resources:
           requests:
             memory: "4Gi"
@@ -34,6 +34,9 @@ spec:
             memory: "8Gi"
             cpu: "1000m"
       volumes:
+      - name: backups
+        persistentVolumeClaim:
+          claimName: backups
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
@@ -45,10 +48,3 @@ spec:
       resources:
         requests:
           storage: 4Gi
-  - metadata:
-      name: backups
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 32Gi
