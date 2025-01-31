@@ -38,16 +38,15 @@ spec:
             cpu: "1000m"
       volumes:
       - name: backups
-        nfs:
-          server: spielberg.dmz.farh.net
-          path: /mnt/pool0/backups/radarr
+        persistentVolumeClaim:
+          claimName: backups
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
       - name: movies
         nfs:
           path: /mnt/pool1/media/movies
           server: spielberg.dmz.farh.net
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: downloads
   volumeClaimTemplates:
   - metadata:
       name: config
