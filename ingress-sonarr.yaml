@@ -5,10 +5,10 @@ metadata:
 spec:
   ingressClassName: traefik-external
   rules:
-  - host: sonarr.animaniacs.farh.net
+  - host: mediaserver.farh.net
     http:
       paths:
-      - path: /
+      - path: /sonarr/
         pathType: Prefix
         backend:
           service:
@@ -17,5 +17,5 @@ spec:
               number: 8989
   tls:
   - hosts:
-    - sonarr.animaniacs.farh.net
-    secretName: farh-net-cert-letsencrypt
+    - mediaserver.farh.net
+    secretName: mediaserver-farh-net-cert-letsencrypt
