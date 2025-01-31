@@ -22,7 +22,7 @@ spec:
         - containerPort: 5055
           name: http-5055
         volumeMounts:
-        - name: overseerr-config
+        - name: config
           mountPath: "/app/config"
         resources:
           requests:
@@ -31,26 +31,11 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "1000m"
-      volumes:
-      - name: overseerr-config
-        persistentVolumeClaim:
-          claimName: overseerr-config
-
-
-## Volumes
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: overseerr-config
-  namespace: mediaserver
-  labels:
-    name: overseerr-config
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: longhorn-perpetual
-  resources:
-    requests:
-      storage: 8Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi

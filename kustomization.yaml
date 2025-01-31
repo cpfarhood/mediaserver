@@ -56,7 +56,6 @@ resources:
 #  - lazylibrarian.yaml
 #  - headphones.yaml
 
-
 # Media Servers
 #  - clusterplex.yaml
   - statefulset-plex.yaml
@@ -66,8 +65,8 @@ resources:
 #  - jellyfin.yaml
 
 # Media Request System
-#  - statefulset-overseerr.yaml
-#  - service-overseerr.yaml
+  - statefulset-overseerr.yaml
+  - service-overseerr.yaml
 
 # Administrative
 #  - tautulli.yaml
