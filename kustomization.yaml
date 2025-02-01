@@ -42,7 +42,6 @@ resources:
 
 # Transmission Downloader
   - configmap-transmission-config.yaml
-  - traefik-middleware-transmission.yaml
   - statefulset-transmission.yaml
   - service-transmission.yaml
 
