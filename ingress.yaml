@@ -36,6 +36,13 @@ spec:
             name:  prowlarr
             port:
               number: 9696
+      - path: /autobrr/
+        pathType: Prefix
+        backend:
+          service:
+            name:  autobrr
+            port:
+              number: 7474
       - path: /sabnzbd/
         pathType: Prefix
         backend:
