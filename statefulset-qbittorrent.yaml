@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: qbittorrent
+        app.kubernetes.io/name: qbittorrent
     spec:
       initContainers:
         - name: copy-openvpn-config
