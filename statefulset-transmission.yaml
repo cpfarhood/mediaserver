@@ -26,6 +26,8 @@ spec:
             name: transmission-config
         - secretRef:
             name: openvpn-credentials
+        - secretRef:
+            name: transmission-credentials
 #        livenessProbe:
 #          failureThreshold: 3
 #          initialDelaySeconds: 10
