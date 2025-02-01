@@ -9,3 +9,4 @@ data:
   ENABLE_SSL: "no"
   PUID: "911"
   PGID: "911"
+  WEBUI_ALLOWED_NETWORKS: "0.0.0.0/0"
