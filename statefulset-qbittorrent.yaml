@@ -16,7 +16,7 @@ spec:
       initContainers:
         - name: copy-openvpn-config
           image: busybox
-          command: ["/bin/sh", "-c", "cp -r /configmap/* /config/openvpn/"]
+          command: ["/bin/sh", "-c", "cp -rL /configmap/* /config/openvpn/"]
           volumeMounts:
             - name: openvpn-config
               mountPath: "/configmap"
