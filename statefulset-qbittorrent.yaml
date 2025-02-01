@@ -13,6 +13,22 @@ spec:
       labels:
         app: qbittorrent
     spec:
+      initContainers:
+        - name: copy-openvpn-config
+          image: busybox
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              echo "Copying OpenVPN configuration files..."
+              mkdir -p /config/openvpn
+              cp -L /configmap/* /config/openvpn/
+              echo "Copy completed."
+          volumeMounts:
+            - name: openvpn-config
+              mountPath: "/configmap"  # Mount ConfigMap data
+            - name: config
+              mountPath: "/config"  # Persistent storage
       containers:
         - name: qbittorrent
           image: dyonr/qbittorrentvpn:latest
@@ -32,18 +48,17 @@ spec:
                 name: openvpn-credentials
           volumeMounts:
             - name: config
-              mountPath: "/config/qBittorrent"
-            - name: openvpn-config
-              mountPath: "/config/openvpn"
+              mountPath: "/config"
       volumes:
         - name: openvpn-config
           configMap:
             name: qbittorrent-ovpn
+            defaultMode: 0777  # Ensure proper permissions
   volumeClaimTemplates:
-  - metadata:
-      name: config
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 4Gi
+    - metadata:
+        name: config
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 4Gi
