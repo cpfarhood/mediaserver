@@ -38,3 +38,4 @@ spec:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: backups-pv
+  storageClassName: ""
