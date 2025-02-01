@@ -3,9 +3,6 @@ kind: Kustomization
 namespace: mediaserver
 resources:
 
-# Flux Receiver
-  - receiver-cpfarhood-mediaserver.yaml
-
 # Certificate
   - certificate.yaml
 
