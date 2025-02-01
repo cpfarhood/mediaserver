@@ -31,7 +31,7 @@ spec:
               mountPath: "/config"  # Persistent storage
       containers:
         - name: qbittorrent
-          image: trigus42/qbittorrentvpn:latest
+          image: dyonr/qbittorrentvpn:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080  # Web UI
