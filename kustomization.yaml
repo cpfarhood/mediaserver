@@ -37,13 +37,13 @@ resources:
   - service-sabnzbd.yaml
 
 # RDTClient Downloader
-  - statefulset-rdtclient.yaml
-  - service-rdtclient.yaml
+#  - statefulset-rdtclient.yaml
+#  - service-rdtclient.yaml
 
 # Transmission Downloader
-#  - configmap-transmission-config.yaml
-#  - statefulset-transmission.yaml
-#  - service-transmission.yaml
+  - configmap-transmission-config.yaml
+  - statefulset-transmission.yaml
+  - service-transmission.yaml
 
 # Qbittorrent Downloader
 #  - configmap-qbittorrent-config.yaml
