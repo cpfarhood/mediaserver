@@ -50,7 +50,7 @@ spec:
             name:  transmission
             port:
               number: 9091
-            path: /transmission/
+            path: /transmission/web/
       - path: /rdtclient/
         pathType: Prefix
         backend:
