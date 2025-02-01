@@ -49,9 +49,11 @@ spec:
           volumeMounts:
             - name: config
               mountPath: "/config"
-        securityContext:
-          runAsRoot: false
-          allowPrivilegeEscalation: false
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
       volumes:
         - name: openvpn-config
           configMap:
