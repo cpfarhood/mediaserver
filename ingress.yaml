@@ -50,8 +50,6 @@ spec:
             name:  transmission
             port:
               number: 9091
-        annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: transmission-strip-prefix@kubernetescrd
       - path: /rdtclient/
         pathType: Prefix
         backend:
