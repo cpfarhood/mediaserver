@@ -43,6 +43,13 @@ spec:
             name:  sabnzbd
             port:
               number: 8080
+      - path: /qbittorrent/
+        pathType: Prefix
+        backend:
+          service:
+            name:  qbittorrent
+            port:
+              number: 8080
       - path: /transmission/
         pathType: Prefix
         backend:
