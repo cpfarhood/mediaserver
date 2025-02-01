@@ -14,15 +14,27 @@ spec:
       storage: 1Ti
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backups-pv
+spec:
+  capacity:
+    storage: 1Gi  # Adjust based on actual requirement
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: spielberg.dmz.farh.net
+    path: /mnt/pool0/backups/mediaserver
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: backups
-  labels:
-    name: backups
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: ceph-filesystem
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
-      storage: 32Gi
+      storage: 1Gi  # Must match or be less than the PV capacity
+  volumeName: backups-pv
