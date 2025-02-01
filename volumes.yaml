@@ -22,6 +22,7 @@ spec:
     storage: 1Gi  # Adjust based on actual requirement
   accessModes:
     - ReadWriteMany
+  storageClassName: ""
   nfs:
     server: spielberg.dmz.farh.net
     path: /mnt/pool0/backups/mediaserver
@@ -34,6 +35,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  storageClassName: ""
   resources:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
