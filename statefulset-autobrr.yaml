@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: autobrr
+  namespace: mediaserver
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: autobrr
+  serviceName: "autobrr"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: autobrr
+    spec:
+      containers:
+      - name: autobrr
+        image: ghcr.io/autobrr/autobrr:latest
+        ports:
+        - name: autobrr-http
+          containerPort: 7474
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        readinessProbe:                # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: autobrr-http
+        livelinessProbe:               # Check that the http server is responding to ensure the container is up
+          httpGet:
+            path: /
+            port: autobrr-http
+            failureThreshold: 5
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
+

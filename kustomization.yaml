@@ -20,6 +20,10 @@ resources:
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
 
+# AutoBRR
+  - statefulset-autobrr.yaml
+  - service-autobrr.yaml
+
 # Flaresolverr Resolver
   - deployment-flaresolverr.yaml
   - service-flaresolverr.yaml
@@ -66,4 +70,3 @@ resources:
 # Administrative
   - statefulset-tautulli.yaml
   - service-tautulli.yaml
-#  - autobrr.yaml
