@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: qbittorrent
+      app.kubernetes.io/name: qbittorrent
   serviceName: "qbittorrent"
   replicas: 1
   template:
