@@ -26,17 +26,17 @@ spec:
               echo "Copy completed."
           volumeMounts:
             - name: openvpn-config
-              mountPath: "/configmap"  # Mount ConfigMap data
+              mountPath: "/configmap" # Mount ConfigMap data
             - name: config
-              mountPath: "/config"  # Persistent storage
+              mountPath: "/config" # Persistent storage
       containers:
         - name: qbittorrent
           image: dyonr/qbittorrentvpn:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080  # Web UI
+            - containerPort: 8080 # Web UI
               name: web-ui
-            - containerPort: 8999  # Torrent port
+            - containerPort: 8999 # Torrent port
               name: torrent-tcp
             - containerPort: 8999
               protocol: UDP
@@ -49,6 +49,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: "/config"
+            - name: downloads
+              mountPath: /downloads
           securityContext:
             privileged: true
             capabilities:
@@ -58,12 +60,15 @@ spec:
         - name: openvpn-config
           configMap:
             name: qbittorrent-ovpn
-            defaultMode: 0777  # Ensure proper permissions
+            defaultMode: 0777 # Ensure proper permissions
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: downloads
   volumeClaimTemplates:
     - metadata:
         name: config
       spec:
-        accessModes: [ "ReadWriteOnce" ]
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
             storage: 4Gi
