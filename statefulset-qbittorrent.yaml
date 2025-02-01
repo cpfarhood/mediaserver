@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: qbittorrent
+spec:
+  selector:
+    matchLabels:
+      app: qbittorrent
+  serviceName: "qbittorrent"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      initContainers:
+        - name: copy-openvpn-config
+          image: busybox
+          command: ["/bin/sh", "-c", "cp -r /configmap/* /config/openvpn/"]
+          volumeMounts:
+            - name: openvpn-config
+              mountPath: "/configmap"
+            - name: config
+              mountPath: "/config"
+      containers:
+        - name: qbittorrent
+          image: dyonr/qbittorrentvpn:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080  # Web UI
+              name: web-ui
+            - containerPort: 8999  # Torrent port
+              name: torrent-tcp
+            - containerPort: 8999
+              protocol: UDP
+              name: torrent-udp
+          envFrom:
+            - configMapRef:
+                name: qbittorrent-config
+            - secretRef:
+                name: openvpn-credentials
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+      volumes:
+        - name: openvpn-config
+          configMap:
+            name: qbittorrent-ovpn
+            defaultMode: 0777  # Ensure all users can access the config files
+  volumeClaimTemplates:
+    - metadata:
+        name: config
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 4Gi
