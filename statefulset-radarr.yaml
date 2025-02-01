@@ -47,7 +47,7 @@ spec:
         nfs:
           path: /mnt/pool1/media/movies
           server: spielberg.dmz.farh.net
-volumeClaimTemplates:
+  volumeClaimTemplates:
   - metadata:
       name: config
     spec:

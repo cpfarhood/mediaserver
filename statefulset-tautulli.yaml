@@ -30,7 +30,7 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "250m"
-volumeClaimTemplates:
+  volumeClaimTemplates:
   - metadata:
       name: config
     spec:

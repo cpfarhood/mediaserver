@@ -39,7 +39,7 @@ spec:
             path: /
             port: prowlarr-http
             failureThreshold: 5
-volumeClaimTemplates:
+  volumeClaimTemplates:
   - metadata:
       name: config
     spec:
