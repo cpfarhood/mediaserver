@@ -50,13 +50,6 @@ spec:
             name:  qbittorrent
             port:
               number: 8080
-      - path: /transmission/
-        pathType: Prefix
-        backend:
-          service:
-            name:  transmission
-            port:
-              number: 9091
       - path: /rdtclient/
         pathType: Prefix
         backend:
