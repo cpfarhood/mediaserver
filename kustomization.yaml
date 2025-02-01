@@ -41,15 +41,15 @@ resources:
 #  - service-rdtclient.yaml
 
 # Transmission Downloader
-  - configmap-transmission-config.yaml
-  - statefulset-transmission.yaml
-  - service-transmission.yaml
+#  - configmap-transmission-config.yaml
+#  - statefulset-transmission.yaml
+#  - service-transmission.yaml
 
 # Qbittorrent Downloader
   - configmap-qbittorrent-config.yaml
   - configmap-qbittorrent-ovpn.yaml
   - statefulset-qbittorrent.yaml
-#  - service-qbittorrent.yaml
+  - service-qbittorrent.yaml
 
 # Media Servers
 #  - clusterplex.yaml
