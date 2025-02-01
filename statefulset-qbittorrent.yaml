@@ -31,8 +31,8 @@ spec:
             - secretRef:
                 name: openvpn-credentials
           volumeMounts:
-#            - name: config
-#              mountPath: "/config"
+            - name: config
+              mountPath: "/config/qBittorrent"
             - name: openvpn-config
               mountPath: "/config/openvpn"
       volumes:

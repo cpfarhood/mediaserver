@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: qbittorrent-config
 data:
-  VPN_ENABLED: "no"
+  VPN_ENABLED: "yes"
   VPN_TYPE: openvpn
   LAN_NETWORK: "10.0.0.0/8"
   ENABLE_SSL: "no"
