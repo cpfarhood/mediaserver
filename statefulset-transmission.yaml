@@ -18,6 +18,9 @@ spec:
       - name: transmission
         image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
+        ports:
+        - containerPort: 9091
+          name: http-9091
         envFrom:
         - configMapRef:
             name: transmission-config
