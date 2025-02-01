@@ -13,15 +13,6 @@ spec:
       labels:
         app: qbittorrent
     spec:
-      initContainers:
-        - name: copy-openvpn-config
-          image: busybox
-          command: ["/bin/sh", "-c", "cp -rL /configmap/* /config/openvpn/"]
-          volumeMounts:
-            - name: openvpn-config
-              mountPath: "/configmap"
-            - name: config
-              mountPath: "/config"
       containers:
         - name: qbittorrent
           image: dyonr/qbittorrentvpn:latest
@@ -40,18 +31,19 @@ spec:
             - secretRef:
                 name: openvpn-credentials
           volumeMounts:
-            - name: config
-              mountPath: "/config"
+#            - name: config
+#              mountPath: "/config"
+            - name: openvpn-config
+              mountPath: "/config/openvpn"
       volumes:
         - name: openvpn-config
           configMap:
             name: qbittorrent-ovpn
-            defaultMode: 0777  # Ensure all users can access the config files
   volumeClaimTemplates:
-    - metadata:
-        name: config
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 4Gi
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
