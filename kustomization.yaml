@@ -37,8 +37,8 @@ resources:
   - service-sabnzbd.yaml
 
 # RDTClient Downloader
-#  - statefulset-rdtclient.yaml
-#  - service-rdtclient.yaml
+  - statefulset-rdtclient.yaml
+  - service-rdtclient.yaml
 
 # Transmission Downloader
 #  - configmap-transmission-config.yaml
@@ -46,10 +46,10 @@ resources:
 #  - service-transmission.yaml
 
 # Qbittorrent Downloader
-  - configmap-qbittorrent-config.yaml
-  - configmap-qbittorrent-ovpn.yaml
-  - statefulset-qbittorrent.yaml
-  - service-qbittorrent.yaml
+#  - configmap-qbittorrent-config.yaml
+#  - configmap-qbittorrent-ovpn.yaml
+#  - statefulset-qbittorrent.yaml
+#  - service-qbittorrent.yaml
 
 # Media Servers
 #  - clusterplex.yaml

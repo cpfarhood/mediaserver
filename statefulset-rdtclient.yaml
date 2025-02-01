@@ -20,10 +20,8 @@ spec:
         - containerPort: 6500
           name: http-6500
         volumeMounts:
-        - name: db
+        - name: config
           mountPath: "/data/db"
-        - name: local
-          mountPath: /media/local
         - name: downloads
           mountPath: "/downloads"
         resources:
@@ -34,16 +32,12 @@ spec:
             memory: "512Mi"
             cpu: "250m"
       volumes:
-      - name: local
-        nfs:
-          path: /mnt/pool0/media
-          server: spielberg.dmz.farh.net
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
   volumeClaimTemplates:
   - metadata:
-      name: db
+      name: config
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
