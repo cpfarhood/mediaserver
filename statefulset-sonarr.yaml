@@ -43,9 +43,8 @@ spec:
         persistentVolumeClaim:
           claimName: downloads
       - name: shows
-        nfs:
-          path: /mnt/pool1/media/shows
-          server: spielberg.dmz.farh.net
+        persistentVolumeClaim:
+          claimName: shows
   volumeClaimTemplates:
   - metadata:
       name: config

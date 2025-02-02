@@ -40,3 +40,59 @@ spec:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: backups-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: movies-pv
+spec:
+  capacity:
+    storage: 1Gi  # Adjust based on actual requirement
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  nfs:
+    server: spielberg.dmz.farh.net
+    path: /mnt/pool0/media/movies
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  resources:
+    requests:
+      storage: 1Gi  # Must match or be less than the PV capacity
+  volumeName: movies-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: shows-pv
+spec:
+  capacity:
+    storage: 1Gi  # Adjust based on actual requirement
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  nfs:
+    server: spielberg.dmz.farh.net
+    path: /mnt/pool1/media/shows
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shows
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  resources:
+    requests:
+      storage: 1Gi  # Must match or be less than the PV capacity
+  volumeName: shows-pv
