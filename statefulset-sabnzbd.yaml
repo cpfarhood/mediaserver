@@ -29,7 +29,7 @@ spec:
         resources:
           requests:
             memory: "4Gi"
-            cpu: "250m"
+            cpu: "500m"
           limits:
             memory: "8Gi"
             cpu: "1000m"
@@ -48,3 +48,10 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: downloads
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 512Gi
