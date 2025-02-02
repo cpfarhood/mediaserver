@@ -69,14 +69,12 @@ spec:
       - name: transcode
         emptyDir: 
           sizeLimit: 128Gi
-      - name: shows
-        nfs:
-          path: /mnt/pool1/media/shows
-          server: spielberg.dmz.farh.net
       - name: movies
-        nfs:
-          path: /mnt/pool0/media/movies
-          server: spielberg.dmz.farh.net
+        persistentVolumeClaim:
+          claimName: movies
+      - name: shows
+        persistentVolumeClaim:
+          claimName: shows
 #      - name: local
 #        persistentVolumeClaim:
 #          claimName: mediaserver-local
