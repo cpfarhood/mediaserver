@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-   name: plex
-   namespace: mediaserver
-   labels:
-     app.kubernetes.io/name: plex
-   annotations:
-     metallb.universe.tf/loadBalancerIPs: 65.43.40.107
+  name: plex
+  namespace: mediaserver
+  labels:
+    app.kubernetes.io/name: plex
+    zone: public
+  annotations:
+    lbipam.cilium.io/ips: "65.43.40.102"
+    external-dns.alpha.kubernetes.io/hostname: jollyroger.farh.net
 spec:
   selector:
     app.kubernetes.io/name: plex

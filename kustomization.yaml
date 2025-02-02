@@ -57,10 +57,8 @@ resources:
 
 # Media Servers
 #  - clusterplex.yaml
-#  - statefulset-plex.yaml
-#  - service-plex.yaml
-#  - statefulset-plex-livetv.yaml
-#  - service-plex-livetv.yaml
+  - statefulset-plex.yaml
+  - service-plex.yaml
 #  - jellyfin.yaml
 
 # Media Request System
