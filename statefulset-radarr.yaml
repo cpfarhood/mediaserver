@@ -45,7 +45,7 @@ spec:
           claimName: downloads
       - name: movies
         nfs:
-          path: /mnt/pool1/media/movies
+          path: /mnt/pool0/media/movies
           server: spielberg.dmz.farh.net
   volumeClaimTemplates:
   - metadata:
