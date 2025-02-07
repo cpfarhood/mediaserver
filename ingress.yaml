@@ -71,7 +71,7 @@ spec:
             name:  rdtclient
             port:
               number: 6500
-      - path: /stats/
+      - path: /stats
         pathType: Prefix
         backend:
           service:
