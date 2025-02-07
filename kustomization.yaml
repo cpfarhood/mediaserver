@@ -4,7 +4,8 @@ namespace: mediaserver
 resources:
 
 # Certificate
-  - certificate.yaml
+  - certificate-mediaserver.yaml
+  - certificate-jollyroger.yaml
 
 # Inrgress
   - ingress-mediaserver.yaml
