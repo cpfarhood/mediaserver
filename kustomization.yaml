@@ -13,8 +13,8 @@ resources:
   - volumes.yaml
 
 # Media Management
-  - service-tinymediamanager.yaml
-  - statefulset-tinymediamanager.yaml
+#  - service-tinymediamanager.yaml
+#  - statefulset-tinymediamanager.yaml
 
 # Prowlarr Indexer Manager
   - statefulset-prowlarr.yaml
