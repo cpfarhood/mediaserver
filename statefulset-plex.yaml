@@ -35,6 +35,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
+        - name: backups
+          mountPath: "/backups"
         - name: shows
           mountPath: "/media/shows"
         - name: movies
@@ -43,10 +45,10 @@ spec:
           mountPath: "/transcode"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "2000m"
-          limits:
             memory: "4Gi"
+            cpu: "3000m"
+          limits:
+            memory: "8Gi"
             cpu: "6000m"
             gpu.intel.com/i915: 2
         readinessProbe:                # Check that the http server is responding to ensure the container is up
@@ -62,6 +64,9 @@ spec:
       - name: transcode
         emptyDir: 
           sizeLimit: 128Gi
+      - name: backups
+        persistentVolumeClaim:
+          claimName: backups
       - name: movies
         persistentVolumeClaim:
           claimName: movies
