@@ -54,17 +54,12 @@ spec:
           runAsRoot: false
           allowPrivilegeEscalation: false
       volumes:
-      - name: shows
-        nfs:
-          path: /mnt/pool1/media/shows
-          server: spielberg.dmz.farh.net
       - name: movies
-        nfs:
-          path: /mnt/pool0/media/movies
-          server: spielberg.dmz.farh.net
-      - name: remote
         persistentVolumeClaim:
-          claimName: mediaserver-remote
+          claimName: movies
+      - name: shows
+        persistentVolumeClaim:
+          claimName: shows
   volumeClaimTemplates:
   - metadata:
       name: data
