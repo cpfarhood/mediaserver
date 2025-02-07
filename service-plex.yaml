@@ -8,7 +8,6 @@ metadata:
     zone: public
   annotations:
     lbipam.cilium.io/ips: "65.43.40.102"
-    external-dns.alpha.kubernetes.io/hostname: jollyroger.farh.net
 spec:
   selector:
     app.kubernetes.io/name: plex
