@@ -14,4 +14,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - "mediaserver.farh.net"
-    - "jollyroger.farh.net"
