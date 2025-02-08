@@ -25,7 +25,7 @@ spec:
   storageClassName: "nfs-client"
   nfs:
     server: spielberg.dmz.farh.net
-    path: /mnt/pool0/backups/mediaserver
+    path: /mnt/main-pool/backups/mediaserver
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
