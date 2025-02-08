@@ -1,0 +1,7 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: clusterplex
+spec:
+  url: http://pabloromeo.github.io/clusterplex
+  interval: 12h

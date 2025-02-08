@@ -58,9 +58,10 @@ resources:
 #  - service-qbittorrent.yaml
 
 # Media Servers
-#  - clusterplex.yaml
   - statefulset-plex.yaml
   - service-plex.yaml
+  - helmrepository-clusterplex.yaml
+  - helmrelease-clusterplex.yaml
 #  - jellyfin.yaml
 
 # Media Request System
