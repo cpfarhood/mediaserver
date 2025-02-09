@@ -5,12 +5,10 @@ resources:
 
 # Certificate
   - certificate-mediaserver.yaml
-  - certificate-jollyroger.yaml
   - certificate-redfleet.yaml
 
 # Inrgress
   - ingress-mediaserver.yaml
-  - ingress-jollyroger.yaml
   
 # Shared Volumes
   - volumes.yaml
