@@ -16,9 +16,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: clusterplex-cache-pvc
+  name: clusterplex-drivers-pvc
   labels:
-    name: clusterplex-cache-pvc
+    name: clusterplex-drivers-pvc
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes: [ ReadWriteMany ]
