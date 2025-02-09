@@ -48,7 +48,7 @@ data:
         plexClaimToken:
         version: docker
         localRelayEnabled: true
-        port: 443
+        port: 32400
         relayPort: 32499
         pmsIP: ""
       serviceConfig:
@@ -59,7 +59,23 @@ data:
         labels:
           zone: public
       ingressConfig:
-        enabled: false
+        enabled: true
+        annotations: {}
+        labels:
+          zone: public
+        ingressClassName: "traefik-external"
+        hosts:
+          - host: redfleet.farh.net
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name:
+                  port: 32400
+        tls:
+         - secretName: redfleet-farh-net-cert
+           hosts:
+             - redfleet.farh.net
       configVolume:
         enabled: true
         storageClass: "ceph-block"
