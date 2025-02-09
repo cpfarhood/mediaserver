@@ -102,7 +102,7 @@ data:
       env: {}
       config:
         port: 3500
-        workerSelectionStrategy: LOAD_RANK
+        workerSelectionStrategy: LOAD_TASKS
       serviceConfig:
         type: ClusterIP
         annotations: {}
