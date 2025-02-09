@@ -48,15 +48,12 @@ data:
         plexClaimToken:
         version: docker
         localRelayEnabled: true
-        port: 32400
+        port: 443
         relayPort: 32499
         pmsIP: ""
       serviceConfig:
         type: LoadBalancer
         externalTrafficPolicy: Local
-        ports:
-        - port: 443
-          targetPort: 32400
         annotations:
           lbipam.cilium.io/ips: "65.43.40.103"
         labels:
