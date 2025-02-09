@@ -60,6 +60,8 @@ resources:
 # Media Servers
   - statefulset-plex.yaml
   - service-plex.yaml
+  - configmap-clusterplex-values.yaml
+  - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
   - helmrelease-clusterplex.yaml
 #  - jellyfin.yaml

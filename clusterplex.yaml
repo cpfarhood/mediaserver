@@ -1,479 +1,506 @@
-## ConfigMaps
 ---
+# Source: clusterplex/templates/orchestrator.yaml
+apiVersion: v1
 kind: ConfigMap
+metadata:
+  name: clusterplex-orchestrator-config
+  labels:
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: orchestrator
+data:
+  LISTENING_PORT: "3500"
+  TZ: America/Detroit
+  WORKER_SELECTION_STRATEGY: LOAD_RANK
+---
+# Source: clusterplex/templates/pms.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 
+  labels:
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: pms
+data:
+  DOCKER_MODS: ghcr.io/pabloromeo/clusterplex_dockermod:1.4.13
+  LOCAL_RELAY_ENABLED: "1"
+  LOCAL_RELAY_PORT: "32499"
+  ORCHESTRATOR_URL: http://clusterplex-orchestrator:3500
+  PGID: "911"
+  PMS_PORT: "32400"
+  PMS_SERVICE: clusterplex-pms
+  PUID: "911"
+  TRANSCODE_OPERATING_MODE: remote
+  TRANSCODER_VERBOSE: "1"
+  TZ: America/Detroit
+  VERSION: docker
+---
+# Source: clusterplex/templates/worker.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clusterplex-worker-config
+  labels:
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: worker
+data:
+  DOCKER_MODS: ghcr.io/pabloromeo/clusterplex_worker_dockermod:1.4.13
+  EAE_SUPPORT: "1"
+  LISTENING_PORT: "3501"
+  ORCHESTRATOR_URL: http://clusterplex-orchestrator:3500
+  PGID: "911"
+  PUID: "911"
+  STAT_CPU_INTERVAL: "1000"
+  TZ: America/Detroit
+  VERSION: docker
+---
+# Source: clusterplex/templates/pms.yaml
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: clusterplex-pms-config
   labels:
-    app.kubernetes.io/name: clusterplex-pms-config
-    app.kubernetes.io/part-of: clusterplex
-data:
-  VERSION: docker
-  TZ: America/Detroit
-  PGID: '8675309'
-  PUID: '8675309'
-  #PLEX_CLAIM: 'claim-someclaimtoken'
-  DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_dockermod:latest'
-  ORCHESTRATOR_URL: 'http://clusterplex-orchestrator:3500'
-  PMS_SERVICE: "clusterplex-pms"
-  PMS_PORT: "32400"
-  FORCE_HTTPS: '1'
-  TRANSCODER_VERBOSE: '1'
-  TRANSCODE_OPERATING_MODE: remote
-  LOCAL_RELAY_ENABLED: '1'
-  LOCAL_RELAY_PORT: "32499"
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: pms
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "32Gi"
+  storageClassName: "ceph-block"
 ---
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: clusterplex-orchestrator-config
-  namespace: mediaserver
-  labels:
-    app.kubernetes.io/name: clusterplex-orchestrator-config
-    app.kubernetes.io/part-of: clusterplex
-data:
-  TZ: America/Detroit
-  LISTENING_PORT: '3500'
-  WORKER_SELECTION_STRATEGY: LOAD_RANK
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: clusterplex-worker-config
-  namespace: mediaserver
-  labels:
-    app.kubernetes.io/name: clusterplex-worker-config
-    app.kubernetes.io/part-of: clusterplex
-data:
-  TZ: America/Detroit
-  PGID: '8675309'
-  PUID: '8675309'
-  VERSION: docker
-  DOCKER_MODS: 'ghcr.io/pabloromeo/clusterplex_worker_dockermod:latest'
-  ORCHESTRATOR_URL: 'http://clusterplex-orchestrator:3500'
-  LISTENING_PORT: '3501'
-  STAT_CPU_INTERVAL: '1000'
-  EAE_SUPPORT: '1'
-  FFMPEG_HWACCEL: 'vaapi'
-
-## Volumes
---- # Config
-apiVersion: v1
+# Source: clusterplex/templates/shared-storage.yaml
 kind: PersistentVolumeClaim
-metadata:
-  name: clusterplex-config
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  storageClassName: longhorn-perpetual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 64Gi
---- # Cache
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: clusterplex-cache
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    app.kubernetes.io/name: clusterplex-cache
-    app.kubernetes.io/part-of: clusterplex
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 64Gi
-  storageClassName: longhorn-perpetual
---- # Drivers
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: clusterplex-drivers
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    app.kubernetes.io/name: clusterplex-drivers
-    app.kubernetes.io/part-of: clusterplex
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 8Gi
-  storageClassName: longhorn-perpetual
---- # Transcode
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: clusterplex-transcode
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  storageClassName: longhorn-perpetual
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 256Gi
---- # Media
-apiVersion: v1
-kind: PersistentVolume
 metadata:
   name: clusterplex-media
   labels:
-    kustomize.toolkit.fluxcd.io/prune: enabled
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: clusterplex
+  annotations:
+    "helm.sh/resource-policy": keep
 spec:
-  persistentVolumeReclaimPolicy: Retain
-  capacity:
-    storage: 1Gi
   accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs"
-  nfs:
-    path: /mnt/pool0/media     # The path to your media
-    server: spielberg.dmz.farh.net     # Your NFS server with Media
-  mountOptions:
-    - soft
-    - vers=4
-    - minorversion=1
-    - soft
-    - noac
---- # Media PV
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: clusterplex-media-pvc
-  namespace: mediaserver
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  volumeName: clusterplex-media
-  storageClassName: "nfs"
-  accessModes:
-    - ReadWriteMany
+    - "ReadWriteMany"
   resources:
     requests:
-      storage: 1Gi
-
-### Media Server
---- # StatefulSet
-apiVersion: apps/v1
-kind: StatefulSet
+      storage: "32Gi"
+  storageClassName: "ceph-filesystem"
+---
+# Source: clusterplex/templates/shared-storage.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
-  name: clusterplex-pms
-  namespace: mediaserver
+  name: clusterplex-transcode
   labels:
-    app.kubernetes.io/name: clusterplex-pms
-    app.kubernetes.io/part-of: clusterplex
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: clusterplex
+  annotations:
 spec:
-  replicas: 1
+  accessModes:
+    - "ReadWriteMany"
+  resources:
+    requests:
+      storage: "128Gi"
+  storageClassName: "ceph-filesystem"
+---
+# Source: clusterplex/templates/orchestrator.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterplex-orchestrator
+  labels:
+    app.kubernetes.io/service: clusterplex-orchestrator
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: orchestrator
+  annotations:
+spec:
+  type: ClusterIP
+  externalTrafficPolicy:
+  ports:
+    - port: 3500
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    matchLabels:
-      app.kubernetes.io/name: clusterplex-pms
-      app.kubernetes.io/part-of: clusterplex
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: clusterplex-pms
-        app.kubernetes.io/part-of: clusterplex
-    spec:
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
-      affinity:
-        # Separate PMS from Workers
-        #podAntiAffinity:
-        #  preferredDuringSchedulingIgnoredDuringExecution:
-        #  - podAffinityTerm:
-        #      labelSelector:
-        #        matchLabels:
-        #          name: clusterplex-worker
-        #      topologyKey: kubernetes.io/hostname
-        #    weight: 50
-        #  - podAffinityTerm:
-        #      labelSelector:
-        #        matchLabels:
-        #          name: clusterplex-pms
-        #      topologyKey: kubernetes.io/hostname
-        #    weight: 100
-      containers:
-      - name: plex
-        image: lscr.io/linuxserver/plex:latest
-        startupProbe:
-          httpGet:
-            path: /identity
-            scheme: HTTPS
-            port: 32400
-          failureThreshold: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /identity
-            scheme: HTTPS
-            port: 32400
-          initialDelaySeconds: 15
-          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /identity
-            scheme: HTTPS
-            port: 32400
-          initialDelaySeconds: 10
-          timeoutSeconds: 10
-        ports:
-          - name: pms
-            containerPort: 32400
-          - name: relay
-            containerPort: 32499
-        envFrom:
-        - configMapRef:
-            name: clusterplex-pms-config
-        volumeMounts:
-        - name: media
-          mountPath: /media
-        - name: config
-          mountPath: /config
-        - name: cache
-          mountPath: /config/Library/Application Support/Plex Media Server/Cache
-        - name: drivers
-          mountPath: /config/Library/Application Support/Plex Media Server/Drivers
-        - name: transcode
-          mountPath: /transcode
-        resources: 
-          requests:
-            cpu: 1000m
-            memory: 2048Mi
-          limits:
-            gpu.intel.com/i915: 1
-      volumes:
-      - name: media
-        persistentVolumeClaim:
-          claimName: "clusterplex-media-pvc"
-      - name: config
-        persistentVolumeClaim:
-          claimName: "clusterplex-config"
-      - name: cache
-        persistentVolumeClaim:
-          claimName: "clusterplex-cache"
-      - name: drivers
-        persistentVolumeClaim:
-          claimName: "clusterplex-drivers"
-      - name: transcode
-        persistentVolumeClaim:
-          claimName: "clusterplex-transcode"
---- # Service
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: orchestrator
+---
+# Source: clusterplex/templates/pms.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: clusterplex-pms
-  namespace: mediaserver
   labels:
-    app.kubernetes.io/name: clusterplex-pms
-    app.kubernetes.io/part-of: clusterplex
+    app.kubernetes.io/service: clusterplex-pms
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: pms
+    zone: public
   annotations:
-    metallb.universe.tf/loadBalancerIPs: 65.43.40.98
-    external-dns.alpha.kubernetes.io/hostname: blockbuster.mediaserver.farhoodliquor.com
+    lbipam.cilium.io/ips: 65.43.40.103
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
-    - name: pms
-      port: 443
+    - port: 32400
+      targetPort: plex
       protocol: TCP
-      targetPort: pms
-    - name: relay
-      port: 32499
-      protocol: TCP
+      name: plex
+    - port: 32499
       targetPort: relay
+      protocol: TCP
+      name: relay
   selector:
-    app.kubernetes.io/name: clusterplex-pms
-    app.kubernetes.io/part-of: clusterplex
-
-## Orchestrator
---- # Deployment
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: pms
+---
+# Source: clusterplex/templates/worker.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterplex-worker
+  labels:
+    app.kubernetes.io/service: clusterplex-worker
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: worker
+  annotations:
+spec:
+  type: ClusterIP
+  externalTrafficPolicy:
+  ports:
+    - port: 3501
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: worker
+---
+# Source: clusterplex/templates/orchestrator.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clusterplex-orchestrator
-  namespace: mediaserver
   labels:
-    app.kubernetes.io/name: clusterplex-orchestrator
-    app.kubernetes.io/part-of: clusterplex
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: orchestrator
 spec:
+  revisionHistoryLimit: 3
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: clusterplex-orchestrator
-      app.kubernetes.io/part-of: clusterplex
+      app.kubernetes.io/name: orchestrator
+      app.kubernetes.io/instance: clusterplex
   template:
     metadata:
+      annotations:
+        checksum/config: 1994fef2d278c6a02517d44d1df19251794db2f3585a3adfc1b287beee58f038
       labels:
-        app.kubernetes.io/name: clusterplex-orchestrator
-        app.kubernetes.io/part-of: clusterplex
+        app.kubernetes.io/name: orchestrator
+        app.kubernetes.io/instance: clusterplex
     spec:
+      serviceAccountName: default
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
       containers:
-      - name: plex
-        image: ghcr.io/pabloromeo/clusterplex_orchestrator:latest
-        startupProbe:
-          httpGet:
-            path: /health
-            port: 3500
-          failureThreshold: 3
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 3500
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3500
-          initialDelaySeconds: 5
-          timeoutSeconds: 10
-        ports:
-          - name: orchestrator
-            containerPort: 3500
-        envFrom:
-        - configMapRef:
-            name: clusterplex-orchestrator-config
-        resources:            # adapt requests and limits to your needs
-          requests:
-            cpu: 200m
-            memory: 64Mi
---- # Service
-apiVersion: v1
-kind: Service
+        - name: clusterplex-orchestrator
+          image: ghcr.io/pabloromeo/clusterplex_orchestrator:1.4.13
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: clusterplex-orchestrator-config
+          ports:
+            - name: http
+              containerPort: 3500
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 15
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 200m
+              memory: 64Mi
+---
+# Source: clusterplex/templates/pms.yaml
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: clusterplex-orchestrator
-  namespace: mediaserver
+  name: clusterplex-pms
   labels:
-    app.kubernetes.io/name: clusterplex-orchestrator
-    app.kubernetes.io/part-of: clusterplex
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: pms
 spec:
-  type: ClusterIP
-  ports:
-    - name: orchestrator
-      port: 3500
-      protocol: TCP
-      targetPort: orchestrator
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: Recreate
   selector:
-    app.kubernetes.io/name: clusterplex-orchestrator
-    app.kubernetes.io/part-of: clusterplex
---- # StatefulSet
+    matchLabels:
+      app.kubernetes.io/name: pms
+      app.kubernetes.io/instance: clusterplex
+  template:
+    metadata:
+      annotations:
+        checksum/config: c93b92e188a6d2810ac0cf0f250b6163101a5159b2e19857646588366232be2c
+      labels:
+        app.kubernetes.io/name: pms
+        app.kubernetes.io/instance: clusterplex
+    spec:
+      serviceAccountName: default
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - chown -R 911:911 /transcode && chmod 0755 -R /transcode && echo "Configured /transcode
+              permissions"
+          image: busybox:1.36.1
+          name: set-transcode-permissions
+          volumeMounts:
+            - mountPath: /transcode
+              name: transcode
+      containers:
+        - name: clusterplex-pms
+          image: linuxserver/plex:latest
+          imagePullPolicy:
+          envFrom:
+            - configMapRef:
+                name: clusterplex-pms-config
+          ports:
+            - name: plex
+              containerPort: 32400
+              protocol: TCP
+            - name: relay
+              containerPort: 32499
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /media
+            - name: movies
+              mountPath: /movies
+            - name: shows
+              mountPath: /shows
+            - name: transcode
+              mountPath: /transcode
+          livenessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /identity
+              port: plex
+              scheme: HTTP
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /identity
+              port: plex
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /identity
+              port: plex
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 4000m
+              gpu.intel.com/i915: 1
+              memory: 8Gi
+            requests:
+              cpu: 2000m
+              memory: 4Gi
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: 
+        - name: media
+          persistentVolumeClaim:
+            claimName: clusterplex-media
+        - name: movies
+          persistentVolumeClaim:
+            claimName: movies
+        - name: shows
+          persistentVolumeClaim:
+            claimName: shows
+        - name: transcode
+          persistentVolumeClaim:
+            claimName: clusterplex-transcode
+---
+# Source: clusterplex/templates/worker.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: clusterplex-worker
-  namespace: mediaserver
   labels:
-    app.kubernetes.io/name: clusterplex-worker
-    app.kubernetes.io/part-of: clusterplex
+    app.kubernetes.io/instance: clusterplex
+    app.kubernetes.io/name: worker
 spec:
-  serviceName: clusterplex-worker-service
-  replicas: 2
+  revisionHistoryLimit: 3
+  replicas: 3
+  podManagementPolicy: OrderedReady
+  updateStrategy:
+    type: RollingUpdate
   selector:
     matchLabels:
-      app.kubernetes.io/name: clusterplex-worker
-      app.kubernetes.io/part-of: clusterplex
+      app.kubernetes.io/name: worker
+      app.kubernetes.io/instance: clusterplex
+  serviceName: clusterplex-worker
   template:
     metadata:
+      annotations:
+        checksum/config: f75037e7cc31c6b9152368d50d61cf92915bdca5f1324d99363d089a93121a00
       labels:
-        app.kubernetes.io/name: clusterplex-worker
-        app.kubernetes.io/part-of: clusterplex
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/instance: clusterplex
     spec:
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+      serviceAccountName: default
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - chown -R 911:911 /codecs && chmod 0755 -R /codecs && echo "Configured /codecs
+              permissions"
+          image: busybox:1.36.1
+          name: set-codec-permissions
+          volumeMounts:
+            - mountPath: /codecs
+              name: codecs
+        - command:
+            - sh
+            - -c
+            - chown -R 911:911 /transcode && chmod 0755 -R /transcode && echo "Configured /transcode
+              permissions"
+          image: busybox:1.36.1
+          name: set-transcode-permissions
+          volumeMounts:
+            - mountPath: /transcode
+              name: transcode
+      containers:
+        - name: clusterplex-worker
+          image: linuxserver/plex:latest
+          imagePullPolicy:
+          envFrom:
+            - configMapRef:
+                name: clusterplex-worker-config
+          ports:
+            - name: http
+              containerPort: 3501
+              protocol: TCP
+          volumeMounts:
+            - name: media
+              mountPath: /media
+            - name: movies
+              mountPath: /movies
+            - name: shows
+              mountPath: /shows
+            - name: transcode
+              mountPath: /transcode
+            - mountPath: /codecs
+              name: codecs
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 15
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 4000m
+              gpu.intel.com/i915: 1
+              memory: 8Gi
+            requests:
+              cpu: 2000m
+              memory: 4Gi
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: clusterplex-media
+        - name: movies
+          persistentVolumeClaim:
+            claimName: movies
+        - name: shows
+          persistentVolumeClaim:
+            claimName: shows
+        - name: transcode
+          persistentVolumeClaim:
+            claimName: clusterplex-transcode
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          # Separate Workers from one another
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  name: clusterplex-worker
-              topologyKey: kubernetes.io/hostname
-            weight: 100
-          # Separate Workers from PMS
-          #- podAffinityTerm:
-          #    labelSelector:
-          #      matchLabels:
-          #        name: clusterplex-pms
-          #    topologyKey: kubernetes.io/hostname
-          #  weight: 50
-      containers:
-      - name: plex-worker
-        image: lscr.io/linuxserver/plex:latest
-        startupProbe:
-          httpGet:
-            path: /health
-            port: 3501
-          failureThreshold: 40
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 3501
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3501
-          initialDelaySeconds: 10
-          timeoutSeconds: 10
-        ports:
-          - name: worker
-            containerPort: 3501
-        envFrom:
-        - configMapRef:
-            name: clusterplex-worker-config
-        volumeMounts:
-        - name: media
-          mountPath: /media
-        - name: codecs
-          mountPath: /codecs
-        - name: cache
-          mountPath: /config/Library/Application Support/Plex Media Server/Cache
-        - name: drivers
-          mountPath: /config/Library/Application Support/Plex Media Server/Drivers
-        - name: transcode
-          mountPath: /transcode
-        resources:              # adapt requests and limits to your needs
-          requests:
-            cpu: 1000m
-            memory: 2048Mi
-          limits:
-            gpu.intel.com/i915: 1
-      volumes:
-      - name: media
-        persistentVolumeClaim:
-          claimName: "clusterplex-media-pvc"
-      - name: cache
-        persistentVolumeClaim:
-          claimName: "clusterplex-cache"
-      - name: drivers
-        persistentVolumeClaim:
-          claimName: "clusterplex-drivers"
-      - name: transcode
-        persistentVolumeClaim:
-          claimName: "clusterplex-transcode"
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    name: clusterplex-worker
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    name: clusterplex-pms
+                topologyKey: kubernetes.io/hostname
+              weight: 50
   volumeClaimTemplates:
     - metadata:
         name: codecs
-        labels:
-          app.kubernetes.io/name: clusterplex-codecs-pvc
-          app.kubernetes.io/part-of: clusterplex
       spec:
-        accessModes: [ "ReadWriteOnce" ]
+        accessModes:
+          - "ReadWriteOnce"
         resources:
           requests:
-            storage: 1Gi
-        # specify your storage class
-        storageClassName: longhorn-ephemeral
+            storage: "1Gi"
