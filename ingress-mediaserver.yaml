@@ -15,56 +15,56 @@ spec:
             name:  overseerr
             port:
               number: 5055
-      - path: /tmm/
+      - path: /tmm
         pathType: Prefix
         backend:
           service:
             name:  tinymediamanager
             port:
               number: 4000
-      - path: /sonarr/
+      - path: /sonarr
         pathType: Prefix
         backend:
           service:
             name:  sonarr
             port:
               number: 8989
-      - path: /radarr/
+      - path: /radarr
         pathType: Prefix
         backend:
           service:
             name:  radarr
             port:
               number: 7878
-      - path: /prowlarr/
+      - path: /prowlarr
         pathType: Prefix
         backend:
           service:
             name:  prowlarr
             port:
               number: 9696
-      - path: /autobrr/
+      - path: /autobrr
         pathType: Prefix
         backend:
           service:
             name:  autobrr
             port:
               number: 7474
-      - path: /sabnzbd/
+      - path: /sabnzbd
         pathType: Prefix
         backend:
           service:
             name:  sabnzbd
             port:
               number: 8080
-      - path: /qbittorrent/
+      - path: /qbittorrent
         pathType: Prefix
         backend:
           service:
             name:  qbittorrent
             port:
               number: 8080
-      - path: /rdtclient/
+      - path: /rdtclient
         pathType: Prefix
         backend:
           service:
