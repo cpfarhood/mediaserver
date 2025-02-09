@@ -54,6 +54,7 @@ data:
       serviceConfig:
         type: LoadBalancer
         externalTrafficPolicy: Local
+        ports:
         - port: 443
           targetPort: 32400
         annotations:
