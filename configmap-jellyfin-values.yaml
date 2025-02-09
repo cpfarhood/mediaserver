@@ -41,7 +41,7 @@ data:
     volumeMounts:
       - name: adult
         mountPath: "/media/adult"
-        readOnly: true
+        readOnly: false
 
     persistence:
       config:
