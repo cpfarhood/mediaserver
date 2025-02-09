@@ -28,6 +28,11 @@ spec:
           mountPath: /media/adult
         - name: downloads
           mountPath: "/downloads"
+        env:
+        - name: PUID
+          value: "911"
+        - name: PGID
+          value: "911"
         resources:
           requests:
             memory: "4Gi"
