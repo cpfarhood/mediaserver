@@ -48,6 +48,7 @@ data:
         plexClaimToken:
         version: docker
         localRelayEnabled: true
+        port: 32400
         relayPort: 32499
         pmsIP: ""
       serviceConfig:
