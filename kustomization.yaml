@@ -13,43 +13,48 @@ resources:
 # Shared Volumes
   - volumes.yaml
 
+# Monitoring
+  - statefulset-tautulli.yaml
+  - service-tautulli.yaml
+
+# Media Request System
+  - statefulset-overseerr.yaml
+  - service-overseerr.yaml
+
 # Media Management
+# TinyMediaManager
 #  - service-tinymediamanager.yaml
 #  - statefulset-tinymediamanager.yaml
-
 # Prowlarr Indexer Manager
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
-
-# AutoBRR
+# AutoBRR Grabber
   - statefulset-autobrr.yaml
   - service-autobrr.yaml
-
 # Flaresolverr Resolver
   - deployment-flaresolverr.yaml
   - service-flaresolverr.yaml
-
 # Sonarr Media Manager
   - statefulset-sonarr.yaml
   - service-sonarr.yaml
-
 # Radarr Media Manager
   - statefulset-radarr.yaml
   - service-radarr.yaml
+# Whisparr Media Manager
+  - statefulset-whisparr.yaml
+  - service-whisparr.yaml
 
+# Downloaders
 # Sabnzbd Downloader
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
-
 # RDTClient Downloader
 #  - statefulset-rdtclient.yaml
 #  - service-rdtclient.yaml
-
 # Transmission Downloader
   - configmap-transmission-config.yaml
   - statefulset-transmission.yaml
   - service-transmission.yaml
-
 # Qbittorrent Downloader
 #  - configmap-qbittorrent-config.yaml
 #  - configmap-qbittorrent-ovpn.yaml
@@ -65,10 +70,5 @@ resources:
   - helmrelease-clusterplex.yaml
 #  - jellyfin.yaml
 
-# Media Request System
-  - statefulset-overseerr.yaml
-  - service-overseerr.yaml
 
-# Administrative
-  - statefulset-tautulli.yaml
-  - service-tautulli.yaml
+

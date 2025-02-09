@@ -50,13 +50,13 @@ spec:
             name:  autobrr
             port:
               number: 7474
-      - path: /sabnzbd
+      - path: /whisparr
         pathType: Prefix
         backend:
           service:
-            name:  sabnzbd
+            name:  whisparr
             port:
-              number: 8080
+              number: 6969
       - path: /qbittorrent
         pathType: Prefix
         backend:
