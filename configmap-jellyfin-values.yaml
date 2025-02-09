@@ -24,7 +24,7 @@ data:
          hosts:
            - backroom.farh.net
 
-    resources: {}
+    resources:
       requests:
         cpu: 2000m
         memory: 4Gi
@@ -38,7 +38,7 @@ data:
         persistentVolumeClaim:
           claimName: adult
 
-    volumeMounts: []
+    volumeMounts:
       - name: adult
         mountPath: "/media/adult"
         readOnly: true
@@ -48,7 +48,6 @@ data:
         enabled: true
         accessMode: ReadWriteOnce
         size: 8Gi
-        annotations: {}
         storageClass: 'ceph-block'
       media:
         enabled: false
