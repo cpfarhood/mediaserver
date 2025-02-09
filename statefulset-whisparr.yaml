@@ -24,7 +24,7 @@ spec:
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: shows
+        - name: adult
           mountPath: /media/adult
         - name: downloads
           mountPath: "/downloads"
