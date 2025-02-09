@@ -59,8 +59,8 @@ resources:
 #  - service-qbittorrent.yaml
 
 # Media Servers
-  - statefulset-plex.yaml
-  - service-plex.yaml
+#  - statefulset-plex.yaml
+#  - service-plex.yaml
   - configmap-clusterplex-values.yaml
   - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
