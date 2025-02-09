@@ -1,0 +1,21 @@
+  apiVersion: helm.toolkit.fluxcd.io/v2beta1
+  kind: HelmRelease
+  metadata:
+    name: jellyfin
+  spec:
+    chart:
+      spec:
+        chart: jellyfin
+        version: 2.1.x
+        sourceRef:
+          kind: HelmRepository
+          name: jellyfin
+          namespace: mediaserver
+    interval: 1h
+    timeout: 9m
+    releaseName: jellyfin
+    valuesFrom:
+    - kind: ConfigMap
+      name: jellyfin-values
+      valuesKey: values.yaml
+

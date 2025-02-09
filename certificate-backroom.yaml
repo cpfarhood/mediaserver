@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: backroom-farh-net-cert
+spec:
+  # secretName doesn't have to match the certificate name, but it may as well, for simplicity!
+  secretName: backroom-farh-net-cert
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "false"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "false"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - "backroom.farh.net"
