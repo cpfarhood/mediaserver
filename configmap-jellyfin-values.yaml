@@ -46,8 +46,6 @@ data:
     persistence:
       config:
         enabled: true
-        accessMode: ReadWriteOnce
-        size: 8Gi
-        storageClass: 'ceph-block'
+        existingClaim: jellyfin-config
       media:
         enabled: false
