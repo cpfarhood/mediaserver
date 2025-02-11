@@ -83,4 +83,4 @@ spec:
   tls:
   - hosts:
     - mediaserver.farh.net
-    secretName: mediaserver-farh-net-cert-letsencrypt
+    secretName: mediaserver.farh.net-cert
