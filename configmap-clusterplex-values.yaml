@@ -55,6 +55,7 @@ data:
         type: ClusterIP
         annotations:
           lbipam.cilium.io/ips: "65.43.40.103"
+          cert-manager.io/cluster-issuer: letsencrypt
         labels:
           zone: public
       ingressConfig:
