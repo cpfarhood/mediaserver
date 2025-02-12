@@ -47,7 +47,7 @@ data:
         transcodeOperatingMode: remote
         plexClaimToken:
         version: docker
-        localRelayEnabled: true
+        localRelayEnabled: false
         port: 32400
         relayPort: 32499
         pmsIP: ""
