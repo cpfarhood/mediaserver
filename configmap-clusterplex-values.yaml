@@ -47,16 +47,12 @@ data:
         transcodeOperatingMode: remote
         plexClaimToken:
         version: docker
-        localRelayEnabled: false
+        localRelayEnabled: true
         port: 32400
         relayPort: 32499
         pmsIP: ""
       serviceConfig:
-        type: ClusterIP
-        annotations:
-          lbipam.cilium.io/ips: "65.43.40.103"
-        labels:
-          zone: public
+        type: LoadBalancer
       ingressConfig:
         enabled: true
         annotations:
