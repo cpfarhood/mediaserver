@@ -8,7 +8,6 @@ metadata:
      app.kubernetes.io/name: tinymediamanager
 spec:
   type: ClusterIP
-  externalTrafficPolicy: Local
   ports:
   - port: 4000
   selector:
