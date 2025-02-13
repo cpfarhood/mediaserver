@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mediaserver
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   ingressClassName: traefik-external
   rules:
@@ -81,4 +83,4 @@ spec:
   tls:
   - hosts:
     - mediaserver.farh.net
-    secretName: mediaserver-farh-net-cert-letsencrypt
+    secretName: mediaserver.farh.net-cert

@@ -3,11 +3,7 @@ kind: Kustomization
 namespace: mediaserver
 resources:
 
-# Certificate
-  - certificate-mediaserver.yaml
-  - certificate-redfleet.yaml
-
-# Inrgress
+# Ingress
   - ingress-mediaserver.yaml
   
 # Shared Volumes

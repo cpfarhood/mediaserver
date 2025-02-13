@@ -10,6 +10,8 @@ data:
 
     ingress:
       enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
       className: "traefik-external"
       hosts:
         - host: backroom.farh.net
