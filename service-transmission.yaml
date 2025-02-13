@@ -10,5 +10,5 @@ spec:
   ports:
   - port: 9091
   sessionAffinity: None
-  type: ClusterIP
-  #clusterIP: None
+  type: LoadBalancer
+  externalTrafficPolicy: Local
