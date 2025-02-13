@@ -26,9 +26,9 @@ spec:
         - name: data
           mountPath: "/data"
         - name: shows
-          mountPath: "/media/shows/"
+          mountPath: "/shows/"
         - name: movies
-          mountPath: "/media/movies/"
+          mountPath: "/movies/"
         env:
         - name: "USER_ID"
           value: "911"

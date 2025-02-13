@@ -19,8 +19,8 @@ resources:
 
 # Media Management
 # TinyMediaManager
-#  - service-tinymediamanager.yaml
-#  - statefulset-tinymediamanager.yaml
+  - service-tinymediamanager.yaml
+  - statefulset-tinymediamanager.yaml
 # Prowlarr Indexer Manager
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
