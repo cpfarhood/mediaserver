@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: radarr
-        image: spielberg.dmz.farh.net:5000/lscr.io/linuxserver/radarr:latest
+        image: lscr.io/linuxserver/radarr:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 7878
