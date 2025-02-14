@@ -42,19 +42,6 @@ spec:
   volumeName: backups-pv
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: shows
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs-client"
-  resources:
-    requests:
-      storage: 1Gi  # Must match or be less than the PV capacity
-  volumeName: shows-pv
----
-apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: transcode-pv
