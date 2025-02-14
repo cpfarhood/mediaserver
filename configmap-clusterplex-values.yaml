@@ -103,7 +103,7 @@ data:
         port: 3500
         workerSelectionStrategy: LOAD_TASKS
       serviceConfig:
-        type: ClusterIP
+        type: LoadBalancer
         annotations: {}
         labels: {}
       prometheusServiceMonitor:
