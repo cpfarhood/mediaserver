@@ -41,7 +41,6 @@ spec:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: backups-pv
 ---
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
