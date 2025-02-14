@@ -41,6 +41,48 @@ spec:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: backups-pv
 ---
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shows
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  resources:
+    requests:
+      storage: 1Gi  # Must match or be less than the PV capacity
+  volumeName: shows-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: transcode-pv
+spec:
+  capacity:
+    storage: 1Gi  # Adjust based on actual requirement
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  nfs:
+    server: spielberg.dmz.farh.net
+    path: /mnt/main-pool/plex/transcode
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: transcode
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs-client"
+  resources:
+    requests:
+      storage: 1Gi  # Must match or be less than the PV capacity
+  volumeName: transcode-pv
+---  
 apiVersion: v1
 kind: PersistentVolume
 metadata:
