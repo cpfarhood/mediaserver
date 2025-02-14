@@ -53,6 +53,8 @@ data:
         pmsIP: ""
       serviceConfig:
         type: LoadBalancer
+        annotations:
+          service.cilium.io/forwarding-mode: dsr
       ingressConfig:
         enabled: true
         annotations:
@@ -131,8 +133,9 @@ data:
         cpuStatInterval: 1000
         eaeSupport: 1
       serviceConfig:
-        type: ClusterIP
-        annotations: {}
+        type: LoadBalancer
+        annotations: 
+          service.cilium.io/forwarding-mode: dsr
         labels: {}
       codecVolumes:
         enabled: true
