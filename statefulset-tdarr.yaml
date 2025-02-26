@@ -1,38 +1,37 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: radarr
+  name: tdarr
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: radarr
-  serviceName: "radarr"
+      app.kubernetes.io/name: tdarr
+  serviceName: "tdarr"
   replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: radarr
+        app.kubernetes.io/name: tdarr
     spec:
       containers:
-      - name: radarr
-        image: lscr.io/linuxserver/radarr:latest
-        imagePullPolicy: Always
+      - name: tdarr
+        image: lscr.io/linuxserver/tdarr:latest
         ports:
-        - containerPort: 7878
-          name: http-7878
+        - containerPort: 8989
+          name: http-8989
         volumeMounts:
         - name: config
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: movies
-          mountPath: /media/movies
+        - name: shows
+          mountPath: /media/shows
         - name: downloads
           mountPath: "/downloads"
         resources:
           requests:
             memory: "4Gi"
-            cpu: "100m"
+            cpu: "1000m"
           limits:
             memory: "8Gi"
             cpu: "2000m"
@@ -43,19 +42,9 @@ spec:
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
-      - name: movies
+      - name: shows
         persistentVolumeClaim:
-          claimName: movies
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 50  # Higher weight increases preference
-              preference:
-                matchExpressions:
-                  - key: node_high_throughput
-                    operator: In
-                    values:
-                      - true
+          claimName: shows
   volumeClaimTemplates:
   - metadata:
       name: config
@@ -64,3 +53,5 @@ spec:
       resources:
         requests:
           storage: 4Gi
+
+
