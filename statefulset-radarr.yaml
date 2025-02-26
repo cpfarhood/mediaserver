@@ -55,7 +55,7 @@ spec:
                   - key: node_high_throughput
                     operator: In
                     values:
-                      - true
+                      - "true"
   volumeClaimTemplates:
   - metadata:
       name: config
