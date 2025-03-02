@@ -15,8 +15,9 @@ data:
       sharedStorage:
         transcode:
           enabled: true
+          storageClass: "ceph-filesystem"
+          size: 128Gi
           retain: true
-          existingClaim: transcode
         media:
           enabled: true
           storageClass: "ceph-filesystem"
