@@ -32,12 +32,18 @@ data:
             enabled: true
             existingClaim: clusterplex-drivers-pvc
             mountPath: /config/Library/Application Support/Plex Media Server/Drivers
+          shows0:
+            enabled: true
+            existingClaim: "shows0"
           shows:
             enabled: true
             existingClaim: "shows"
           movies:
             enabled: true
             existingClaim: "movies"
+          movies1:
+            enabled: true
+            existingClaim: "movies1"
 
     pms:
       enabled: true
