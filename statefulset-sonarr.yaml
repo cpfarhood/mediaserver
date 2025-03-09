@@ -24,6 +24,8 @@ spec:
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
+        - name: shows0
+          mountPath: /media/shows0
         - name: shows
           mountPath: /media/shows
         - name: downloads
@@ -42,6 +44,9 @@ spec:
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
+      - name: shows0
+        persistentVolumeClaim:
+          claimName: shows0
       - name: shows
         persistentVolumeClaim:
           claimName: shows
