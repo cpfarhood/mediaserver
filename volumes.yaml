@@ -14,6 +14,20 @@ spec:
       storage: 1Ti
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adult
+  labels:
+    name: adult
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: ceph-media
+  resources:
+    requests:
+      storage: 2Ti
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: backups-pv
@@ -40,34 +54,6 @@ spec:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: backups-pv
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: transcode-pv
-spec:
-  capacity:
-    storage: 1Gi  # Adjust based on actual requirement
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs-client"
-  nfs:
-    server: spielberg.dmz.farh.net
-    path: /mnt/main-pool/plex/transcode
-  persistentVolumeReclaimPolicy: Retain
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: transcode
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs-client"
-  resources:
-    requests:
-      storage: 1Gi  # Must match or be less than the PV capacity
-  volumeName: transcode-pv
 ---  
 apiVersion: v1
 kind: PersistentVolume
@@ -184,7 +170,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: adult-pv
+  name: adult-old-pv
 spec:
   capacity:
     storage: 1Gi  # Adjust based on actual requirement
@@ -199,7 +185,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: adult
+  name: adult-old
 spec:
   accessModes:
     - ReadWriteMany
@@ -207,4 +193,4 @@ spec:
   resources:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
-  volumeName: adult-pv
+  volumeName: adult-old-pv
