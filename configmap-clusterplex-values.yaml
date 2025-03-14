@@ -137,7 +137,7 @@ data:
       securityContext:
         privileged: true
       config:
-        replicas: 3
+        replicas: 2
         port: 3501
         cpuStatInterval: 1000
         eaeSupport: 1
