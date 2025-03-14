@@ -28,6 +28,20 @@ spec:
       storage: 2Ti
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shows-ceph
+  labels:
+    name: shows-ceph
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: ceph-media
+  resources:
+    requests:
+      storage: 2Ti
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: backups-pv
@@ -166,31 +180,3 @@ spec:
     requests:
       storage: 1Gi  # Must match or be less than the PV capacity
   volumeName: shows0-pv
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: adult-old-pv
-spec:
-  capacity:
-    storage: 1Gi  # Adjust based on actual requirement
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs-client"
-  nfs:
-    server: spielberg.dmz.farh.net
-    path: /mnt/pool0/media/adult
-  persistentVolumeReclaimPolicy: Retain
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: adult-old
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: "nfs-client"
-  resources:
-    requests:
-      storage: 1Gi  # Must match or be less than the PV capacity
-  volumeName: adult-old-pv

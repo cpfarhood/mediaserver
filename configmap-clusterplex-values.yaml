@@ -32,6 +32,9 @@ data:
             enabled: true
             existingClaim: clusterplex-drivers-pvc
             mountPath: /config/Library/Application Support/Plex Media Server/Drivers
+          shows-ceph:
+            enabled: true
+            existingClaim: "shows-ceph"
           shows0:
             enabled: true
             existingClaim: "shows0"
