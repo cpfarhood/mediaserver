@@ -35,6 +35,9 @@ data:
           shows-ceph:
             enabled: true
             existingClaim: "shows-ceph"
+          movies-ceph:
+            enabled: true
+            existingClaim: "movies-ceph"
           shows0:
             enabled: true
             existingClaim: "shows0"

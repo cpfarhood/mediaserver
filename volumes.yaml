@@ -42,6 +42,20 @@ spec:
       storage: 2Ti
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies-ceph
+  labels:
+    name: movies-ceph
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: ceph-media
+  resources:
+    requests:
+      storage: 2Ti
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: backups-pv
