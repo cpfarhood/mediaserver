@@ -12,7 +12,7 @@
           name: clusterplex
           namespace: mediaserver
     interval: 1h
-    timeout: 9m
+    timeout: 15m
     releaseName: clusterplex
     valuesFrom:
     - kind: ConfigMap
