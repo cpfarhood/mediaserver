@@ -15,13 +15,13 @@ data:
       sharedStorage:
         transcode:
           enabled: true
-          storageClass: "ceph-filesystem"
+          storageClass: "ceph-media"
           size: 128Gi
           retain: true
         media:
           enabled: true
-          storageClass: "ceph-filesystem"
-          size: 32Gi
+          storageClass: "ceph-media"
+          size: 128Gi
           retain: true
         additionalMediaVolumes:
           cache:
