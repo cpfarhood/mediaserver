@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: transmission
   annotations:
+    service.cilium.io/forwarding-mode: dsr
     external-dns.alpha.kubernetes.io/hostname: "transmission.animaniacs.farh.net"
 spec:
   selector:
