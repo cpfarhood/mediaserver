@@ -25,6 +25,6 @@ data:
   TRANSMISSION_UTP_ENABLED: "true"
   TRANSMISSION_PUID: "911"
   TRANSMISSION_PGID: "911"
-  TRANSMISSION_HOST_WHITELIST: "mediaserver.farh.net"
+  TRANSMISSION_HOST_WHITELIST: "transmission.animaniacs.farh.net"
   WEBPROXY_ENABLED: "false"
   DEBUG: "true"
