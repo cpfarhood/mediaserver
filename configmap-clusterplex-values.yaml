@@ -32,6 +32,10 @@ data:
             enabled: true
             existingClaim: clusterplex-drivers-pvc
             mountPath: /config/Library/Application Support/Plex Media Server/Drivers
+          tmep-movies:
+            enabled: true
+            existingClaim: "temp-movies"
+            mountPath: /media/temp-movies
           shows-ceph:
             enabled: true
             existingClaim: "shows-ceph"
