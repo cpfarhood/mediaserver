@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 7878
-          name: http-7878
+          name: http-radarr
         volumeMounts:
         - name: config
           mountPath: "/config"
@@ -38,6 +38,14 @@ spec:
           limits:
             memory: "8Gi"
             cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http-radarr
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http-radarr
       volumes:
       - name: backups
         persistentVolumeClaim:
