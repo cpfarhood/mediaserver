@@ -18,7 +18,7 @@ spec:
       - name: prowlarr
         image: lscr.io/linuxserver/prowlarr:latest
         ports:
-        - name: prowlarr-http
+        - name: http-prowlarr
           containerPort: 9696
         volumeMounts:
         - name: config
@@ -32,12 +32,12 @@ spec:
             cpu: "1000m"
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
-            path: /
-            port: prowlarr-http
+            path: /ping
+            port: http-prowlarr
         livelinessProbe:               # Check that the http server is responding to ensure the container is up
           httpGet:
-            path: /
-            port: prowlarr-http
+            path: /ping
+            port: http-prowlarr
             failureThreshold: 5
   volumeClaimTemplates:
   - metadata:
