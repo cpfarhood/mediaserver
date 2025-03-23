@@ -25,8 +25,6 @@ spec:
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: movies-ceph
-          mountPath: /movies-ceph
         - name: movies
           mountPath: /media/movies
         - name: downloads
@@ -58,9 +56,6 @@ spec:
       - name: movies
         persistentVolumeClaim:
           claimName: movies
-      - name: movies-ceph
-        persistentVolumeClaim:
-          claimName: movies-ceph
       - name: temp-movies
         persistentVolumeClaim:
           claimName: temp-movies

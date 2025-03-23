@@ -32,6 +32,8 @@ spec:
           mountPath: /media/shows
         - name: downloads
           mountPath: "/downloads"
+        - name: temp-shows
+          mountPath: /media/temp-shows
         resources:
           requests:
             memory: "4Gi"
@@ -63,6 +65,9 @@ spec:
       - name: shows
         persistentVolumeClaim:
           claimName: shows
+      - name: temp-shows
+        persistentVolumeClaim:
+          claimName: temp-shows
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
