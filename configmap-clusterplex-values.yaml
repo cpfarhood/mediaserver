@@ -67,11 +67,11 @@ data:
         port: 32400
         relayPort: 32499
         pmsIP: ""
-      #serviceConfig:
-      #  annotations:
-      #    service.cilium.io/forwarding-mode: dsr
-      #  type: LoadBalancer
-      #  externalTrafficPolicy: Local
+      serviceConfig:
+        annotations:
+          service.cilium.io/forwarding-mode: dsr
+        type: LoadBalancer
+        externalTrafficPolicy: Local
       ingressConfig:
         enabled: true
         annotations:
@@ -119,12 +119,12 @@ data:
       config:
         port: 3500
         workerSelectionStrategy: LOAD_TASKS
-      #serviceConfig:
-      #  annotations:
-      #    service.cilium.io/forwarding-mode: dsr
-      #  labels: {}
-      #  type: LoadBalancer
-      #  externalTrafficPolicy: Local
+      serviceConfig:
+        annotations:
+          service.cilium.io/forwarding-mode: dsr
+        labels: {}
+        type: LoadBalancer
+        externalTrafficPolicy: Local
       prometheusServiceMonitor:
         enabled: false
       enableGrafanaDashboard: false
@@ -151,12 +151,12 @@ data:
         port: 3501
         cpuStatInterval: 1000
         eaeSupport: 1
-      #serviceConfig:
-      #  annotations: 
-      #    service.cilium.io/forwarding-mode: dsr
-      #  labels: {}
-      #  type: LoadBalancer
-      #  externalTrafficPolicy: Local
+      serviceConfig:
+        annotations: 
+          service.cilium.io/forwarding-mode: dsr
+        labels: {}
+        type: LoadBalancer
+        externalTrafficPolicy: Local
       codecVolumes:
         enabled: true
         labels: {}
