@@ -24,15 +24,15 @@ data:
           size: 128Gi
           retain: true
         additionalMediaVolumes:
-          cache:
-            enabled: true
-            existingClaim: clusterplex-cache-pvc
-            mountPath: /config/Library/Application Support/Plex Media Server/Cache
-          drivers:
-            enabled: true
-            existingClaim: clusterplex-drivers-pvc
-            mountPath: /config/Library/Application Support/Plex Media Server/Drivers
-          tmep-movies:
+          #cache:
+          #  enabled: true
+          #  existingClaim: clusterplex-cache-pvc
+          #  mountPath: /config/Library/Application Support/Plex Media Server/Cache
+          #drivers:
+          #  enabled: true
+          #  existingClaim: clusterplex-drivers-pvc
+          #  mountPath: /config/Library/Application Support/Plex Media Server/Drivers
+          temp-movies:
             enabled: true
             existingClaim: "temp-movies"
             mountPath: /media/temp-movies
