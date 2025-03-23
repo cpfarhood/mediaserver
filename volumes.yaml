@@ -208,3 +208,17 @@ spec:
   resources:
     requests:
       storage: 10Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: temp-shows
+  labels:
+    name: temp-shows
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: temp-shows
+  resources:
+    requests:
+      storage: 10Ti
