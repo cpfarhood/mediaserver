@@ -142,8 +142,6 @@ data:
 
     worker:
       enabled: true
-      env:
-        FFMPEG_HWACCEL: vaapi
       securityContext:
         privileged: true
       config:
