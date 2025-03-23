@@ -60,7 +60,7 @@ data:
       env: {}
       config:
         transcoderVerbose: 0
-        transcodeOperatingMode: remote
+        transcodeOperatingMode: both
         plexClaimToken:
         version: latest
         localRelayEnabled: true
