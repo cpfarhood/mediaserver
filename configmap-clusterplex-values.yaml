@@ -15,7 +15,7 @@ data:
       sharedStorage:
         transcode:
           enabled: true
-          storageClass: "ceph-media"
+          storageClass: "ceph-filesystem"
           size: 128Gi
           retain: true
         media:
@@ -24,14 +24,6 @@ data:
           size: 128Gi
           retain: true
         additionalMediaVolumes:
-          #cache:
-          #  enabled: true
-          #  existingClaim: clusterplex-cache-pvc
-          #  mountPath: /config/Library/Application Support/Plex Media Server/Cache
-          #drivers:
-          #  enabled: true
-          #  existingClaim: clusterplex-drivers-pvc
-          #  mountPath: /config/Library/Application Support/Plex Media Server/Drivers
           temp-movies:
             enabled: true
             existingClaim: "temp-movies"
@@ -103,7 +95,6 @@ data:
           cpu: 2000m
           memory: 4Gi
         limits:
-          cpu: 4000m
           memory: 8Gi
           gpu.intel.com/i915: 1
           
@@ -134,7 +125,6 @@ data:
           cpu: 200m
           memory: 64Mi
         limits:
-          cpu: 500m
           memory: 128Mi
 
     worker:
@@ -167,7 +157,6 @@ data:
           cpu: 2000m
           memory: 4Gi
         limits:
-          cpu: 4000m
           memory: 8Gi
           gpu.intel.com/i915: 1
       affinity:

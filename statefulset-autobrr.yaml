@@ -29,7 +29,6 @@ spec:
             cpu: "250m"
           limits:
             memory: "512Mi"
-            cpu: "1000m"
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           httpGet:
             path: /

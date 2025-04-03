@@ -32,7 +32,6 @@ spec:
             cpu: "500m"
           limits:
             memory: "8Gi"
-            cpu: "1000m"
       volumes:
       - name: backups
         persistentVolumeClaim:

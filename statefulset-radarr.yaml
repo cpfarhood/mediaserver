@@ -37,7 +37,6 @@ spec:
             cpu: "100m"
           limits:
             memory: "8Gi"
-            cpu: "2000m"
         livenessProbe:
           httpGet:
             path: /ping

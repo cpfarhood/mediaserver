@@ -49,7 +49,6 @@ spec:
             cpu: "3000m"
           limits:
             memory: "8Gi"
-            cpu: "6000m"
             gpu.intel.com/i915: 2
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           tcpSocket:

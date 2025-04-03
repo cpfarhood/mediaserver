@@ -8,7 +8,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   accessModes: [ ReadWriteMany ]
-  storageClassName: ceph-media
+  storageClassName: ceph-filesystem
   resources:
     requests:
       storage: 1Ti
