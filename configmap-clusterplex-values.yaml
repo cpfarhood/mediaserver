@@ -19,10 +19,7 @@ data:
           size: 128Gi
           retain: true
         media:
-          enabled: true
-          storageClass: "ceph-media"
-          size: 128Gi
-          retain: true
+          enabled: false
         additionalMediaVolumes:
           temp-movies:
             enabled: true
