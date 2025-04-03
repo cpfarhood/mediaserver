@@ -26,6 +26,8 @@ spec:
           mountPath: "/backups"
         - name: adult
           mountPath: /media/adult
+        - name: temp-adult
+          mountPath: /media/temp-adult
         - name: downloads
           mountPath: "/downloads"
         env:
@@ -50,6 +52,9 @@ spec:
       - name: adult
         persistentVolumeClaim:
           claimName: adult
+      - name: temp-adult
+        persistentVolumeClaim:
+          claimName: temp-adult
   volumeClaimTemplates:
   - metadata:
       name: config

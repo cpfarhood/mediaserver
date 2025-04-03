@@ -222,3 +222,17 @@ spec:
   resources:
     requests:
       storage: 10Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: temp-adult
+  labels:
+    name: temp-adult
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: temp-media
+  resources:
+    requests:
+      storage: 5Ti
