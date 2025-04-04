@@ -16,20 +16,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: adult
-  labels:
-    name: adult
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: ceph-media
-  resources:
-    requests:
-      storage: 2Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: shows-ceph
   labels:
     name: shows-ceph

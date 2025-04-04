@@ -24,8 +24,6 @@ spec:
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: adult
-          mountPath: /media/adult
         - name: temp-adult
           mountPath: /media/temp-adult
         - name: downloads
@@ -41,7 +39,6 @@ spec:
             cpu: "250m"
           limits:
             memory: "8Gi"
-            cpu: "1000m"
       volumes:
       - name: backups
         persistentVolumeClaim:
@@ -49,9 +46,6 @@ spec:
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
-      - name: adult
-        persistentVolumeClaim:
-          claimName: adult
       - name: temp-adult
         persistentVolumeClaim:
           claimName: temp-adult

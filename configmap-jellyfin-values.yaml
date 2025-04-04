@@ -38,7 +38,7 @@ data:
     volumes:
       - name: adult
         persistentVolumeClaim:
-          claimName: adult
+          claimName: temp-adult
 
     volumeMounts:
       - name: adult
