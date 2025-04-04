@@ -14,34 +14,6 @@ spec:
       storage: 1Ti
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: shows-ceph
-  labels:
-    name: shows-ceph
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: ceph-media
-  resources:
-    requests:
-      storage: 10Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: movies-ceph
-  labels:
-    name: movies-ceph
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  accessModes: [ ReadWriteMany ]
-  storageClassName: ceph-media
-  resources:
-    requests:
-      storage: 10Ti
----
-apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: backups-pv

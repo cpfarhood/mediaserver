@@ -24,8 +24,6 @@ spec:
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: shows-ceph
-          mountPath: /shows-ceph
         - name: shows0
           mountPath: /media/shows0
         - name: shows
@@ -55,9 +53,6 @@ spec:
       - name: downloads
         persistentVolumeClaim:
           claimName: downloads
-      - name: shows-ceph
-        persistentVolumeClaim:
-          claimName: shows-ceph
       - name: shows0
         persistentVolumeClaim:
           claimName: shows0
