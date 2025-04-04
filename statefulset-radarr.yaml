@@ -27,6 +27,8 @@ spec:
           mountPath: "/backups"
         - name: movies
           mountPath: /media/movies
+        - name: movies0
+          mountPath: /media/movies0
         - name: downloads
           mountPath: "/downloads"
         - name: temp-movies
@@ -55,6 +57,9 @@ spec:
       - name: movies
         persistentVolumeClaim:
           claimName: movies
+      - name: movies0
+        persistentVolumeClaim:
+          claimName: movies0
       - name: temp-movies
         persistentVolumeClaim:
           claimName: temp-movies
