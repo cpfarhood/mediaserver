@@ -56,6 +56,20 @@ spec:
       storage: 10Ti
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adult0
+  labels:
+    name: adult0
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: ceph-media
+  resources:
+    requests:
+      storage: 4Ti
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: movies-pv

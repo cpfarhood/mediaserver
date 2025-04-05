@@ -36,13 +36,13 @@ data:
         gpu.intel.com/i915: 1
 
     volumes:
-      - name: adult
+      - name: adult0
         persistentVolumeClaim:
-          claimName: temp-adult
+          claimName: adult0
 
     volumeMounts:
-      - name: adult
-        mountPath: "/media/adult"
+      - name: adult0
+        mountPath: "/media/adult0"
         readOnly: false
 
     persistence:
