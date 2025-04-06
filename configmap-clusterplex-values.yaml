@@ -25,6 +25,10 @@ data:
             enabled: true
             existingClaim: "temp-movies"
             mountPath: /media/temp-movies
+          music0:
+            enabled: true
+            existingClaim: "music0"
+            mountPath: /media/music0
           shows0:
             enabled: true
             existingClaim: "shows0"
