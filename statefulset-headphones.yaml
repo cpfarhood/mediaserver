@@ -34,14 +34,14 @@ spec:
             cpu: "1000m"
           limits:
             memory: "8Gi"
-        livenessProbe:
-          httpGet:
-            path: /ping
-            port: http-headphones
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: http-headphones
+        #livenessProbe:
+        #  httpGet:
+        #    path: /ping
+        #    port: http-headphones
+        #readinessProbe:
+        #  httpGet:
+        #    path: /ping
+        #    port: http-headphones
       volumes:
       - name: backups
         persistentVolumeClaim:
