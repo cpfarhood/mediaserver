@@ -30,9 +30,9 @@ resources:
 # Flaresolverr Resolver
   - deployment-flaresolverr.yaml
   - service-flaresolverr.yaml
-# Headphones Media Manager
-  - statefulset-headphones.yaml
-  - service-headphones.yaml
+# Lidarr Media Manager
+  - statefulset-lidarr.yaml
+  - service-lidarr.yaml
 # Sonarr Media Manager
   - statefulset-sonarr.yaml
   - service-sonarr.yaml

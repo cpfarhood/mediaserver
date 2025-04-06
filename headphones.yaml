@@ -3,18 +3,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: headphones
+  name: lidarr
 spec:
   ingressClassName: traefik-internal
   rules:
-  - host: headphones.mediaserver.k8s
+  - host: lidarr.mediaserver.k8s
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name:  headphones
+            name:  lidarr
             port:
               number: 8181
               
@@ -24,16 +24,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: headphones
+  name: lidarr
   namespace: mediaserver
   labels:
-    app.kubernetes.io/name: headphones
+    app.kubernetes.io/name: lidarr
 spec:
   clusterIP: None
   ports:
   - port: 8181
   selector:
-    app.kubernetes.io/name: headphones
+    app.kubernetes.io/name: lidarr
 
 
 ## Deployment
@@ -41,27 +41,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: headphones
+  name: lidarr
   namespace: mediaserver
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: headphones
-  serviceName: "headphones"
+      app.kubernetes.io/name: lidarr
+  serviceName: "lidarr"
   replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: headphones
+        app.kubernetes.io/name: lidarr
     spec:
       containers:
-      - name: headphones
-        image: lscr.io/linuxserver/headphones:latest
+      - name: lidarr
+        image: lscr.io/linuxserver/lidarr:latest
         ports:
         - containerPort: 8181
           name: http-8181
         volumeMounts:
-        - name: headphones-config
+        - name: lidarr-config
           mountPath: "/config"
         - name: downloads
           mountPath: "/downloads/complete"
@@ -72,9 +72,9 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-      - name: headphones-config
+      - name: lidarr-config
         persistentVolumeClaim:
-          claimName: headphones-config
+          claimName: lidarr-config
       - name: downloads
         nfs:
           path: /mnt/pool0/downloads
@@ -90,10 +90,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: headphones-config
+  name: lidarr-config
   namespace: mediaserver
   labels:
-    name: headphones-config
+    name: lidarr-config
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
