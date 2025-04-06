@@ -23,7 +23,7 @@ spec:
           service:
             name: lidarr
             port:
-              number: 8181
+              number: 8686
       - path: /sonarr
         pathType: Prefix
         backend:
