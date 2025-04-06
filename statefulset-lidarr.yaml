@@ -25,7 +25,7 @@ spec:
         - name: backups
           mountPath: "/backups"
         - name: music0
-          mountPath: /media/music
+          mountPath: "/media/music0"
         - name: downloads
           mountPath: "/downloads"
         resources:
