@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: headphones
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: headphones
+  serviceName: "headphones"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: headphones
+    spec:
+      containers:
+      - name: headphones
+        image: lscr.io/linuxserver/headphones:latest
+        ports:
+        - containerPort: 8181
+          name: http-headphones
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+        - name: backups
+          mountPath: "/backups"
+        - name: music0
+          mountPath: /media/music
+        - name: downloads
+          mountPath: "/downloads"
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+          limits:
+            memory: "8Gi"
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http-headphones
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http-headphones
+      volumes:
+      - name: backups
+        persistentVolumeClaim:
+          claimName: backups
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads
+      - name: music0
+        persistentVolumeClaim:
+          claimName: music0
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
+
+

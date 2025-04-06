@@ -17,6 +17,13 @@ spec:
             name:  overseerr
             port:
               number: 5055
+      - path: /headphones
+        pathType: Prefix
+        backend:
+          service:
+            name: headphones
+            port:
+              number: 8181
       - path: /sonarr
         pathType: Prefix
         backend:
