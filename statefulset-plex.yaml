@@ -51,6 +51,10 @@ spec:
           mountPath: "/media/shows"
         - name: shows0
           mountPath: "/media/shows0"
+        - name: temp-movies
+          mountPath: "/media/temp-movies"
+        - name: temp-shows  `
+          mountPath: "/media/temp-shows"
         resources:
           requests:
             memory: "4Gi"
@@ -92,6 +96,12 @@ spec:
       - name: shows0
         persistentVolumeClaim:
           claimName: shows0
+      - name: temp-movies
+        persistentVolumeClaim:
+          claimName: temp-movies
+      - name: temp-shows
+        persistentVolumeClaim:
+          claimName: temp-shows
       nodeSelector:
         farh.net/gpu: "true"
   volumeClaimTemplates:
