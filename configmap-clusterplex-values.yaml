@@ -99,15 +99,6 @@ data:
         limits:
           memory: 8Gi
           gpu.intel.com/i915: 1
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: farh.net/gpu
-                operator: In
-                values:
-                - "yes"
           
     orchestrator:
       enabled: true
