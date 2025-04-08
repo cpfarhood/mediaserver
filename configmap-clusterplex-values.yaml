@@ -99,6 +99,29 @@ data:
         limits:
           memory: 8Gi
           gpu.intel.com/i915: 1
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: farh.net/gpu
+                operator: In
+                values:
+                - "yes"
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  name: clusterplex-worker
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  name: clusterplex-pms
+              topologyKey: kubernetes.io/hostname
+            weight: 50
           
     orchestrator:
       enabled: true
@@ -134,7 +157,7 @@ data:
       securityContext:
         privileged: true
       config:
-        replicas: 2
+        replicas: 0
         port: 3501
         cpuStatInterval: 1000
         eaeSupport: 1
@@ -162,6 +185,14 @@ data:
           memory: 8Gi
           gpu.intel.com/i915: 1
       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: farh.net/gpu
+                operator: In
+                values:
+                - "yes"
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
