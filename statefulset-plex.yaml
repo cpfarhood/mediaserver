@@ -31,25 +31,33 @@ spec:
         - name: PLEX_GID
           value: "911"
         - name: PLEX_CLAIM
-          value: claim-qNerhEhsozFPxiXoip7K
+          value: claim-dt1-G8Tzv4KDVNPW1Vjy
         volumeMounts:
         - name: config
           mountPath: "/config"
         - name: backups
           mountPath: "/backups"
-        - name: shows
-          mountPath: "/media/shows"
-        - name: movies
-          mountPath: "/media/movies"
         - name: transcode
           mountPath: "/transcode"
+        - name: music0
+          mountPath: "/media/music0"
+        - name: movies
+          mountPath: "/media/movies"
+        - name: movies0
+          mountPath: "/media/movies0"
+        - name: movies1
+          mountPath: "/media/movies1"
+        - name: shows
+          mountPath: "/media/shows"
+        - name: shows0
+          mountPath: "/media/shows0"
         resources:
           requests:
             memory: "4Gi"
-            cpu: "3000m"
+            cpu: "2000m"
           limits:
             memory: "8Gi"
-            gpu.intel.com/i915: 2
+            gpu.intel.com/i915: 12
         readinessProbe:                # Check that the http server is responding to ensure the container is up
           tcpSocket:
             port: 32400
@@ -66,14 +74,26 @@ spec:
       - name: backups
         persistentVolumeClaim:
           claimName: backups
+      - name: music0
+        persistentVolumeClaim:
+          claimName: music0
       - name: movies
         persistentVolumeClaim:
           claimName: movies
+      - name: movies0
+        persistentVolumeClaim:
+          claimName: movies0
+      - name: movies1
+        persistentVolumeClaim:
+          claimName: movies1
       - name: shows
         persistentVolumeClaim:
           claimName: shows
+      - name: shows0
+        persistentVolumeClaim:
+          claimName: shows0
       nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+        farh.net/gpu: "true"
   volumeClaimTemplates:
   - metadata:
       name: config
@@ -81,4 +101,11 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 4Gi
+          storage: 32Gi
+  - metadata:
+      name: transcode
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 128Gi
