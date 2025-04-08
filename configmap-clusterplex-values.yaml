@@ -107,7 +107,7 @@ data:
               - key: farh.net/gpu
                 operator: In
                 values:
-                - "yes"
+                - "true"
           
     orchestrator:
       enabled: true
