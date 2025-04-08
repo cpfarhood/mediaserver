@@ -153,11 +153,11 @@ data:
           memory: 128Mi
 
     worker:
-      enabled: true
+      enabled: false
       securityContext:
         privileged: true
       config:
-        replicas: 0
+        replicas: 2
         port: 3501
         cpuStatInterval: 1000
         eaeSupport: 1
