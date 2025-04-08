@@ -53,7 +53,7 @@ spec:
           mountPath: "/media/shows0"
         - name: temp-movies
           mountPath: "/media/temp-movies"
-        - name: temp-shows  `
+        - name: temp-shows
           mountPath: "/media/temp-shows"
         resources:
           requests:
