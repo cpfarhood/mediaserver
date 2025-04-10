@@ -31,8 +31,6 @@ spec:
           mountPath: /media/movies0
         - name: downloads
           mountPath: "/downloads"
-        - name: temp-movies
-          mountPath: /media/temp-movies
         resources:
           requests:
             memory: "4Gi"
@@ -60,9 +58,6 @@ spec:
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
-      - name: temp-movies
-        persistentVolumeClaim:
-          claimName: temp-movies
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
