@@ -21,10 +21,6 @@ data:
         media:
           enabled: false
         additionalMediaVolumes:
-          temp-movies:
-            enabled: true
-            existingClaim: "temp-movies"
-            mountPath: /media/temp-movies
           music0:
             enabled: true
             existingClaim: "music0"
@@ -42,9 +38,6 @@ data:
             enabled: true
             existingClaim: "movies0"
             mountPath: /media/movies0
-          movies1:
-            enabled: true
-            existingClaim: "movies1"
 
     pms:
       enabled: true
