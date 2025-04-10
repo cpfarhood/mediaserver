@@ -28,12 +28,15 @@ data:
           shows0:
             enabled: true
             existingClaim: "shows0"
+            mountPath: /media/shows0
           shows:
             enabled: true
             existingClaim: "shows"
+            mountPath: /media/shows
           movies:
             enabled: true
             existingClaim: "movies"
+            mountPath: /media/movies
           movies0:
             enabled: true
             existingClaim: "movies0"
