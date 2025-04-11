@@ -28,6 +28,8 @@ spec:
           mountPath: /media/shows0
         - name: shows
           mountPath: /media/shows
+        - name: shows-old
+          mountPath: /media/shows-old
         - name: downloads
           mountPath: "/downloads"
         resources:
@@ -57,6 +59,10 @@ spec:
       - name: shows
         persistentVolumeClaim:
           claimName: shows
+      - name: shows-old
+        nfs:
+          server: spielberg.dmz.farh.net
+          path: /mnt/pool0/media/shows
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
