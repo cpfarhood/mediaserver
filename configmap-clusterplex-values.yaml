@@ -100,10 +100,10 @@ data:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: farh.net/gpu
-                operator: In
+              - key: farh.net/intel-gpu-gen
+                operator: Gt
                 values:
-                - "true"
+                - "11"
           
     orchestrator:
       enabled: true
