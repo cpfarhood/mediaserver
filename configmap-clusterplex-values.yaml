@@ -171,10 +171,10 @@ data:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: farh.net/gpu
-                operator: In
+              - key: farh.net/intel-gpu-gen
+                operator: Gt
                 values:
-                - "yes"
+                - "11"
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
