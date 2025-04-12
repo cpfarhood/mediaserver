@@ -33,7 +33,7 @@ data:
       limits:
         cpu: 4000m
         memory: 8Gi
-        gpu.intel.com/i915: 1
+        gpu.intel.com/i915: 2
 
     volumes:
       - name: adult0
