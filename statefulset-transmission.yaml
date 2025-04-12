@@ -55,12 +55,14 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: downloads
-          mountPath: /downloads
+        - name: downloads-incomplete
+          mountPath: /downloads/incomplete
+        - name: downloads-complete
+          mountPath: /downloads/complete
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: downloads
+      - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
   volumeClaimTemplates:
@@ -71,4 +73,12 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: downloads-incomplete
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Ti
+
 
