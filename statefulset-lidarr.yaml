@@ -26,8 +26,8 @@ spec:
           mountPath: "/backups"
         - name: music0
           mountPath: "/media/music0"
-        - name: downloads
-          mountPath: "/downloads"
+        - name: downloads-complete
+          mountPath: "/downloads/complete"
         resources:
           requests:
             memory: "4Gi"
@@ -46,7 +46,7 @@ spec:
       - name: backups
         persistentVolumeClaim:
           claimName: backups
-      - name: downloads
+      - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
       - name: music0

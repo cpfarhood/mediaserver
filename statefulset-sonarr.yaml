@@ -30,8 +30,10 @@ spec:
           mountPath: /media/shows
         - name: shows-old
           mountPath: /media/shows-old
-        - name: downloads
-          mountPath: "/downloads"
+        - name: downloads-incomplete
+          mountPath: "/downloads/incomplete"
+        - name: downloads-complete
+          mountPath: "/downloads/complete"
         resources:
           requests:
             memory: "4Gi"
@@ -50,7 +52,7 @@ spec:
       - name: backups
         persistentVolumeClaim:
           claimName: backups
-      - name: downloads
+      - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
       - name: shows0
@@ -81,5 +83,11 @@ spec:
       resources:
         requests:
           storage: 4Gi
-
+  - metadata:
+      name: downloads-incomplete
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Ti
 

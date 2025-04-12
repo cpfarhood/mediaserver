@@ -29,8 +29,8 @@ spec:
           mountPath: /media/movies
         - name: movies0
           mountPath: /media/movies0
-        - name: downloads
-          mountPath: "/downloads"
+        - name: downloads-complete
+          mountPath: "/downloads/complete"
         resources:
           requests:
             memory: "4Gi"
@@ -49,7 +49,7 @@ spec:
       - name: backups
         persistentVolumeClaim:
           claimName: backups
-      - name: downloads
+      - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
       - name: movies
