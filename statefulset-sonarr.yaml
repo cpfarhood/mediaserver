@@ -30,8 +30,6 @@ spec:
           mountPath: /media/shows
         - name: shows-old
           mountPath: /media/shows-old
-        - name: downloads-incomplete
-          mountPath: "/downloads/incomplete"
         - name: downloads-complete
           mountPath: "/downloads/complete"
         resources:
@@ -83,11 +81,3 @@ spec:
       resources:
         requests:
           storage: 4Gi
-  - metadata:
-      name: downloads-incomplete
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Ti
-

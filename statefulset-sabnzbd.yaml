@@ -22,8 +22,10 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: downloads
-          mountPath: "/downloads"
+        - name: downloads-incomplete
+          mountPath: "/download/incomplete"
+        - name: downloads-complete
+          mountPath: "/download/complete"
         - name: backups
           mountPath: "/backups"
         resources:
@@ -47,3 +49,10 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: downloads-incomplete
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Ti
