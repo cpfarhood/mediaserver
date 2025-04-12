@@ -38,7 +38,7 @@ spec:
       - name: backups
         persistentVolumeClaim:
           claimName: backups
-      - name: downloads
+      - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
   volumeClaimTemplates:
