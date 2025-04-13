@@ -60,4 +60,4 @@ data:
             - key: farh.net/intel-gpu-gen
               operator: Gt
               values:
-              - "11"
+              - "8"
