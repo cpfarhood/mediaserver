@@ -26,9 +26,9 @@ spec:
         - name: data
           mountPath: "/data"
         - name: shows
-          mountPath: "/shows/"
+          mountPath: "/media/shows0/"
         - name: movies
-          mountPath: "/movies/"
+          mountPath: "/media/movies0/"
         env:
         - name: "USER_ID"
           value: "911"
@@ -53,12 +53,12 @@ spec:
           runAsRoot: false
           allowPrivilegeEscalation: false
       volumes:
-      - name: movies
+      - name: movies0
         persistentVolumeClaim:
-          claimName: movies
-      - name: shows
+          claimName: movies0
+      - name: shows0
         persistentVolumeClaim:
-          claimName: shows
+          claimName: shows0
   volumeClaimTemplates:
   - metadata:
       name: data
