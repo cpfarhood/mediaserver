@@ -109,7 +109,7 @@ spec:
   storageClassName: "nfs-client"
   nfs:
     server: spielberg.dmz.farh.net
-    path: /mnt/pool0/media/movies
+    path: /mnt/pool1/media/movies
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
