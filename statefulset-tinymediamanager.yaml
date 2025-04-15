@@ -25,9 +25,9 @@ spec:
         volumeMounts:
         - name: data
           mountPath: "/data"
-        - name: shows
+        - name: shows0
           mountPath: "/media/shows0/"
-        - name: movies
+        - name: movies0
           mountPath: "/media/movies0/"
         env:
         - name: "USER_ID"
