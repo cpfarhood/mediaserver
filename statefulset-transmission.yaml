@@ -59,12 +59,22 @@ spec:
           mountPath: /downloads/incomplete
         - name: downloads-complete
           mountPath: /downloads/complete
+        - name: shows0
+          mountPath: /media/shows0
+        - name: movies0
+          mountPath: /media/movies0
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
       - name: downloads-complete
         persistentVolumeClaim:
           claimName: downloads
+      - name: shows0
+        persistentVolumeClaim:
+          claimName: shows0
+      - name: movies0
+        persistentVolumeClaim:
+          claimName: movies0
   volumeClaimTemplates:
   - metadata:
       name: config
