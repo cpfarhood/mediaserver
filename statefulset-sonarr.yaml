@@ -62,7 +62,7 @@ spec:
       - name: shows-old
         nfs:
           server: spielberg.dmz.farh.net
-          path: /mnt/pool0/media/shows
+          path: /mnt/main-pool/media/shows
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
