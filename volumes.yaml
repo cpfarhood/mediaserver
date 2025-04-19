@@ -81,7 +81,7 @@ spec:
   storageClassName: ceph-media
   resources:
     requests:
-      storage: 10Ti
+      storage: 16Ti
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
