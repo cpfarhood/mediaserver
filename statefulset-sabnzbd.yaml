@@ -32,6 +32,10 @@ spec:
           mountPath: /media/shows0
         - name: movies0
           mountPath: /media/movies0
+        - name: adult0
+          mountPath: /media/adult0
+        - name: music0
+          mountPath: /media/music0
         resources:
           requests:
             memory: "4Gi"
@@ -51,6 +55,12 @@ spec:
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
+      - name: adult0
+        persistentVolumeClaim:
+          claimName: adult0
+      - name: music0
+        persistentVolumeClaim:
+          claimName: music0
   volumeClaimTemplates:
   - metadata:
       name: config
