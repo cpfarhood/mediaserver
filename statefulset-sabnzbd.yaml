@@ -13,6 +13,16 @@ spec:
       labels:
         app.kubernetes.io/name: sabnzbd
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - sabnzbd
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: sabnzbd
         image: lscr.io/linuxserver/sabnzbd:latest

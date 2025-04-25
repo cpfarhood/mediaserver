@@ -59,15 +59,15 @@ spec:
         persistentVolumeClaim:
           claimName: movies0
       affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 50  # Higher weight increases preference
-              preference:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
                 matchExpressions:
-                  - key: node_high_throughput
+                  - key: app.kubernetes.io/name
                     operator: In
                     values:
-                      - "true"
+                      - sonarr
+              topologyKey: "kubernetes.io/hostname"
   volumeClaimTemplates:
   - metadata:
       name: config
