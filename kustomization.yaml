@@ -53,7 +53,7 @@ resources:
 # Transmission Downloader
   - configmap-transmission-config.yaml
   - statefulset-transmission.yaml
-  - service-transmission-movies.yaml
+  - service-transmission.yaml
   - configmap-transmission-movies-config.yaml
   - statefulset-transmission-movies.yaml
   - service-transmission-movies.yaml
