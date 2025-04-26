@@ -1,17 +1,22 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 namespace: mediaserver
-replacements:
-  - source:
+
+vars:
+  - name: FQDN
+    objref:
       kind: ConfigMap
       name: mediaserver-config
       namespace: mediaserver
       apiVersion: v1
-      fieldPath: data.FQDN
-    targets:
-      - path: ingress-mediaserver.yaml
-        fieldPaths:
-          - spec/rules/0/host
+    fieldref:
+      fieldpath: data.FQDN
+
+spec:
+  interval: 1h
+  timeout: 15m
+  prune: true
+  suspend: false
          
 resources:
 # Ingress
