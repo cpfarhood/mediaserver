@@ -63,8 +63,8 @@ spec:
         configMap:
           name: transmission-movies-config
           items:
-          - key: us-il-05.protonvpn.udp.ovpn
-            path: us-il-05.protonvpn.udp.ovpn
+          - key: openvpn-config.ovpn
+            path: openvpn-config.ovpn
       - name: openvpn-custom
         emptyDir: {}
       - name: movies0
