@@ -18,7 +18,13 @@ spec:
       initContainers:
       - name: copy-openvpn-config
         image: busybox:1.36
-        command: ["/bin/sh", "-c", "cp /tmp/openvpn/*.ovpn /etc/openvpn/custom/"]
+        command:
+          - /bin/sh
+          - -c
+          - |
+            cp /tmp/openvpn/*.ovpn /etc/openvpn/custom/
+            cp /tmp/openvpn/*.sh /etc/openvpn/custom/
+            chmod +x /etc/openvpn/custom/*.sh
         volumeMounts:
         - name: openvpn-config
           mountPath: /tmp/openvpn
