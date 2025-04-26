@@ -6,6 +6,7 @@ vars:
     objref:
       kind: ConfigMap
       name: mediaserver-config
+      namespace: mediaserver
       apiVersion: v1
     fieldref:
       fieldpath: data.FQDN
