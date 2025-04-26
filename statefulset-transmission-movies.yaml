@@ -15,6 +15,15 @@ spec:
       labels:
         app.kubernetes.io/name: transmission-movies
     spec:
+      initContainers:
+      - name: copy-openvpn-config
+        image: busybox:1.36
+        command: ["/bin/sh", "-c", "cp /tmp/openvpn/us-il-05.protonvpn.udp.ovpn /etc/openvpn/custom/"]
+        volumeMounts:
+        - name: openvpn-config
+          mountPath: /tmp/openvpn
+        - name: openvpn-custom
+          mountPath: /etc/openvpn/custom
       containers:
       - name: transmission
         image: haugene/transmission-openvpn:latest
@@ -29,22 +38,6 @@ spec:
             name: openvpn-credentials
         - secretRef:
             name: transmission-credentials
-#        livenessProbe:
-#          failureThreshold: 3
-#          initialDelaySeconds: 10
-#          periodSeconds: 2
-#          successThreshold: 1
-#          tcpSocket:
-#            port: 9091
-#          timeoutSeconds: 2
-#       readinessProbe:
-#          failureThreshold: 3
-#          initialDelaySeconds: 10
-#          periodSeconds: 2
-#          successThreshold: 2
-#          tcpSocket:
-#            port: 9091
-#          timeoutSeconds: 2
         resources:
           requests:
             cpu: 250m
@@ -59,7 +52,7 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
-        - name: openvpn-config
+        - name: openvpn-custom
           mountPath: /etc/openvpn/custom
         - name: movies0
           mountPath: /media/movies0
@@ -70,8 +63,10 @@ spec:
         configMap:
           name: transmission-movies-config
           items:
-          - key: openvpn-config.ovpn
-            path: openvpn-config.ovpn
+          - key: us-il-05.protonvpn.udp.ovpn
+            path: us-il-05.protonvpn.udp.ovpn
+      - name: openvpn-custom
+        emptyDir: {}
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
@@ -83,10 +78,3 @@ spec:
       resources:
         requests:
           storage: 4Gi
-  - metadata:
-      name: custom
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
