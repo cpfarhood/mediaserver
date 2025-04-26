@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: qbitorrent-movies
+  name: qbittorrent-movies
   annotations:
     service.cilium.io/forwarding-mode: dsr
-    external-dns.alpha.kubernetes.io/hostname: "qbitorrent-movies.animaniacs.farh.net"
+    external-dns.alpha.kubernetes.io/hostname: "qbittorrent-movies.animaniacs.farh.net"
 spec:
   selector:
-    app.kubernetes.io/name:  qbitorrent-movies
+    app.kubernetes.io/name:  qbittorrent-movies
   ports:
   - port: 8080
   type: LoadBalancer
