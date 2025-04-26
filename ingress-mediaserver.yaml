@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: traefik-external
   rules:
-  - host: mediaserver.farh.net
+  - host: $(FQDN)
     http:
       paths:
       - path: /
@@ -59,20 +59,6 @@ spec:
             name:  whisparr
             port:
               number: 6969
-      - path: /qbittorrent
-        pathType: Prefix
-        backend:
-          service:
-            name:  qbittorrent
-            port:
-              number: 8080
-      - path: /rdtclient
-        pathType: Prefix
-        backend:
-          service:
-            name:  rdtclient
-            port:
-              number: 6500
       - path: /stats
         pathType: Prefix
         backend:
@@ -82,5 +68,5 @@ spec:
               number: 8181
   tls:
   - hosts:
-    - mediaserver.farh.net
-    secretName: mediaserver.farh.net-cert
+    - $(FQDN)
+    secretName: mediaserver-tls
