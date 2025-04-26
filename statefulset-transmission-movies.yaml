@@ -59,11 +59,19 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
+        - name: openvpn-config
+          mountPath: /etc/openvpn/custom
         - name: movies0
           mountPath: /media/movies0
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: openvpn-config
+        configMap:
+          name: transmission-movies-config
+          items:
+          - key: openvpn-config.ovpn
+            path: openvpn-config.ovpn
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
@@ -75,3 +83,10 @@ spec:
       resources:
         requests:
           storage: 4Gi
+  - metadata:
+      name: custom
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
