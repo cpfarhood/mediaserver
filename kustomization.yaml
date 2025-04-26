@@ -62,7 +62,6 @@ resources:
   - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
   - helmrelease-clusterplex.yaml
-  - volumes-jellyfin.yaml
   - helmrepository-jellyfin.yaml
   - helmrelease-jellyfin.yaml
 #  - jellyfin.yaml
