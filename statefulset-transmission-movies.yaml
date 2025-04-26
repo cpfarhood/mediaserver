@@ -15,6 +15,21 @@ spec:
       labels:
         app.kubernetes.io/name: transmission-movies
     spec:
+      initContainers:
+      - name: copy-openvpn-config
+        image: busybox:1.36
+        command:
+          - /bin/sh
+          - -c
+          - |
+            cp /tmp/openvpn/*.ovpn /etc/openvpn/custom/
+            cp /tmp/openvpn/*.sh /etc/openvpn/custom/
+            chmod +x /etc/openvpn/custom/*.sh
+        volumeMounts:
+        - name: openvpn-config
+          mountPath: /tmp/openvpn
+        - name: openvpn-custom
+          mountPath: /etc/openvpn/custom
       containers:
       - name: transmission
         image: haugene/transmission-openvpn:latest
@@ -26,25 +41,9 @@ spec:
         - configMapRef:
             name: transmission-movies-config
         - secretRef:
-            name: openvpn-credentials
+            name: protonvpn-credentials
         - secretRef:
             name: transmission-credentials
-#        livenessProbe:
-#          failureThreshold: 3
-#          initialDelaySeconds: 10
-#          periodSeconds: 2
-#          successThreshold: 1
-#          tcpSocket:
-#            port: 9091
-#          timeoutSeconds: 2
-#       readinessProbe:
-#          failureThreshold: 3
-#          initialDelaySeconds: 10
-#          periodSeconds: 2
-#          successThreshold: 2
-#          tcpSocket:
-#            port: 9091
-#          timeoutSeconds: 2
         resources:
           requests:
             cpu: 250m
@@ -59,11 +58,23 @@ spec:
         volumeMounts:
         - name: config
           mountPath: "/config"
+        - name: openvpn-custom
+          mountPath: /etc/openvpn/custom
         - name: movies0
           mountPath: /media/movies0
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: openvpn-config
+        configMap:
+          name: transmission-movies-config
+          items:
+          - key: openvpn-config.ovpn
+            path: openvpn-config.ovpn
+          - key: update-port.sh
+            path: update-port.sh
+      - name: openvpn-custom
+        emptyDir: {}
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
