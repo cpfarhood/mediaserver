@@ -1,15 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: mediaserver
-vars:
-  - name: FQDN
-    objref:
-      kind: ConfigMap
-      name: mediaserver-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.FQDN
-
 resources:
 # Ingress
   - ingress-mediaserver.yaml
