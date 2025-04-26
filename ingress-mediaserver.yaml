@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: traefik-external
   rules:
-  - host: ${FQDN}
+  - host: your.domain.local
     http:
       paths:
       - path: /
@@ -68,5 +68,5 @@ spec:
               number: 8181
   tls:
   - hosts:
-    - ${FQDN}
+    - your.domain.local
     secretName: mediaserver-tls
