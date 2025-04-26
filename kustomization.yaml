@@ -5,6 +5,7 @@ replacements:
   - source:
       kind: ConfigMap
       name: mediaserver-config
+      namespace: mediaserver
       fieldPath: data.FQDN
     targets:
       - select:
