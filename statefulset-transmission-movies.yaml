@@ -6,6 +6,7 @@ spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
+  serviceName: transmission-movies
   selector:
     matchLabels:
       app.kubernetes.io/name: transmission-movies
