@@ -53,7 +53,10 @@ resources:
 # Transmission Downloader
   - configmap-transmission-config.yaml
   - statefulset-transmission.yaml
-  - service-transmission.yaml
+  - service-transmission-moviesyaml
+  - configmap-transmission-movies-config.yaml
+  - statefulset-transmission-movies.yaml
+  - service-transmission-movies.yaml
 # Qbittorrent Downloader
 #  - configmap-qbittorrent-config.yaml
 #  - configmap-qbittorrent-ovpn.yaml
