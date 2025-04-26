@@ -71,6 +71,8 @@ spec:
           items:
           - key: openvpn-config.ovpn
             path: openvpn-config.ovpn
+          - key: update-port.sh
+            path: update-port.sh
       - name: openvpn-custom
         emptyDir: {}
       - name: shows0
