@@ -1,22 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: mediaserver
-
-replacements:
-  - source:
-      kind: ConfigMap
-      name: mediaserver-config
-      namespace: mediaserver
-      fieldPath: data.FQDN
-    targets:
-      - select:
-          kind: Ingress
-          name: mediaserver
-        fieldPaths:
-          - spec.rules.0.host
-          - spec.tls.0.hosts.0
        
 resources:
+  - configmap-mediaserver.yaml
   - ingress-mediaserver.yaml
   - volumes.yaml
   - statefulset-tautulli.yaml
