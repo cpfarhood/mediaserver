@@ -28,10 +28,12 @@ resources:
   - service-whisparr.yaml
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
-  - statefulset-transmission.yaml
   - service-transmission.yaml
-  - statefulset-transmission-movies.yaml
   - service-transmission-movies.yaml
+  - service-transmission-shows.yaml
+  - statefulset-transmission.yaml
+  - statefulset-transmission-movies.yaml
+  - statefulset-transmission-shows.yaml
   - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
   - helmrelease-clusterplex.yaml
