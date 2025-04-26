@@ -35,7 +35,7 @@ spec:
         - configMapRef:
             name: transmission-shows-config
         - secretRef:
-            name: openvpn-credentials
+            name: protonvpn-credentials
         - secretRef:
             name: transmission-credentials
         resources:
