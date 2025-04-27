@@ -10,5 +10,8 @@ spec:
     app.kubernetes.io/name:  qbittorrent-movies
   ports:
   - port: 8080
+  - port: 8999
+  - port: 8999
+    protocol: UDP
   type: LoadBalancer
   externalTrafficPolicy: Local
