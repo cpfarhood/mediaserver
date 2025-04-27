@@ -5,9 +5,6 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "qbittorrent-movies.animaniacs.farh.net"
     service.cilium.io/forwarding-mode: dsr
-    lbipam.cilium.io/ips: "65.43.40.102"
-  labels:
-    zone: public
 spec:
   selector:
     app.kubernetes.io/name:  qbittorrent-movies
