@@ -11,7 +11,9 @@ spec:
   ports:
   - name: webui-9091
     port: 9091
+    targetPort: 9091
   - name: btttcp-51413
     port: 51413
+    targetPort: 51413
   type: LoadBalancer
   externalTrafficPolicy: Local

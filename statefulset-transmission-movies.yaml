@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 9091
-          name: http-9091
+          name: webui-9091
         - containerPort: 51413
           name: btttcp-51413
         envFrom:
