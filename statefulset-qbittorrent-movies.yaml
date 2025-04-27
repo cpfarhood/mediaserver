@@ -20,7 +20,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: http-8080
+          name: webui-8080
+        - containerPort: 9000
+          name: tracker-9000
         - containerPort: 8999
           name: btttcp-8999
         - containerPort: 8999
