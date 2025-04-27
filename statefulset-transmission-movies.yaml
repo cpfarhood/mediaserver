@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: transmission
-        image: lscr.io/linuxserver/transmission:latest
+        image: haugene/transmission-openvpn:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9091
@@ -23,6 +23,10 @@ spec:
         envFrom:
         - configMapRef:
             name: transmission-movies-config
+        - secretRef:
+            name: nordvpn-credentials
+        - secretRef:
+            name: transmission-credentials
 #        livenessProbe:
 #          failureThreshold: 3
 #          initialDelaySeconds: 10
@@ -45,12 +49,18 @@ spec:
             memory: 1Gi
           limits:
             memory: 8Gi
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
         volumeMounts:
         - name: config
           mountPath: "/config"
         - name: movies0
           mountPath: /media/movies0
       restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       volumes:
       - name: movies0
         persistentVolumeClaim:
