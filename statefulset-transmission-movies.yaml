@@ -24,7 +24,7 @@ spec:
         - configMapRef:
             name: transmission-movies-config
         - secretRef:
-            name: openvpn-credentials
+            name: nordvpn-credentials
         - secretRef:
             name: transmission-credentials
 #        livenessProbe:
