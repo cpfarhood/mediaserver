@@ -9,9 +9,12 @@ spec:
   selector:
     app.kubernetes.io/name:  qbittorrent-movies
   ports:
-  - port: 8080
-  - port: 8999
-  - port: 8999
+  - name: http
+    port: 8080
+  - name: btt-tcp
+    port: 8999
+  - name: btt-udp
+    port: 8999
     protocol: UDP
   type: LoadBalancer
   externalTrafficPolicy: Local
