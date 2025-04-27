@@ -20,6 +20,8 @@ spec:
         ports:
         - containerPort: 9091
           name: http-9091
+        - containerPort: 51413
+          name: transmissionbttcp-51413
         envFrom:
         - configMapRef:
             name: transmission-movies-config
