@@ -12,6 +12,7 @@ resources:
   - service-overseerr.yaml
   - service-tinymediamanager.yaml
   - statefulset-tinymediamanager.yaml
+  - statefulset-handbrake.yaml
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
   - statefulset-autobrr.yaml
