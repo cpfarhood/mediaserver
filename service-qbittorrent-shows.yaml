@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-shows
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "qbittorrent-shows.animaniacs.farh.net"
+    service.cilium.io/forwarding-mode: dsr
+    lbipam.cilium.io/ips: "65.43.40.104"
+  labels:
+    zone: public
+spec:
+  selector:
+    app.kubernetes.io/name:  qbittorrent-shows
+  ports:
+  - name: webui-8080
+    port: 8080
+  - name: tracker-9000
+    port: 9000
+  - name: btttcp-8999
+    port: 8999
+  - name: bttudp-8999
+    port: 8999
+    protocol: UDP
+  type: LoadBalancer
+  externalTrafficPolicy: Local

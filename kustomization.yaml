@@ -12,7 +12,7 @@ resources:
   - service-overseerr.yaml
   - service-tinymediamanager.yaml
   - statefulset-tinymediamanager.yaml
-  - statefulset-handbrake.yaml
+#  - statefulset-handbrake.yaml
   - statefulset-prowlarr.yaml
   - service-prowlarr.yaml
   - statefulset-autobrr.yaml
@@ -37,6 +37,8 @@ resources:
   - statefulset-transmission-shows.yaml
   - service-qbittorrent-movies.yaml
   - statefulset-qbittorrent-movies.yaml
+  - service-qbittorrent-shows.yaml
+  - statefulset-qbittorrent-shows.yaml
   - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
   - helmrelease-clusterplex.yaml
