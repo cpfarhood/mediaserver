@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: qbittorrent
-        image: lscr.io/linuxserver/qbittorrent:latest
+        image: dyonr/qbittorrentvpn:latest
+        #image: lscr.io/linuxserver/qbittorrent:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
