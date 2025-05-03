@@ -29,15 +29,6 @@ spec:
             cpu: "250m"
           limits:
             memory: "512Mi"
-        readinessProbe:                # Check that the http server is responding to ensure the container is up
-          httpGet:
-            path: /
-            port: autobrr-http
-        livelinessProbe:               # Check that the http server is responding to ensure the container is up
-          httpGet:
-            path: /
-            port: autobrr-http
-            failureThreshold: 5
   volumeClaimTemplates:
   - metadata:
       name: config
