@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qbittorrent-movies
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik-external
+  rules:
+  - host: qbittorrent-movies.farh.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorrent-movies
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - qbitorrent-movies.farh.net
+    secretName: qbittorrent-movies.farh.net
