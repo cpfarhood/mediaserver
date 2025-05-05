@@ -12,14 +12,14 @@ spec:
   selector:
     app.kubernetes.io/name:  qbittorrent-movies
   ports:
-  - name: webui-8080
+  - name: webui-80
+    port: 80
+  - name: tracker-8080
     port: 8080
-  - name: tracker-9000
-    port: 9000
-  - name: btttcp-8999
-    port: 8999
-  - name: bttudp-8999
-    port: 8999
+  - name: btttcp-443
+    port: 443
+  - name: bttudp-443
+    port: 443
     protocol: UDP
   type: LoadBalancer
   externalTrafficPolicy: Local
