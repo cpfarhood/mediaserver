@@ -5,6 +5,7 @@ namespace: mediaserver
 resources:
   - configmap-mediaserver.yaml
   - ingress-mediaserver.yaml
+  - ingress-qbittorrent-movies.yaml
   - volumes.yaml
   - statefulset-tautulli.yaml
   - service-tautulli.yaml
