@@ -58,6 +58,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: movies-gp
+  labels:
+    name: movies-gp
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes: [ ReadWriteMany ]
+  storageClassName: ceph-filesystem
+  resources:
+    requests:
+      storage: 4Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: music0
   labels:
     name: music0
