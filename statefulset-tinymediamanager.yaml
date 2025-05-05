@@ -29,6 +29,8 @@ spec:
           mountPath: "/media/shows0/"
         - name: movies0
           mountPath: "/media/movies0/"
+        - name: movies-gp
+          mountPath: "/media/movies-gp/"
         env:
         - name: "USER_ID"
           value: "911"
@@ -56,6 +58,9 @@ spec:
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
+      - name: movies-gp
+        persistentVolumeClaim:
+          claimName: movies-gp
       - name: shows0
         persistentVolumeClaim:
           claimName: shows0
