@@ -18,14 +18,14 @@ spec:
         image: lscr.io/linuxserver/qbittorrent:latest
         imagePullPolicy: Always
         ports:
+        - containerPort: 80
+          name: webui-80
         - containerPort: 8080
-          name: webui-8080
-        - containerPort: 9000
-          name: tracker-9000
-        - containerPort: 8999
-          name: btttcp-8999
-        - containerPort: 8999
-          name: bttudp-8999
+          name: tracker-8080
+        - containerPort: 443
+          name: btttcp-443
+        - containerPort: 443
+          name: bttudp-443
           protocol: UDP
         envFrom:
         - configMapRef:
