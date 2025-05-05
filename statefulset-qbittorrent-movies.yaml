@@ -41,15 +41,10 @@ spec:
           mountPath: "/config"
         - name: movies0
           mountPath: /media/movies0
-        - name: movies-gp
-          mountPath: /media/movies-gp
       volumes:
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
-      - name: movies-gp
-        persistentVolumeClaim:
-          claimName: movies-gp
   volumeClaimTemplates:
   - metadata:
       name: config
