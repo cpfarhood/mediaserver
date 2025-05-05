@@ -29,6 +29,8 @@ spec:
           mountPath: /media/movies
         - name: movies0
           mountPath: /media/movies0
+        - name: movies-gp
+          mountPath: /media/movies-gp
         - name: downloads-complete
           mountPath: "/downloads/complete"
         resources:
@@ -58,6 +60,8 @@ spec:
       - name: movies0
         persistentVolumeClaim:
           claimName: movies0
+        - name: movies-gp
+          mountPath: /media/movies-gp
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
