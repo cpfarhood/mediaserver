@@ -13,14 +13,12 @@ spec:
   ports:
   - name: webui
     port: 8080
-  - name: tracker-9000
+  - name: tracker
     port: 9000
   - name: btttcp
-    port: 443
-    targetPort: 8999
+    port: 8443
   - name: bttudp
-    port: 443
-    targetPort: 8999
+    port: 8443
     protocol: UDP
   type: LoadBalancer
   externalTrafficPolicy: Local
