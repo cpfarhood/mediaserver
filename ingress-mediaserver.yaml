@@ -66,6 +66,13 @@ spec:
             name:  tautulli
             port:
               number: 8181
+      - path: /sabnzbd
+        pathType: Prefix
+        backend:
+          service:
+            name:  sabnzbd
+            port:
+              number: 8080
   tls:
   - hosts:
     - mediaserver.farh.net
