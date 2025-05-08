@@ -31,10 +31,10 @@ resources:
   - statefulset-sabnzbd.yaml
   - service-sabnzbd.yaml
 #  - service-transmission.yaml
-  - service-transmission-movies.yaml
+#  - service-transmission-movies.yaml
 #  - service-transmission-shows.yaml
 #  - statefulset-transmission.yaml
-  - statefulset-transmission-movies.yaml
+#  - statefulset-transmission-movies.yaml
 #  - statefulset-transmission-shows.yaml
   - service-qbittorrent-movies.yaml
   - statefulset-qbittorrent-movies.yaml
