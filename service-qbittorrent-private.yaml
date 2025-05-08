@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: qbittorrent-movies
+  name: qbittorrent-private
   annotations:
     service.cilium.io/forwarding-mode: dsr
+    lbipam.cilium.io/ips: "65.43.40.102"
+  labels:
+    zone: public
 spec:
   selector:
-    app.kubernetes.io/name:  qbittorrent-movies
+    app.kubernetes.io/name:  qbittorrent-private
   ports:
   - name: webui
     port: 8080
