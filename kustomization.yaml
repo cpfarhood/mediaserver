@@ -36,12 +36,16 @@ resources:
 #  - statefulset-transmission.yaml
 #  - statefulset-transmission-movies.yaml
 #  - statefulset-transmission-shows.yaml
+
+# qbittorrent
+  - ingress-qbittorrent-private.yaml
   - service-qbittorrent-private.yaml
   - statefulset-qbittorrent-private.yaml
   - service-qbittorrent-movies.yaml
   - statefulset-qbittorrent-movies.yaml
   - service-qbittorrent-shows.yaml
   - statefulset-qbittorrent-shows.yaml
+  
   - volumes-clusterplex.yaml
   - helmrepository-clusterplex.yaml
   - helmrelease-clusterplex.yaml

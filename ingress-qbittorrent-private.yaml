@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qbittorrent-private
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik-external
+  rules:
+  - host: qbtm.farh.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorrent-private
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - qbtp.farh.net
+    secretName: qbittorrent-private-tls
