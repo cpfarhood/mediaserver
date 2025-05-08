@@ -73,7 +73,40 @@ spec:
             name:  sabnzbd
             port:
               number: 8080
+  - host: qbtp.farh.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorrent-private
+            port:
+              number: 8080
+  - host: tracker.qbtp.farh.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorrent-private
+            port:
+              number: 9000
+  - host: qbtm.farh.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorrent-movies
+            port:
+              number: 8080
   tls:
   - hosts:
     - mediaserver.farh.net
-    secretName: mediaserver.farh.net
+    - qbtp.farh.net
+    - tracker.qbtp.farh.net
+    - qbtm.farh.net
+    secretName: mediaserver-tls
